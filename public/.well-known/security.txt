@@ -1,0 +1,17 @@
+# AXON ERP Vulnerability Disclosure Policy
+# As an educational platform processing sensitive student and financial data, 
+# we take security seriously. If you have discovered a vulnerability, 
+# please report it to us immediately.
+
+Contact: mailto:security@axon-erp.com
+Contact: https://www.axon-erp.com/security/report-bug
+Expires: 2027-12-31T23:59:59.000Z
+
+# Scope:
+# In-scope: Authentication bypass, tenant data leakage, RBAC privilege escalation, 
+# IDOR affecting student records, payment gateway manipulation.
+# Out-of-scope: Volumetric DDoS, spam, descriptive error messages.
+
+Preferred-Languages: en
+Hiring: https://www.axon-erp.com/careers
+Policy: https://www.axon-erp.com/security/policy

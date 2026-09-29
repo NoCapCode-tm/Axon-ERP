@@ -1,0 +1,118 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AXON ERP Public API",
+    "description": "Integration endpoints for third-party hardware (biometrics, RFID) and software (payment gateways, library systems) to connect with AXON.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.axon-erp.com/v1",
+      "description": "Production Server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/students": {
+      "get": {
+        "summary": "Retrieve Student Directory",
+        "description": "Fetches a list of students for the authenticated school tenant. Useful for ID card generation or library system sync.",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "student_id": { "type": "string" },
+                      "name": { "type": "string" },
+                      "admission_number": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendance/biometric": {
+      "post": {
+        "summary": "Sync Hardware Attendance Logs",
+        "description": "Ingests raw punch-in logs from external RFID or biometric scanners and maps them to student/staff profiles.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device_id": { "type": "string" },
+                  "timestamp": { "type": "string", "format": "date-time" },
+                  "user_identifier": { "type": "string" }
+                },
+                "required": ["device_id", "timestamp", "user_identifier"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Attendance log successfully recorded" },
+          "400": { "description": "Invalid payload format" }
+        }
+      }
+    },
+    "/payments/webhook": {
+      "post": {
+        "summary": "Payment Gateway Callback",
+        "description": "Receives asynchronous success/failure updates from external payment gateways (Stripe, Razorpay) to automatically clear student fee dues.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "transaction_id": { "type": "string" },
+                  "status": { "type": "string", "enum": ["SUCCESS", "FAILED"] },
+                  "installment_id": { "type": "string" },
+                  "amount": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Webhook received and processed" },
+          "401": { "description": "Invalid webhook signature" }
+        }
+      }
+    }
+  }
+}

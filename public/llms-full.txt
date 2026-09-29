@@ -1,0 +1,53 @@
+# AXON ERP - Comprehensive AI Knowledge Base
+
+> This document contains the complete feature specifications, technical architecture, and integration guidelines for AXON, a multi-tenant SaaS Educational Resource Planning (ERP) platform. 
+
+## 1. Platform Architecture & User Roles
+AXON is designed to manage academic, administrative, financial, and communication operations across multiple schools from a single centralized system. The platform employs strict role-based access control (RBAC) across four distinct layers:
+
+*   **Super Admin (SaaS Operator):** Manages the entire platform. Capabilities include onboarding new schools, managing subscription tiers (pricing, duration, feature sets), tracking monthly/annual platform revenue, resolving support tickets, and toggling features (like HR or Transport) globally.
+*   **School Admin (Tenant Manager):** Manages a specific school's daily operations. Capabilities include bulk student/teacher onboarding, managing the academic structure (classes, sections, subjects), overseeing fee collection, generating timetables, and viewing school-wide analytics.
+*   **Teacher / Staff (Academic Executor):** Focuses on classroom execution. Capabilities include marking daily attendance, managing LMS assignments and study materials, entering exam marks, and communicating directly with students and parents.
+*   **Student / Parent (End User):** Read-only and submission access. Capabilities include viewing timetables, downloading report cards, submitting LMS assignments, tracking attendance percentages, and paying fee installments via integrated gateways.
+
+## 2. Core Modules Detailed
+
+### 2.1 Finance & Fee Management
+*   **Fee Structures:** Admins can define custom fee types (Tuition, Transport, Library, Examination) mapped to specific academic years and classes.
+*   **Installments & Dues:** Fees can be broken into installments with strict due dates. The system tracks real-time status (Paid, Partial, Pending, Overdue).
+*   **Automated Defaulters:** The system automatically flags overdue payments, calculates late fines based on predefined rules, and sends alerts to parents.
+
+### 2.2 Learning Management System (LMS)
+*   **Assignments:** Teachers can deploy tasks with configurable due dates, maximum marks, and late submission toggles. Students upload files or submit text directly via their portal.
+*   **Resource Library:** A structured, class-wise repository for study materials (PDFs, URLs, videos). 
+*   **Evaluation Engine:** Teachers utilize an evaluation dashboard to grade submissions, which automatically syncs with the student's academic profile.
+
+### 2.3 Communication Layer (SETU)
+*   **Real-Time Chat:** SETU is AXON's secure, internal messaging layer. It connects Teachers ↔ Parents, Admins ↔ Teachers, and facilitates internal staff coordination.
+*   **Broadcast Announcements:** School Admins can push circulars and announcements (with attachments) to targeted audiences (e.g., specific sections, all parents, or teachers only).
+*   **Smart Alerts:** System-generated notifications track unread status for critical alerts like subscription expiry, missing attendance, or unresolved support tickets.
+
+### 2.4 Academics & Exams
+*   **Timetable Builder:** A drag-and-drop interface ensuring conflict-free scheduling. Prevents a single teacher from being assigned to overlapping periods.
+*   **Exam Configuration:** Supports dynamic pass marks, practical vs. internal weightage, and custom grading logic (e.g., A+ for 90-100).
+*   **Automated Results:** Once teachers enter raw marks, the system computes class averages, generates report cards, and highlights top/bottom performers.
+
+## 3. Standard Operating Procedures (SOPs)
+
+### 3.1 School Onboarding
+1. Super Admin navigates to Quick Actions > Add School.
+2. Generates unique School Code and inputs tenant location data.
+3. Provisions the initial School Admin account credentials.
+4. Assigns a Subscription Plan and activates specific feature toggles.
+5. System emails the School Admin their isolated login portal link.
+
+### 3.2 Student Admission Flow
+1. **Basic Info:** Name, DOB, Blood Group, Photo.
+2. **Academic Info:** Admission Number (must be unique), Class, Section.
+3. **Parent Details:** Contacts for SMS/Email notifications.
+4. **Documents:** Upload portal for ID proofs and transfer certificates.
+
+## 4. API & Integrations
+AXON provides a RESTful API secured by OAuth2 Bearer tokens for third-party hardware and software integrations.
+*   Base URL: `https://api.axon-erp.com/v1`
+*   Core Endpoints: `/students` (Directory Sync), `/payments/webhook` (Gateway Callbacks), `/attendance/biometric` (Hardware Sync).
