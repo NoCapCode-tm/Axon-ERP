@@ -1,0 +1,20 @@
+# AXON ERP
+
+> AXON is a multi-tenant SaaS ERP platform designed to help multiple schools manage academic, administrative, financial, and communication operations from a single system.
+
+## Platform Architecture
+AXON supports four distinct user layers with role-based access control:
+- **Super Admin:** Platform owner/SaaS operator managing school onboarding, subscription tiers, platform revenue, and global feature toggles.
+- **School Admin:** Tenant manager responsible for staff, students, fees, timetables, and reporting.
+- **Teacher/Staff:** Academic executors handling attendance, LMS assignments, study materials, and exams.
+- **Student/Parent:** End-users accessing timetables, results, fee ledgers, and the SETU communication chat.
+
+## Core Modules
+- /features/finance.md - Fee structure, installments, and payment tracking.
+- /features/lms.md - Assignments, study materials, and submission evaluation.
+- /features/communication.md - SETU real-time chat, notifications, and circulars.
+- /features/academics.md - Timetable builders, exams, results, and grading rules.
+
+## Support & Documentation
+- /docs/onboarding.md - How to onboard a new school.
+- /docs/api.md - Integration and external system connections.
