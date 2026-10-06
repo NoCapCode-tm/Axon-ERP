@@ -5,13 +5,15 @@ import { Landmark, CheckSquare, Bell, ChevronDown } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
 import styles from '../CSS/Dashboard.module.css';
+import AddSchoolModal from '../components/AddSchoolModal';
+import AddPlanModal from '../components/AddPlanModal';
 
 //dummy data
 const quickActions = [
-  { id: 'add-school', label: 'Add School', to: '/superadmin/schools' },
-  { id: 'send-notification', label: 'Send Notification', to: '/superadmin/notifications' },
-  { id: 'add-plan', label: 'Add Plan', to: '/superadmin/subscriptions' },
-  { id: 'view-reports', label: 'View Reports', to: '/superadmin/analytics' },
+  { id: 'add-school', label: 'Add School' },
+  { id: 'send-notification', label: 'Send Notification'},
+  { id: 'add-plan', label: 'Add Plan'},
+  { id: 'view-reports', label: 'View Reports'},
 ];
 
 const stats = [
@@ -155,8 +157,16 @@ function FeedList({ items, icon: Icon }) {
 export default function Dashboard() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [modal, setModal]= useState(null);
+  const closeModal = () => setModal(null);
 
   const planHighlight = planRevenue.reduce((best, d, i, arr) => (d.value > arr[best].value ? i : best), 0);
+
+  const handleQuickAction = (id)=>{
+    if(id==='add-school' || id==='add-plan') return setModal(id);
+    if(id==='send-notification') navigate('/superadmin/notifications');
+    if(id==='view-reports') navigate('/superadmin/analytics');
+  }
 
   return (
     <div className={styles.shell}>
@@ -171,7 +181,7 @@ export default function Dashboard() {
 
         <div className={styles.actions}>
           {quickActions.map((a) => (
-            <button key={a.id} type="button" className={styles.btn} onClick={() => navigate(a.to)}>{a.label}</button>
+            <button key={a.id} type="button" className={styles.btn} onClick={() => handleQuickAction(a.id) }>{a.label}</button>
           ))}
         </div>
 
@@ -208,6 +218,17 @@ export default function Dashboard() {
           </div>
         </div>
       </main>
+      <AddSchoolModal
+        open={modal === 'add-school'}
+        onClose={closeModal}
+        onSubmit={(school) => console.log('new school', school)} 
+      />
+      <AddPlanModal
+        open={modal === 'add-plan'}
+        onClose={closeModal}
+        onSubmit={(plan) => console.log('new plan', plan)} 
+      />
+
     </div>
   );
 }
