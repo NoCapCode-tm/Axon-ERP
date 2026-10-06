@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { NavLink } from 'react-router';
 import { LayoutDashboard, Landmark, CheckSquare, Banknote, Ticket, SlidersHorizontal, User } from 'lucide-react';
 import styles from '../CSS/Sidebar.module.css';
+import logo from "../../asset/axon-og.png"
 
 const navItems = [
   { label: 'Dashboard', to: '/superadmin/dashboard', icon: LayoutDashboard },
@@ -13,7 +14,6 @@ const navItems = [
   { label: 'All Users', to: '/superadmin/users', icon: User },
 ];
 
-// Laptop: full. Tablet: icons only. Mobile: drawer (controlled by the page via open / onClose).
 export default function Sidebar({ open = false, onClose = () => {} }) {
   useEffect(() => {
     if (!open) return;
@@ -27,7 +27,7 @@ export default function Sidebar({ open = false, onClose = () => {} }) {
       <div className={`${styles.backdrop} ${open ? styles.show : ''}`} onClick={onClose} aria-hidden="true" />
       <aside className={`${styles.sidebar} ${open ? styles.open : ''}`} aria-label="Main navigation">
         <div className={styles.brand}>
-          <span className={styles.logo}>A</span>
+          <img src={logo} alt='Axon' className={styles.logo} />
           <span className={`${styles.brandName} ${styles.hideOnTablet}`}>Axon</span>
         </div>
         <nav className={styles.nav}>
