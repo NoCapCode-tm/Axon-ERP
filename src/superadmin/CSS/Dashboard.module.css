@@ -1,8 +1,10 @@
+/* Manrope (weights used: 400, 500, 600, 700).*/
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
 .shell {
   --bg: #f8f8f8;
   --surface: #ffffff;
   --lime: #e4f77c;
-  --lime-soft: #e8f5a0;
   --mint: #d5f5e3;
   --mint-soft: #ecfbf1;
   --track: #b8d8c8;
@@ -28,6 +30,18 @@
   display: flex;
   min-height: 100vh;
   background: var(--bg);
+
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* form controls don't inherit fonts by default */
+.shell button,
+.shell select,
+.shell input {
+  font-family: inherit;
 }
 
 .page {
@@ -38,44 +52,44 @@
   flex-direction: column;
   gap: var(--gap);
 }
+
 .card {
   background: var(--surface);
   border-radius: var(--radius);
   padding: 16px;
   min-width: 0;
-  gap: 2px;
 }
+
+/* =========================================
+   BUTTONS
+========================================= */
+
 .btn {
   border: 0;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  background: var(--lime-soft);
+  background: var(--lime);
   color: var(--text);
   padding: 12px 14px;
+  font-family: inherit;
   font-size: var(--fs-sm);
   font-weight: 500;
   white-space: nowrap;
   transition: filter 0.15s;
 }
+
 .btn:hover {
   filter: brightness(0.96);
 }
+
 .btn:focus-visible {
   outline: 2px solid var(--text);
   outline-offset: 2px;
 }
-.btn {
-  border: 0;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  background: var(--lime, #e4f77c);
-  color: var(--text, #14181f);
-  padding: 12px 14px;
-  font-size: var(--fs-sm);
-  font-weight: 500;
-  white-space: nowrap;
-  transition: filter 0.15s;
-}
+
+/* =========================================
+   SECTION HEADER
+========================================= */
 
 .sectionHeader {
   display: flex;
@@ -84,10 +98,12 @@
   gap: 12px;
   margin-bottom: 16px;
 }
+
 .sectionTitle {
   margin: 0;
   font-size: var(--fs-lg);
   font-weight: 700;
+  color: var(--text);
 }
 
 /* year dropdown */
@@ -96,10 +112,10 @@
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  background: var(--lime-soft);
-  background-color: #e4f77c;
+  background: var(--lime);
   border-radius: var(--radius-sm);
 }
+
 .select select {
   appearance: none;
   -webkit-appearance: none;
@@ -109,17 +125,21 @@
   padding: 12px 40px 12px 16px;
   font: inherit;
   font-size: var(--fs-sm);
+  font-weight: 500;
   color: var(--text);
 }
+
 .select svg {
   position: absolute;
   right: 12px;
   pointer-events: none;
 }
+
 .select:focus-within {
   outline: 2px solid var(--text);
   outline-offset: 2px;
 }
+
 .srOnly {
   position: absolute;
   width: 1px;
@@ -128,63 +148,73 @@
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
-.feedItem {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  border-radius: var(--radius-sm);
-  transition: background 0.15s;
-}
-.feedItem:hover {
-  background: var(--mint, #d5f5e3);
-}
 
-/* top actions: right aligned on laptop, scrolls sideways if too narrow */
+/* =========================================
+   TOP ACTIONS
+   right aligned on laptop, scrolls sideways if too narrow
+========================================= */
+
 .actions {
   display: flex;
   gap: 12px;
   overflow-x: auto;
-  padding-bottom: 2px;
+  padding: 2px 2px 4px;
 }
+
 .actions > :first-child {
   margin-left: auto;
 }
 
-/* stats */
+/* =========================================
+   STATS
+========================================= */
+
 .stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--gap);
 }
+
 .stat {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
+
 .statLabel {
   margin: 0;
   font-size: var(--fs-md);
+  font-weight: 500;
+  color: #4c5868;
 }
+
 .statValue {
   margin: 0;
   font-size: 2rem;
   font-weight: 700;
   line-height: 1.1;
+  color: var(--text);
 }
+
 .statHint {
   margin: 0;
   font-size: var(--fs-sm);
+  font-weight: 400;
   color: var(--muted);
 }
 
-/* main grid: charts on the left, activity + alerts on the right */
+/* =========================================
+   MAIN GRID
+   charts on the left, activity + alerts on the right
+========================================= */
+
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 2.2fr) minmax(300px, 1fr);
   gap: var(--gap);
   align-items: start;
 }
+
 .charts,
 .side {
   display: flex;
@@ -192,13 +222,17 @@
   gap: var(--gap);
   min-width: 0;
 }
+
 .chartBox {
   width: 100%;
   height: 280px;
   min-width: 0;
+  font-family: inherit; /* chart axis labels */
+  font-weight: 500;
 }
 
-/* feed lists (activity + alerts) */
+/* FEED LISTS (activity + alerts) */
+
 .list {
   list-style: none;
   margin: 0;
@@ -207,56 +241,70 @@
   flex-direction: column;
   gap: 10px;
 }
+
 .feedItem {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 12px;
   border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
 }
+
+.feedItem:hover {
+  background: var(--mint);
+}
+
 .highlight {
   background: var(--mint-soft);
 }
+
 .feedText {
   flex: 1;
   min-width: 0;
 }
+
 .rowTitle {
   margin: 0;
   font-size: var(--fs-md);
   font-weight: 500;
+  color: #3f4957;
 }
+
 .rowMeta {
   margin: 2px 0 0;
   font-size: var(--fs-sm);
+  font-weight: 400;
   color: var(--muted);
   overflow-wrap: anywhere;
 }
+
 .time {
   align-self: flex-start;
   font-size: var(--fs-xs);
+  font-weight: 400;
   color: var(--muted);
   white-space: nowrap;
 }
-.bellBadge { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: var(--lime, #e4f77c); }
-.feedItem {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  border-radius: var(--radius-sm);
-  transition: background 0.15s;
-  cursor: pointer;
-}
-.feedItem:hover {
-  background: var(--mint, #d5f5e3);
+
+.bellBadge {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--lime);
 }
 
-/* Small laptop / tablet: activity + alerts move under the charts, side by side */
+/* SMALL LAPTOP / TABLET
+   activity + alerts move under the charts, side by side */
+
 @media (max-width: 1200px) {
   .grid {
     grid-template-columns: minmax(0, 1fr);
   }
+
   .side {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -264,25 +312,32 @@
   }
 }
 
-/* Tablet portrait: everything in one column */
+/* TABLET PORTRAIT: everything in one column */
+
 @media (max-width: 900px) {
   .side {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
-/* Mobile */
+/* =========================================
+   MOBILE
+========================================= */
+
 @media (max-width: 640px) {
   .page {
     padding: 12px 12px 24px;
   }
+
   .actions > :first-child {
     margin-left: 0;
   }
+
   .stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
+
   .chartBox {
     height: 240px;
   }
