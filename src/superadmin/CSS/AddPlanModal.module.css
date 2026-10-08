@@ -1,15 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+.shell{
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+  color: var(--text);
+
+}
 /* ---------- overlay ---------- */
 
 .overlay {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: 9999;
 
   display: grid;
   place-items: center;
 
   padding: 24px;
-
   overflow-y: auto;
 
   background: rgba(17, 24, 39, 0.48);
@@ -22,15 +28,14 @@
 .dialog {
   width: min(768px, 100%);
   max-height: calc(100vh - 48px);
+  max-height: calc(100dvh - 48px);
 
   overflow-y: auto;
 
   padding: 30px 24px 24px;
 
   background: #ffffff;
-
   border-radius: 16px;
-
   box-shadow: 0 20px 50px rgba(15, 23, 42, 0.16);
 
   outline: none;
@@ -63,23 +68,30 @@
 
   width: 36px;
   height: 36px;
-
   margin: -2px -4px 0 0;
-
   flex-shrink: 0;
 
   border: 0;
   border-radius: 50%;
 
   background: transparent;
-
   color: #14181f;
 
   cursor: pointer;
+
+  font-size: 22px;
+  line-height: 1;
+
+  transition: background 0.15s ease;
 }
 
 .close:hover {
   background: #d5f5e3;
+}
+
+.close:focus-visible {
+  outline: 2px solid #14181f;
+  outline-offset: 2px;
 }
 
 /* ---------- form ---------- */
@@ -90,13 +102,9 @@
   gap: 18px;
 }
 
-/* ---------- two-column rows ---------- */
-
 .row {
   display: grid;
-
   grid-template-columns: repeat(2, minmax(0, 1fr));
-
   gap: 10px;
 }
 
@@ -105,41 +113,36 @@
 .field {
   display: flex;
   flex-direction: column;
-
   gap: 8px;
-
   min-width: 0;
 }
 
 .label {
   font-size: 0.9rem;
   line-height: 1.3;
+  font-weight: 500;
 
-  color: #6b7280;
+  color: #4c5868;
 }
 
 /* ---------- inputs ---------- */
 
 .control {
   width: 100%;
-
   min-height: 48px;
-
   box-sizing: border-box;
 
   padding: 12px 18px;
 
   border: 1px solid transparent;
-
   border-radius: 12px;
 
-  /* IMPORTANT */
   background: #ecfbf1;
-
   color: #14181f;
 
   font: inherit;
   font-size: 0.9rem;
+  font-weight: 400;
 
   transition:
     border-color 0.15s ease,
@@ -148,19 +151,23 @@
 
 .control::placeholder {
   color: #6b7280;
+  font-weight: 400;
 }
 
 .control:focus {
   outline: none;
-
   border-color: #d5f5e3;
-
   background: #f1fcf5;
 }
 
 textarea.control {
   min-height: 48px;
   resize: vertical;
+}
+
+.invalid,
+.invalid:focus {
+  border-color: #e03a3a;
 }
 
 /* ---------- select ---------- */
@@ -174,7 +181,6 @@ textarea.control {
   -webkit-appearance: none;
 
   padding-right: 44px;
-
   cursor: pointer;
 }
 
@@ -184,17 +190,13 @@ textarea.control {
 
 .chevron {
   position: absolute;
-
   right: 16px;
   top: 50%;
-
   transform: translateY(-50%);
 
   pointer-events: none;
-
   color: #6b7280;
 }
-
 /* ---------- included features ---------- */
 
 .fieldset {
@@ -288,12 +290,14 @@ textarea.control {
   color: #14181f;
 }
 
+
 /* ---------- errors ---------- */
 
 .error {
   margin: 6px 0 0;
 
   font-size: 0.8rem;
+  font-weight: 500;
 
   color: #e03a3a;
 }
@@ -302,37 +306,44 @@ textarea.control {
 
 .footer {
   display: flex;
-
   align-items: center;
   justify-content: flex-end;
 
   gap: 8px;
-
   margin-top: 4px;
 }
 
 .btn {
   border: 0;
-
   border-radius: 6px;
 
   padding: 10px 15px;
 
-  /* IMPORTANT */
   background: #e4f77c;
-
   color: #14181f;
 
+  font-family: inherit;
   font-size: 0.85rem;
   font-weight: 500;
 
   cursor: pointer;
 
-  transition: filter 0.15s ease;
+  transition:
+    filter 0.15s ease,
+    transform 0.15s ease;
 }
 
 .btn:hover {
   filter: brightness(0.96);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:focus-visible {
+  outline: 2px solid #14181f;
+  outline-offset: 2px;
 }
 
 /* ---------- tablet ---------- */
@@ -345,16 +356,13 @@ textarea.control {
   .dialog {
     width: 100%;
     max-height: calc(100vh - 32px);
+    max-height: calc(100dvh - 32px);
 
     padding: 26px 20px 20px;
   }
 
   .title {
     font-size: 1.4rem;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -367,13 +375,5 @@ textarea.control {
 
   .row {
     grid-template-columns: 1fr;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .feature {
-    min-height: 40px;
   }
 }
