@@ -1,0 +1,284 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
+.shell {
+  --bg: #f8f8f8;
+  --surface: #ffffff;
+  --lime: #e4f77c;
+  --mint: #d5f5e3;
+  --mint-soft: #ecfbf1;
+  --track: #b8d8c8;
+
+  --text: #14181f;
+  --muted: #6b7280;
+  --success: #2e7d4f;
+  --danger: #e03a3a;
+  --warning: #a0470c;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --gap: 16px;
+  --sidebar-w: 260px;
+  --sidebar-w-collapsed: 72px;
+
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.375rem;
+  --fs-xl: 1.75rem;
+
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.shell button,
+.shell select,
+.shell input {
+  font-family: inherit;
+}
+
+.page {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+@media (max-width: 640px) {
+  .page { padding: 12px 12px 24px; }
+}
+
+/* ---------- Layout ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 20px;
+  align-items: start;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.card {
+  background: var(--surface, #fff);
+  border-radius: 12px;
+  padding: 20px;
+  min-width: 0;
+}
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.cardTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text, #14181f);
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--lime, #e4f77c);
+  color: var(--text, #14181f);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.primaryBtn:focus-visible,
+.actionBtn:focus-visible {
+  outline: 2px solid var(--text, #14181f);
+  outline-offset: 2px;
+}
+
+/* ---------- Tables ---------- */
+.tableWrap {
+  overflow-x: auto;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 0.9375rem;
+  color: #4b5563;
+}
+.table th {
+  background: #ecfbf1;
+  color: var(--text, #14181f);
+  font-weight: 500;
+  padding: 14px 12px;
+  white-space: nowrap;
+}
+.table td {
+  padding: 14px 12px;
+  vertical-align: middle;
+}
+.features {
+  max-width: 160px;
+}
+.historyTable {
+  min-width: 720px; /* scrolls sideways on small screens instead of squashing */
+}
+
+/* ---------- Status ---------- */
+.status {
+  font-weight: 500;
+}
+.paid { color: #2f7d4f; }
+.pending { color: #c2662d; }
+.failed { color: #d33a3a; }
+
+/* ---------- Action buttons ---------- */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.actionBtn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--lime-soft, #e9f7a8);
+  color: var(--text, #14181f);
+  cursor: pointer;
+}
+.actionBtn:hover {
+  background: var(--lime, #e4f77c);
+}
+
+/* ---------- Stats ---------- */
+.statList {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.stat {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.statLabel {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--text, #14181f);
+}
+.statNote {
+  margin: 2px 0 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+.statValue {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--text, #14181f);
+}
+
+.transactions .cardTitle {
+  margin-bottom: 20px;
+}
+
+/* ---------- Plan cards (tablet + mobile) ---------- */
+.planCards {
+  flex-direction: column;
+  gap: 16px;
+}
+.planCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #e3f4ea;
+  border-radius: 10px;
+}
+.planInfo {
+  flex: 1;
+  min-width: 0;
+}
+.planName {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.planMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 0 0 6px;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+.planMeta span + span::before {
+  content: '\2022';
+  margin-right: 8px;
+}
+.planFeatures {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.smallOnly { display: none; }
+
+/* ---------- Tablet + mobile: single column, new order ---------- */
+@media (max-width: 1024px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* desktop rule is 'start', which made cards shrink */
+    gap: 16px;
+  }
+  /* flatten both columns so cards can be re-ordered */
+  .col { display: contents; }
+
+  .stats        { order: 1; }
+  .transactions { order: 2; }
+  .plans        { order: 3; }
+  .history      { order: 4; }
+
+  .desktopOnly { display: none; }
+  .smallOnly   { display: flex; }
+
+  .cardTitle { font-size: 1.25rem; }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+  .card { padding: 16px; }
+  .table { font-size: 0.8125rem; }
+  .table th,
+  .table td { padding: 10px 6px; }
+  .primaryBtn { padding: 8px 12px; font-size: 0.8125rem; }
+
+  .planCard { padding: 14px 12px; gap: 8px; }
+  .actions { gap: 6px; }
+  .actionBtn { width: 36px; height: 36px; }
+}
