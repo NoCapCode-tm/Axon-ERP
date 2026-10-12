@@ -1,0 +1,326 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
+.shell {
+  --bg: #f8f8f8;
+  --surface: #ffffff;
+  --lime: #e4f77c;
+  --mint: #d5f5e3;
+  --mint-soft: #ecfbf1;
+  --track: #b8d8c8;
+
+  --text: #14181f;
+  --muted: #6b7280;
+  --success: #2e7d4f;
+  --danger: #e03a3a;
+  --warning: #a0470c;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --gap: 16px;
+  --sidebar-w: 260px;
+  --sidebar-w-collapsed: 72px;
+
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.375rem;
+  --fs-xl: 1.75rem;
+
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.shell button,
+.shell select,
+.shell input {
+  font-family: inherit;
+}
+
+.page {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 16px;
+  min-width: 0;
+}
+
+/* ---------- section header + year dropdown ---------- */
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  background: var(--lime);
+  border-radius: var(--radius-sm);
+}
+
+.select select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 12px 40px 12px 16px;
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.select svg {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+}
+
+.select:focus-within {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- layout ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(300px, 1fr);
+  gap: var(--gap);
+  align-items: start;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  min-width: 0;
+}
+
+.chartBox {
+  width: 100%;
+  height: 280px;
+  min-width: 0;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+/* ---------- top paying schools ---------- */
+
+.topList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.topItem {
+  padding: 0 12px;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: var(--fs-md);
+  font-weight: 500;
+  color: #3f4957;
+}
+
+.track {
+  height: 12px;
+  border-radius: 999px;
+  background: var(--track);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  min-width: 12px;
+  border-radius: 999px;
+  background: var(--lime);
+}
+
+/* ---------- all schools: table (desktop) ---------- */
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: var(--fs-md);
+  color: #4b5563;
+}
+
+.table th {
+  background: var(--mint-soft);
+  color: var(--text);
+  font-weight: 500;
+  padding: 14px 12px;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 16px 12px;
+  color: var(--muted);
+}
+
+.status {
+  font-weight: 500;
+}
+.paid { color: var(--success); }
+.pending { color: var(--warning); }
+.failed { color: var(--danger); }
+
+/* ---------- all schools: cards (tablet + mobile) ---------- */
+
+.smallOnly { display: none; }
+
+.payCards {
+  flex-direction: column;
+  gap: 16px;
+}
+
+.payCard {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #e3f4ea;
+  border-radius: 10px;
+}
+
+.payInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.payName {
+  margin: 0 0 8px;
+  font-size: var(--fs-md);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.payMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 0;
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+
+.payMeta span + span::before {
+  content: "\2022";
+  margin: 0 8px;
+}
+
+.badges {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  min-width: 100px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 6px;
+  background: var(--lime);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+/* non-paid statuses get a tint so they don't look "fine" at a glance */
+.badgePending { background: #fdebd8; color: var(--warning); }
+.badgeFailed { background: #fde2e2; color: var(--danger); }
+
+/* ---------- tablet + mobile: one column, cards ---------- */
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .desktopOnly { display: none; }
+  .smallOnly { display: flex; }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 12px 12px 24px;
+  }
+
+  .sectionTitle {
+    font-size: 1.25rem;
+  }
+
+  .chartBox {
+    height: 240px;
+  }
+
+  .payCard {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .badges {
+    gap: 10px;
+  }
+
+  .badge {
+    min-width: 96px;
+  }
+
+  .select select {
+    padding: 10px 36px 10px 12px;
+  }
+}
