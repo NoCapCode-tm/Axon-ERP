@@ -1,0 +1,402 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
+.shell {
+  --bg: #f8f8f8;
+  --surface: #ffffff;
+  --lime: #e4f77c;
+  --mint: #d5f5e3;
+  --mint-soft: #ecfbf1;
+  --search-bg: #f1fcf5;
+  --dot-on: #c9e4d4;
+
+  --text: #14181f;
+  --muted: #6b7280;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --gap: 16px;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.375rem;
+
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.shell button,
+.shell input {
+  font-family: inherit;
+}
+
+.page {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px;
+  min-width: 0;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* =========================================
+   CARD HEADER: title + search
+========================================= */
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.search {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--search-bg);
+  border-radius: 999px;
+  padding: 0 28px 0 32px;
+  height: 56px;
+  color: var(--text);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: var(--fs-md);
+  color: var(--text);
+}
+
+.search input::placeholder {
+  color: var(--muted);
+}
+
+.search:focus-within {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+.tableWrap {
+  overflow-x: auto; /* safety net on very small phones */
+}
+
+.table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.colFeature { width: 18%; }
+.colDesc { width: 30%; }
+.colPlan { width: 8%; }
+.colAction { width: 12%; }
+
+.table thead th {
+  background: var(--mint-soft);
+  font-size: var(--fs-md);
+  font-weight: 500;
+  padding: 16px 8px;
+}
+
+.table tbody th,
+.table tbody td {
+  padding: 10px 8px;
+  vertical-align: middle;
+}
+
+.featureName {
+  font-size: var(--fs-md);
+  font-weight: 500;
+  color: #3f4957;
+}
+
+.desc {
+  font-size: var(--fs-md);
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.editingRow {
+  background: var(--mint-soft);
+}
+
+/* =========================================
+   DOTS
+========================================= */
+
+.dot {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+.dotOn {
+  background: var(--dot-on);
+}
+
+.dotOff {
+  background: var(--search-bg);
+  border: 1.5px solid var(--mint);
+}
+
+.dotBtn {
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+
+.dotBtn:hover {
+  transform: scale(1.12);
+}
+
+.dotBtn:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+/* =========================================
+   EDIT BUTTON: round icon on laptop/tablet, "Edit" pill on mobile
+========================================= */
+
+.editBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  cursor: pointer;
+  background: var(--lime);
+  color: var(--text);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: filter 0.15s;
+}
+
+.editBtn:hover {
+  filter: brightness(0.96);
+}
+
+.editBtn:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.editText {
+  display: none;
+}
+
+.empty {
+  margin: 24px 0 8px;
+  text-align: center;
+  color: var(--muted);
+  font-size: var(--fs-sm);
+}
+
+/* =========================================
+   TABLET: tighter spacing
+========================================= */
+
+@media (max-width: 900px) {
+  .cardHeader {
+    gap: 16px;
+  }
+
+  .search {
+    height: 52px;
+  }
+
+  .table thead th,
+  .featureName,
+  .desc {
+    font-size: var(--fs-sm);
+  }
+
+  .dot {
+    width: 24px;
+    height: 24px;
+  }
+
+  .editBtn {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 640px) {
+  .page {
+    padding: 12px 12px 24px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  /* title is redundant under the topbar title, keep it for screen readers */
+  .cardTitle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .cardHeader {
+    margin-bottom: 16px;
+  }
+
+  .search {
+    height: 48px;
+    padding: 0 20px 0 24px;
+  }
+
+  .search input {
+    font-size: var(--fs-sm);
+  }
+
+  .search svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .table {
+    min-width: 480px;
+    text-align: left;
+  }
+
+  .colFeature { width: 88px; }
+  .colDesc { width: auto; }
+  .colPlan { width: 38px; }
+  .colAction { width: 58px; }
+
+  .table thead th {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 12px 2px;
+    text-align: center;
+  }
+
+  /* feature name stays visible while the table scrolls sideways */
+  .table thead th:first-child,
+  .table tbody th {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+  }
+
+  .table tbody th {
+    background: var(--surface);
+  }
+
+  .editingRow th {
+    background: var(--mint-soft);
+  }
+
+  .table thead th:first-child,
+  .table thead th:nth-child(2) {
+    text-align: left;
+    padding-left: 6px;
+  }
+
+  .table tbody th,
+  .table tbody td {
+    padding: 10px 2px;
+    text-align: center;
+  }
+
+  .table tbody th,
+  .table tbody td.desc {
+    text-align: left;
+    padding-left: 6px;
+  }
+
+  .featureName,
+  .desc {
+    font-size: var(--fs-xs);
+    line-height: 1.4;
+  }
+
+  .featureName {
+    overflow-wrap: break-word;
+  }
+
+  .dot {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* bigger tap area for the toggles while editing, without growing the layout */
+  .dotBtn {
+    position: relative;
+  }
+
+  .dotBtn::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+  }
+
+  .editBtn {
+    width: auto;
+    height: auto;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: var(--fs-sm);
+    font-weight: 500;
+  }
+
+  .editBtn svg {
+    display: none;
+  }
+
+  .editText {
+    display: inline;
+  }
+}
