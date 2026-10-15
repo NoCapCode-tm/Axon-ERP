@@ -1,0 +1,517 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
+.shell {
+  --bg: #f8f8f8;
+  --surface: #ffffff;
+  --lime: #e4f77c;
+  --mint: #d5f5e3;
+  --mint-soft: #ecfbf1;
+  --search-bg: #f1fcf5;
+  --track: #b8d8c8;
+  --avatar: #b9d9c8;
+
+  --text: #14181f;
+  --muted: #6b7280;
+  --success: #2e7d4f;
+  --warning: #a0470c;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --gap: 16px;
+
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.shell button,
+.shell input {
+  font-family: inherit;
+}
+
+.page {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px;
+  min-width: 0;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* =========================================
+   AGENT SUMMARY CARDS
+========================================= */
+
+.agents {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.agent {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--avatar);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.agentBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.agentTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.agentName {
+  margin: 0;
+  font-size: var(--fs-md);
+  font-weight: 500;
+  color: #3f4957;
+}
+
+.agentPct {
+  font-size: var(--fs-xs);
+  color: var(--muted);
+}
+
+.agentStats {
+  margin: 4px 0 8px;
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+
+.bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--track);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--lime);
+}
+
+/* =========================================
+   TOOLBAR: search + New Ticket
+========================================= */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 28px 0 32px;
+  background: var(--search-bg);
+  border-radius: 999px;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: var(--fs-md);
+  color: var(--text);
+}
+
+.search input::placeholder {
+  color: var(--muted);
+}
+
+.search:focus-within {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.newBtn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--lime);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.newBtn:hover {
+  filter: brightness(0.96);
+}
+
+.newBtn:focus-visible,
+.iconBtn:focus-visible,
+.pageBtn:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+/* =========================================
+   ROW ACTION BUTTONS (shared by table + cards)
+========================================= */
+
+.actionGroup {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.iconBtn {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--text);
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.iconBtn:hover {
+  filter: brightness(0.96);
+}
+
+/* =========================================
+   TABLE (laptop)
+========================================= */
+
+.tableWrap {
+  margin-top: 24px;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.table thead th {
+  background: var(--mint-soft);
+  font-size: var(--fs-md);
+  font-weight: 500;
+  padding: 16px 8px;
+  white-space: nowrap;
+}
+
+.table tbody td {
+  padding: 10px 8px;
+  font-size: var(--fs-md);
+  color: #3f4957;
+  vertical-align: middle;
+}
+
+.subject {
+  min-width: 160px;
+}
+
+.statusOpen { color: var(--success); }
+.statusProgress { color: var(--warning); }
+.statusDone { color: var(--muted); }
+
+/* =========================================
+   CARDS (tablet + mobile), hidden on laptop
+========================================= */
+
+.cardList {
+  display: none;
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ticketCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "school school"
+    "meta   actions"
+    "pills  pills";
+  column-gap: 12px;
+  row-gap: 10px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid var(--mint);
+  border-radius: var(--radius-sm);
+}
+
+.ticketSchool {
+  grid-area: school;
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #3f4957;
+}
+
+.ticketMeta {
+  grid-area: meta;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 20px;
+  row-gap: 6px;
+  align-items: start;
+  font-size: var(--fs-md);
+  color: var(--muted);
+}
+
+.bullet::before {
+  content: "\2022\00a0";
+}
+
+.ticketActions {
+  grid-area: actions;
+}
+
+.pills {
+  grid-area: pills;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pill {
+  min-width: 82px;
+  padding: 2px 12px;
+  border: 1.5px solid var(--text);
+  border-radius: 6px;
+  text-align: center;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.empty {
+  margin: 24px 0 8px;
+  text-align: center;
+  color: var(--muted);
+  font-size: var(--fs-sm);
+}
+
+/* =========================================
+   FOOTER: count + pagination
+========================================= */
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 0 4px;
+}
+
+.showing {
+  margin: 0;
+  font-size: var(--fs-md);
+  color: #3f4957;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pageBtn {
+  min-width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0 6px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  font-size: var(--fs-md);
+  cursor: pointer;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background: var(--mint-soft);
+}
+
+.pageBtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pageActive {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* =========================================
+   TABLET: table becomes cards, 2 agent cards
+========================================= */
+
+@media (max-width: 1000px) {
+  .tableWrap {
+    display: none;
+  }
+
+  .cardList {
+    display: flex;
+  }
+
+  .agents {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .agent:nth-child(3) {
+    display: none;
+  }
+}
+
+/* =========================================
+   MOBILE: agent cards move under the list
+========================================= */
+
+@media (max-width: 640px) {
+  .page {
+    padding: 12px 12px 24px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .agents {
+    order: 2;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .agent:nth-child(3) {
+    display: flex;
+  }
+
+  .agent {
+    padding: 20px 16px;
+  }
+
+  .toolbar {
+    gap: 12px;
+  }
+
+  .search {
+    height: 48px;
+    padding: 0 16px 0 20px;
+  }
+
+  .search input {
+    font-size: var(--fs-sm);
+  }
+
+  .search svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .newBtn {
+    height: 48px;
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .cardList {
+    margin-top: 16px;
+  }
+
+  .ticketCard {
+    padding: 14px 12px;
+  }
+
+  .ticketMeta {
+    font-size: var(--fs-sm);
+    column-gap: 16px;
+  }
+
+  .iconBtn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .actionGroup {
+    gap: 6px;
+  }
+}
+
+/* very narrow phones */
+@media (max-width: 400px) {
+  .iconBtn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .iconBtn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .actionGroup {
+    gap: 4px;
+  }
+}
