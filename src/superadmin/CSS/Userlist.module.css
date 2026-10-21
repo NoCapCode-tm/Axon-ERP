@@ -1,0 +1,510 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
+.shell {
+  --bg: #f8f8f8;
+  --surface: #ffffff;
+  --lime: #e4f77c;
+  --mint: #d5f5e3;
+  --mint-soft: #ecfbf1;
+  --search-bg: #f1fcf5;
+  --avatar: #b9d9c8;
+
+  --text: #14181f;
+  --muted: #6b7280;
+  --success: #2e7d4f;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --gap: 16px;
+
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.shell button,
+.shell input {
+  font-family: inherit;
+}
+
+.page {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  min-width: 0;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* =========================================
+   STAT CARDS
+========================================= */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--avatar);
+}
+
+.statValue {
+  margin: 0;
+  font-size: var(--fs-md);
+  color: var(--muted);
+}
+
+.statLabel {
+  margin: 2px 0 0;
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  color: #3f4957;
+}
+
+/* =========================================
+   MAIN CARD
+   one white card on laptop + tablet, two cards on mobile
+========================================= */
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 20px;
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+
+.panel {
+  min-width: 0;
+}
+
+/* toolbar */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 28px 0 32px;
+  background: var(--search-bg);
+  border-radius: 999px;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: var(--fs-md);
+  color: var(--text);
+}
+
+.search input::placeholder {
+  color: var(--muted);
+}
+
+.search:focus-within {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.exportBtn {
+  flex-shrink: 0;
+  height: 52px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--lime);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.exportBtn:hover {
+  filter: brightness(0.96);
+}
+
+.exportBtn:focus-visible,
+.iconBtn:focus-visible,
+.pageBtn:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+/* =========================================
+   ROW ACTION BUTTONS (table + cards)
+========================================= */
+
+.actionGroup {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.iconBtn {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--text);
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.iconBtn:hover {
+  filter: brightness(0.96);
+}
+
+/* =========================================
+   TABLE (laptop)
+========================================= */
+
+.tableWrap {
+  margin-top: 24px;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.table thead th {
+  background: var(--mint-soft);
+  font-size: var(--fs-md);
+  font-weight: 500;
+  padding: 16px 8px;
+  white-space: nowrap;
+}
+
+.table tbody td {
+  padding: 10px 8px;
+  font-size: var(--fs-md);
+  color: #4c5868;
+  vertical-align: middle;
+}
+
+.statusActive { color: var(--success); }
+.statusInactive { color: var(--muted); }
+
+/* =========================================
+   CARDS (tablet + mobile), hidden on laptop
+========================================= */
+
+.cardList {
+  display: none;
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.userCard {
+  padding: 16px 20px;
+  border: 1px solid var(--mint);
+  border-radius: var(--radius-sm);
+}
+
+.userHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.userName {
+  margin: 0;
+  min-width: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #3f4957;
+  overflow-wrap: anywhere;
+}
+
+.details {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 16px;
+  row-gap: 14px;
+  font-size: var(--fs-md);
+}
+
+.details dt {
+  color: #4c5868;
+}
+
+.details dd {
+  margin: 0;
+  color: #4c5868;
+  overflow-wrap: anywhere;
+}
+
+.details a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.empty {
+  margin: 24px 0 8px;
+  text-align: center;
+  color: var(--muted);
+  font-size: var(--fs-sm);
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 0 4px;
+}
+
+.showing {
+  margin: 0;
+  font-size: var(--fs-md);
+  color: #3f4957;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pageBtn {
+  min-width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0 6px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  font-size: var(--fs-md);
+  cursor: pointer;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background: var(--mint-soft);
+}
+
+.pageBtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pageActive {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* =========================================
+   TABLET: table becomes cards
+========================================= */
+
+@media (max-width: 1000px) {
+  .tableWrap {
+    display: none;
+  }
+
+  .cardList {
+    display: flex;
+  }
+
+  .stat {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .avatar {
+    width: 52px;
+    height: 52px;
+  }
+
+  .avatar svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .statLabel {
+    font-size: var(--fs-md);
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 640px) {
+  .page {
+    padding: 12px 12px 24px;
+  }
+
+  /* stat cards stack, one per row */
+  .stats {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .stat {
+    gap: 16px;
+    padding: 16px 24px;
+  }
+
+  .avatar {
+    width: 56px;
+    height: 56px;
+  }
+
+  /* list and footer become two separate white cards */
+  .main {
+    padding: 0;
+    background: transparent;
+    gap: 12px;
+  }
+
+  .panel {
+    padding: 12px;
+    background: var(--surface);
+    border-radius: var(--radius);
+  }
+
+  .footer {
+    margin-top: 0;
+    padding: 16px;
+    background: var(--surface);
+    border-radius: var(--radius);
+  }
+
+  .toolbar {
+    gap: 12px;
+  }
+
+  .search {
+    height: 48px;
+    padding: 0 16px 0 20px;
+  }
+
+  .search input {
+    font-size: var(--fs-sm);
+  }
+
+  .search svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .exportBtn {
+    height: 48px;
+    padding: 0 12px;
+  }
+
+  .cardList {
+    margin-top: 16px;
+    gap: 12px;
+  }
+
+  .userCard {
+    padding: 12px;
+  }
+
+  .userName {
+    font-size: var(--fs-lg);
+  }
+
+  .details {
+    font-size: var(--fs-sm);
+    row-gap: 12px;
+  }
+
+  .iconBtn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .iconBtn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .actionGroup {
+    gap: 6px;
+  }
+
+  .showing {
+    font-size: var(--fs-sm);
+  }
+}
+
+/* very narrow phones: pagination wraps under the count */
+@media (max-width: 380px) {
+  .footer {
+    justify-content: center;
+  }
+}
