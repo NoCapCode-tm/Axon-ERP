@@ -16,24 +16,36 @@ const SuperAdminNotification = React.lazy(() => import('./superadmin/pages/Notif
 
 // --- SCHOOL ADMIN MODULES ---
 const AdminDashboard = React.lazy(() => import('./admin/pages/Dashboard'));
-const AdminFinance = React.lazy(() => import('./admin/pages/Finance'));
-const AdminSettings = React.lazy(() => import('./admin/pages/Settings'));
-const AdminStaffManagement = React.lazy(() => import('./admin/pages/StaffManagement'));
 const AdminStudentDirectory = React.lazy(() => import('./admin/pages/StudentDirectory'));
+const AdminStaffManagement = React.lazy(() => import('./admin/pages/StaffManagement'));
+const AdminAcademicStructure = React.lazy(() => import('./admin/pages/AcademicStructure'));
+const AdminTimetable = React.lazy(() => import('./admin/pages/Timetable'));
+const AdminAttendance = React.lazy(() => import('./admin/pages/Attendance'));
+const AdminExams = React.lazy(() => import('./admin/pages/Exams'));
+const AdminFinance = React.lazy(() => import('./admin/pages/Finance'));
+const AdminLMS = React.lazy(() => import('./admin/pages/LMS'));
+const AdminReports = React.lazy(() => import('./admin/pages/Reports'));
+const AdminCalendar = React.lazy(() => import('./admin/pages/Calendar'));
+const AdminSettings = React.lazy(() => import('./admin/pages/Settings'));
 
 // --- TEACHER MODULES ---
 const TeacherDashboard = React.lazy(() => import('./teacher/pages/Dashboard'));
-const TeacherAssignments = React.lazy(() => import('./teacher/pages/Assignments'));
-const TeacherClasses = React.lazy(() => import('./teacher/pages/Classes'));
-const TeacherGrading = React.lazy(() => import('./teacher/pages/Grading'));
-const TeacherMessages = React.lazy(() => import('./teacher/pages/Messages'));
+const TeacherSchedule = React.lazy(() => import('./teacher/pages/Schedule'));
+const TeacherAttendance = React.lazy(() => import('./teacher/pages/Attendance'));
+const TeacherLMS = React.lazy(() => import('./teacher/pages/LMS'));
+const TeacherStudentMaterial = React.lazy(() => import('./teacher/pages/StudentMaterial'));
+const TeacherExams = React.lazy(() => import('./teacher/pages/Exams'));
+const TeacherStudyProfiles = React.lazy(() => import('./teacher/pages/StudyProfiles'));
+const TeacherReports = React.lazy(() => import('./teacher/pages/Reports'));
+const TeacherCalendar = React.lazy(() => import('./teacher/pages/Calendar'));
 
 // --- STUDENT MODULES ---
 const StudentDashboard = React.lazy(() => import('./student/pages/Dashboard'));
+const StudentTimetable = React.lazy(() => import('./student/pages/Timetable'));
 const StudentAssignments = React.lazy(() => import('./student/pages/Assignments'));
-const StudentGrades = React.lazy(() => import('./student/pages/Grades'));
-const StudentMyCourses = React.lazy(() => import('./student/pages/MyCourses'));
-const StudentSchedule = React.lazy(() => import('./student/pages/Schedule'));
+const StudentAttendance = React.lazy(() => import('./student/pages/Attendance'));
+const StudentExams = React.lazy(() => import('./student/pages/Exams'));
+const StudentStudyMaterial = React.lazy(() => import('./student/pages/StudyMaterial'));
 
 function App() {
   return (
@@ -55,24 +67,36 @@ function App() {
 
           {/* ADMIN ROUTES */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/finance" element={<AdminFinance />} />
-          <Route path="/admin/settings" element={<AdminSettings />} />
-          <Route path="/admin/staff" element={<AdminStaffManagement />} />
           <Route path="/admin/students" element={<AdminStudentDirectory />} />
+          <Route path="/admin/staff" element={<AdminStaffManagement />} />
+          <Route path="/admin/academic-structure" element={<AdminAcademicStructure />} />
+          <Route path="/admin/timetable" element={<AdminTimetable />} />
+          <Route path="/admin/attendance" element={<AdminAttendance />} />
+          <Route path="/admin/exams" element={<AdminExams />} />
+          <Route path="/admin/finance" element={<AdminFinance />} />
+          <Route path="/admin/lms" element={<AdminLMS />} />
+          <Route path="/admin/reports" element={<AdminReports />} />
+          <Route path="/admin/calendar" element={<AdminCalendar />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
 
           {/* TEACHER ROUTES */}
           <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
-          <Route path="/teacher/assignments" element={<TeacherAssignments />} />
-          <Route path="/teacher/classes" element={<TeacherClasses />} />
-          <Route path="/teacher/grading" element={<TeacherGrading />} />
-          <Route path="/teacher/messages" element={<TeacherMessages />} />
+          <Route path="/teacher/schedule" element={<TeacherSchedule />} />
+          <Route path="/teacher/attendance" element={<TeacherAttendance />} />
+          <Route path="/teacher/lms" element={<TeacherLMS />} />
+          <Route path="/teacher/student-material" element={<TeacherStudentMaterial />} />
+          <Route path="/teacher/exams" element={<TeacherExams />} />
+          <Route path="/teacher/study-profiles" element={<TeacherStudyProfiles />} />
+          <Route path="/teacher/reports" element={<TeacherReports />} />
+          <Route path="/teacher/calendar" element={<TeacherCalendar />} />
 
           {/* STUDENT ROUTES */}
           <Route path="/student/dashboard" element={<StudentDashboard />} />
+          <Route path="/student/timetable" element={<StudentTimetable />} />
           <Route path="/student/assignments" element={<StudentAssignments />} />
-          <Route path="/student/grades" element={<StudentGrades />} />
-          <Route path="/student/courses" element={<StudentMyCourses />} />
-          <Route path="/student/schedule" element={<StudentSchedule />} />
+          <Route path="/student/attendance" element={<StudentAttendance />} />
+          <Route path="/student/exams" element={<StudentExams />} />
+          <Route path="/student/study-material" element={<StudentStudyMaterial />} />
           
         </Routes>
       </Suspense>
