@@ -1,0 +1,427 @@
+.app {
+  display: flex;
+  min-height: 100vh;
+  color: #1f2025;
+  background: #f1f2f7;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex: 0 0 176px;
+  flex-direction: column;
+  height: 100vh;
+  padding: 17px 9px 13px;
+  box-sizing: border-box;
+  background: #fff;
+  border-right: 1px solid #e1e2e8;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  min-height: 35px;
+  padding: 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.navigation {
+  display: grid;
+  gap: 4px;
+  margin-top: 17px;
+}
+
+.navigationLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 7px;
+  color: #45464d;
+  font-size: 12px;
+  text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.navigationLink:hover {
+  background: #f2f3f6;
+}
+
+.activeLink,
+.activeLink:hover {
+  color: #202127;
+  background: #e5e6ea;
+  font-weight: 600;
+}
+
+.workspace {
+  flex: 1;
+  min-width: 0;
+}
+
+.topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 68px;
+  padding: 13px 16px 9px;
+  box-sizing: border-box;
+}
+
+.welcome h1 {
+  margin: 0 0 5px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.welcome p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 0;
+  color: #858791;
+  font-size: 12px;
+}
+
+.topbarActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 2px;
+}
+
+.topbarActions button {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  color: #202127;
+  background: transparent;
+  cursor: pointer;
+}
+
+.topbarActions button:hover {
+  color: #62646e;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(270px, 0.78fr);
+  align-items: start;
+  gap: 8px;
+  padding: 0 10px 16px 8px;
+}
+
+.primaryColumn,
+.secondaryColumn {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.metricCard,
+.panel {
+  min-width: 0;
+  border: 1px solid #dedfe5;
+  border-radius: 9px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(20 25 40 / 3%);
+}
+
+.metricCard {
+  min-height: 100px;
+  padding: 10px 9px 7px;
+  box-sizing: border-box;
+}
+
+.metricLabel {
+  overflow: hidden;
+  margin: 0;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.metricValue {
+  margin: 7px 0 3px;
+  font-size: 37px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.metricDetail {
+  margin: 8px 0 0;
+  color: #92939b;
+  font-size: 12px;
+}
+
+.panel {
+  padding: 10px 9px;
+}
+
+.panelHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 18px;
+}
+
+.panelHeading h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.panelHeading > span {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.scheduleList {
+  display: grid;
+  margin-top: 12px;
+}
+
+.scheduleRow {
+  display: grid;
+  grid-template-columns: 25px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+  min-height: 49px;
+  padding: 3px 6px 3px 2px;
+}
+
+.period {
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.classDetails {
+  display: grid;
+  gap: 2px;
+  font-size: 10px;
+}
+
+.classDetails span:last-child {
+  color: #52535a;
+}
+
+.actionButton,
+.evaluateButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 4px;
+  color: #24252a;
+  background: #d1d1d1;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.actionButton {
+  min-width: 114px;
+  min-height: 34px;
+  padding: 0 9px;
+}
+
+.actionButton:hover,
+.evaluateButton:hover {
+  background: #c3c4c8;
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+  border: 0;
+  color: #85868e;
+  background: transparent;
+  font-size: 10px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.examList {
+  display: grid;
+  gap: 0;
+  margin-top: 8px;
+}
+
+.examItem {
+  padding: 11px 7px 9px;
+}
+
+.examItem h3,
+.assignmentMeta h3 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.itemMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 4px;
+  color: #777982;
+  font-size: 10px;
+}
+
+.itemMeta time {
+  white-space: nowrap;
+}
+
+.assignmentPanel {
+  padding-bottom: 12px;
+}
+
+.assignmentList {
+  display: grid;
+  gap: 17px;
+  margin: 13px 7px 17px;
+}
+
+.assignmentMeta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 19px;
+}
+
+.assignmentMeta h3,
+.assignmentMeta span {
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.assignmentMeta h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progressTrack {
+  overflow: hidden;
+  height: 9px;
+  margin-top: 7px;
+  border-radius: 6px;
+  background: #d1d1d1;
+}
+
+.progressTrack span {
+  display: block;
+  height: 100%;
+  min-width: 6px;
+  border-radius: inherit;
+  background: #8d8e94;
+}
+
+.evaluateButton {
+  width: 100%;
+  min-height: 35px;
+  font-size: 11px;
+}
+
+@media (max-width: 980px) {
+  .dashboard {
+    grid-template-columns: minmax(0, 1.5fr) minmax(245px, 0.9fr);
+  }
+
+  .metricGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    flex-basis: 62px;
+    align-items: center;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .logo {
+    padding: 0;
+    font-size: 11px;
+  }
+
+  .navigation {
+    width: 100%;
+  }
+
+  .navigationLink {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .navigationLink span {
+    display: none;
+  }
+
+  .dashboard {
+    grid-template-columns: minmax(0, 1fr);
+    padding-right: 8px;
+  }
+
+  .topbar {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+@media (max-width: 440px) {
+  .welcome h1 {
+    font-size: 14px;
+  }
+
+  .welcome p {
+    display: grid;
+    gap: 3px;
+    font-size: 10px;
+  }
+
+  .topbarActions {
+    gap: 4px;
+  }
+
+  .metricCard {
+    min-height: 92px;
+  }
+
+  .metricLabel {
+    font-size: 10px;
+  }
+
+  .metricValue {
+    font-size: 32px;
+  }
+
+  .scheduleRow {
+    grid-template-columns: 22px minmax(0, 1fr) auto;
+    gap: 4px;
+  }
+
+  .actionButton {
+    min-width: 90px;
+    padding: 0 5px;
+    font-size: 9px;
+  }
+}
