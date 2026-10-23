@@ -10,6 +10,7 @@ import Schoollist from './superadmin/pages/Schoollist';
 import Notification from './superadmin/pages/Notification';
 import FeatureControl from './superadmin/pages/FeatureControl';
 import Analytics from './superadmin/pages/Analytics';
+import TeacherDashboard from './teacher/pages/Dashboard';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/superadmin/settings" element={<Settings/>}/>
         <Route path="/superadmin/subscriptions" element={<Subscription/>}/>
         <Route path="/superadmin/tickets" element={<Ticket/>}/>
+        <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
       </Routes>
     </Router>
   );

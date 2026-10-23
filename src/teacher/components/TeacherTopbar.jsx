@@ -1,12 +1,12 @@
 import React from 'react';
-import { Bell, CircleUserRound, MessageCircle } from 'lucide-react';
+import { Bell, Mail, Settings } from 'lucide-react';
 import styles from '../CSS/Dashboard.module.css';
 
-function TeacherTopbar() {
+function TeacherTopbar({ title = 'Welcome, Ms. Priya Kapoor' }) {
   return (
     <header className={styles.topbar}>
       <div className={styles.welcome}>
-        <h1>Welcome, Ms. Priya Kapoor</h1>
+        <h1>{title}</h1>
         <p>
           <span>Mathematics</span>
           <span>Senior Section</span>
@@ -15,13 +15,13 @@ function TeacherTopbar() {
       </div>
       <div className={styles.topbarActions} role="group" aria-label="Teacher account actions">
         <button type="button" aria-label="Messages" title="Messages">
-          <MessageCircle aria-hidden="true" size={23} />
+          <Mail aria-hidden="true" size={20} />
         </button>
         <button type="button" aria-label="Notifications" title="Notifications">
-          <Bell aria-hidden="true" size={23} fill="currentColor" />
+          <Bell aria-hidden="true" size={20} />
         </button>
-        <button type="button" aria-label="Profile" title="Profile">
-          <CircleUserRound aria-hidden="true" size={23} />
+        <button type="button" aria-label="Settings" title="Settings">
+          <Settings aria-hidden="true" size={20} />
         </button>
       </div>
     </header>

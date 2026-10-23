@@ -1,8 +1,8 @@
 .app {
   display: flex;
   min-height: 100vh;
-  color: #1f2025;
-  background: #f1f2f7;
+  color: #202733;
+  background: #f6f7f5;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -16,22 +16,33 @@
   padding: 17px 9px 13px;
   box-sizing: border-box;
   background: #fff;
-  border-right: 1px solid #e1e2e8;
+  border-right: 1px solid #e9ece7;
 }
 
-.logo {
+.brand {
   display: flex;
   align-items: center;
-  min-height: 35px;
-  padding: 0 10px;
-  font-size: 15px;
+  gap: 8px;
+  min-height: 27px;
+  padding: 0 7px;
+}
+
+.brandMark {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.brandName {
+  color: #202733;
+  font-size: 14px;
   font-weight: 700;
 }
 
 .navigation {
   display: grid;
   gap: 4px;
-  margin-top: 17px;
+  margin-top: 10px;
 }
 
 .navigationLink {
@@ -41,20 +52,27 @@
   min-height: 36px;
   padding: 0 10px;
   border-radius: 7px;
-  color: #45464d;
+  color: #657080;
   font-size: 12px;
   text-decoration: none;
   transition: background-color 120ms ease, color 120ms ease;
 }
 
+.navigationIcon {
+  flex: 0 0 13px;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
 .navigationLink:hover {
-  background: #f2f3f6;
+  background: #f5f8e7;
 }
 
 .activeLink,
 .activeLink:hover {
-  color: #202127;
-  background: #e5e6ea;
+  color: #202733;
+  background: #e5f77f;
   font-weight: 600;
 }
 
@@ -83,7 +101,7 @@
   flex-wrap: wrap;
   gap: 8px 14px;
   margin: 0;
-  color: #858791;
+  color: #7b8491;
   font-size: 12px;
 }
 
@@ -101,13 +119,13 @@
   place-items: center;
   padding: 0;
   border: 0;
-  color: #202127;
+  color: #202733;
   background: transparent;
   cursor: pointer;
 }
 
 .topbarActions button:hover {
-  color: #62646e;
+  color: #657080;
 }
 
 .dashboard {
@@ -135,7 +153,7 @@
 .metricCard,
 .panel {
   min-width: 0;
-  border: 1px solid #dedfe5;
+  border: 1px solid #edf0eb;
   border-radius: 9px;
   background: #fff;
   box-shadow: 0 1px 2px rgb(20 25 40 / 3%);
@@ -164,7 +182,7 @@
 
 .metricDetail {
   margin: 8px 0 0;
-  color: #92939b;
+  color: #89919d;
   font-size: 12px;
 }
 
@@ -230,7 +248,7 @@
   border: 0;
   border-radius: 4px;
   color: #24252a;
-  background: #d1d1d1;
+  background: #e5f77f;
   font-size: 10px;
   cursor: pointer;
 }
@@ -243,7 +261,7 @@
 
 .actionButton:hover,
 .evaluateButton:hover {
-  background: #c3c4c8;
+  background: #d9ef68;
 }
 
 .viewAll {
@@ -252,7 +270,7 @@
   gap: 2px;
   padding: 0;
   border: 0;
-  color: #85868e;
+  color: #657080;
   background: transparent;
   font-size: 10px;
   white-space: nowrap;
@@ -281,7 +299,7 @@
   justify-content: space-between;
   gap: 6px;
   margin-top: 4px;
-  color: #777982;
+  color: #7b8491;
   font-size: 10px;
 }
 
@@ -323,7 +341,7 @@
   height: 9px;
   margin-top: 7px;
   border-radius: 6px;
-  background: #d1d1d1;
+  background: #b9d9cc;
 }
 
 .progressTrack span {
@@ -331,7 +349,7 @@
   height: 100%;
   min-width: 6px;
   border-radius: inherit;
-  background: #8d8e94;
+  background: #e5f77f;
 }
 
 .evaluateButton {
@@ -358,11 +376,6 @@
     padding-left: 5px;
   }
 
-  .logo {
-    padding: 0;
-    font-size: 11px;
-  }
-
   .navigation {
     width: 100%;
   }
@@ -372,7 +385,16 @@
     padding: 0;
   }
 
-  .navigationLink span {
+  .navigationLink > span:last-child {
+    display: none;
+  }
+
+  .brand {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .brandName {
     display: none;
   }
 
