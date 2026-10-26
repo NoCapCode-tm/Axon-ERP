@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router , Routes , Route } from 'react-router';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router';
 import Dashboard from './superadmin/pages/Dashboard';
 import Ticket from './superadmin/pages/Ticket';
 import Subscription from './superadmin/pages/Subscription';
@@ -11,6 +11,9 @@ import Notification from './superadmin/pages/Notification';
 import FeatureControl from './superadmin/pages/FeatureControl';
 import Analytics from './superadmin/pages/Analytics';
 import TeacherDashboard from './teacher/pages/Dashboard';
+import TeacherLayout from './teacher/components/TeacherLayout';
+import TeacherNotifications from './teacher/pages/Notifications';
+import TeacherSettings from './teacher/pages/Settings';
 
 function App() {
   return (
@@ -25,7 +28,12 @@ function App() {
         <Route path="/superadmin/settings" element={<Settings/>}/>
         <Route path="/superadmin/subscriptions" element={<Subscription/>}/>
         <Route path="/superadmin/tickets" element={<Ticket/>}/>
-        <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+        <Route path="/teacher" element={<TeacherLayout />}>
+          <Route index element={<Navigate to="dashboard" replace />} />
+          <Route path="dashboard" element={<TeacherDashboard />} />
+          <Route path="notifications" element={<TeacherNotifications />} />
+          <Route path="settings" element={<TeacherSettings />} />
+        </Route>
       </Routes>
     </Router>
   );

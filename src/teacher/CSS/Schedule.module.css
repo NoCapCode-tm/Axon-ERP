@@ -1,0 +1,325 @@
+.schedulePage {
+  min-height: calc(100vh - 68px);
+  padding: 0 10px 16px 8px;
+  box-sizing: border-box;
+  background: #f6f7f5;
+}
+
+.scheduleToolbar {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) auto;
+  gap: 7px;
+  margin-bottom: 7px;
+}
+
+.weekPicker {
+  display: flex;
+  min-width: 0;
+  height: 32px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+  border-radius: 6px;
+  background: #fff;
+  color: #202733;
+  font-size: 10px;
+}
+
+.weekPicker button {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  color: #202733;
+  background: transparent;
+  cursor: pointer;
+}
+
+.weekPicker button:hover {
+  background: #f0f1f3;
+}
+
+.scheduleActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.actionButton,
+.eventsHeading button {
+  min-height: 32px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 4px;
+  color: #202733;
+  background: #e5f77f;
+  font: inherit;
+  font-size: 9px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.actionButton:hover,
+.eventsHeading button:hover {
+  background: #d9ef68;
+}
+
+.actionMessage {
+  margin: -1px 0 6px;
+  color: #657080;
+  font-size: 10px;
+}
+
+.scheduleContent {
+  display: grid;
+  grid-template-columns: minmax(0, 2.6fr) minmax(230px, 1fr);
+  align-items: start;
+  gap: 7px;
+}
+
+.timetablePanel,
+.detailsPanel,
+.eventsPanel {
+  min-width: 0;
+  padding: 10px;
+  border-radius: 7px;
+  background: #fff;
+}
+
+.timetablePanel h2,
+.detailsPanel h2,
+.eventsHeading h2 {
+  margin: 0;
+  color: #202733;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.timetablePanel h2 {
+  margin-bottom: 16px;
+}
+
+.tableScroll {
+  overflow-x: auto;
+  border-radius: 7px;
+}
+
+.timetable {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: separate;
+  border-spacing: 1px;
+  table-layout: fixed;
+  color: #596373;
+  font-size: 9px;
+}
+
+.timetable th,
+.timetable td {
+  padding: 0;
+  text-align: left;
+}
+
+.timetable thead th {
+  height: 42px;
+  background: #bedacc;
+  text-align: center;
+  font-weight: 600;
+}
+
+.timetable thead th:first-child {
+  width: 88px;
+}
+
+.timetable thead th span {
+  display: block;
+  line-height: 15px;
+}
+
+.timetable tbody tr {
+  height: 42px;
+}
+
+.timetable .periodHeading {
+  width: 88px;
+  padding: 4px 7px;
+  background: #bedacc;
+  font-weight: 400;
+}
+
+.periodHeading strong,
+.periodHeading span {
+  display: block;
+  white-space: nowrap;
+}
+
+.periodHeading strong {
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.classCell,
+.emptyCell {
+  background: #e8fbf1;
+}
+
+.classButton {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 42px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px 7px;
+  border: 0;
+  color: #596373;
+  background: transparent;
+  font: inherit;
+  font-size: 9px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.classButton strong {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.classButton span {
+  white-space: nowrap;
+}
+
+.classButton:hover {
+  color: #202733;
+  background: #e5f77f;
+}
+
+.emptyCell {
+  text-align: center !important;
+}
+
+.scheduleAside {
+  display: grid;
+  gap: 7px;
+}
+
+.detailsPanel {
+  padding: 10px;
+}
+
+.classDetails {
+  display: grid;
+  gap: 17px;
+  margin: 25px 7px 6px;
+  color: #111;
+  font-size: 10px;
+}
+
+.classDetails div {
+  display: flex;
+  gap: 3px;
+}
+
+.classDetails dt,
+.classDetails dd {
+  margin: 0;
+}
+
+.classDetails dd {
+  font-weight: 400;
+}
+
+.noClass {
+  margin: 22px 0 6px;
+  color: #657080;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.eventsPanel {
+  padding: 10px;
+}
+
+.eventsHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.eventsHeading button {
+  min-height: 26px;
+  padding: 0 8px;
+}
+
+.eventList {
+  display: grid;
+  gap: 4px;
+  margin-top: 12px;
+}
+
+.eventItem {
+  min-width: 0;
+  padding: 10px 7px;
+  border-radius: 5px;
+}
+
+.eventItem h3 {
+  overflow: hidden;
+  margin: 0 0 3px;
+  color: #202733;
+  font-size: 10px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eventItem div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: #89919d;
+  font-size: 9px;
+}
+
+.eventItem time {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 900px) {
+  .scheduleToolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .scheduleActions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .scheduleContent {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .scheduleAside {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .schedulePage {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .scheduleAside {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .actionButton {
+    flex: 1 1 calc(50% - 6px);
+  }
+}
