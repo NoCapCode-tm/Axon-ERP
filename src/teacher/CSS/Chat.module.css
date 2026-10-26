@@ -1,0 +1,676 @@
+.chatPage {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 7px;
+  min-height: calc(100vh - 113px);
+  padding: 0 10px 10px 8px;
+  box-sizing: border-box;
+}
+
+.chatToolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.limeButton,
+.secondaryButton {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 4px;
+  color: #202733;
+  background: #e5f77f;
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.limeButton:hover {
+  background: #d9ef68;
+}
+
+.limeButton:disabled {
+  color: #737e8d;
+  background: #eef0e5;
+  cursor: not-allowed;
+}
+
+.secondaryButton {
+  background: #f0f1f3;
+}
+
+.dangerButton {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  background: #bd514a;
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.dangerButton:hover {
+  background: #a9433d;
+}
+
+.confirmText {
+  margin: 0 0 14px;
+  color: #657080;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.chatWorkspace {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.8fr) minmax(0, 1.6fr);
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.contactPanel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-width: 0;
+  min-height: 380px;
+  padding: 8px;
+  border-right: 1px solid #f0f1f3;
+  background: #fff;
+}
+
+.contactSearch {
+  display: flex;
+  height: 38px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border-radius: 22px;
+  color: #9aa3ae;
+  background: #effbf4;
+}
+
+.contactSearch input {
+  flex: 1;
+  width: 0;
+  border: 0;
+  outline: 0;
+  color: #202733;
+  background: transparent;
+  font: inherit;
+  font-size: 11px;
+}
+
+.contactSearch input::placeholder {
+  color: #9aa3ae;
+}
+
+.contactSearch button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  color: #202733;
+  background: transparent;
+  cursor: pointer;
+}
+
+.contactList {
+  display: flex;
+  overflow-y: auto;
+  min-height: 0;
+  flex-direction: column;
+  margin: 6px -8px -8px;
+}
+
+.contactItem {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border: 0;
+  color: #596373;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.contactItem:hover,
+.contactItem.selectedContact {
+  background: #e8fbf1;
+}
+
+.avatar {
+  position: relative;
+  display: flex;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  color: #3c705d;
+  background: #bedacc;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.contactCopy {
+  display: grid;
+  flex: 1;
+  gap: 3px;
+  min-width: 0;
+}
+
+.contactName,
+.contactPreview {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contactName {
+  color: #596373;
+  font-size: 10px;
+}
+
+.contactPreview {
+  color: #89919d;
+  font-size: 9px;
+}
+
+.contactTime {
+  flex: 0 0 auto;
+  color: #657080;
+  font-size: 9px;
+}
+
+.unreadDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8bc5a7;
+}
+
+.conversationPanel {
+  display: grid;
+  grid-template-rows: 48px minmax(0, 1fr) auto auto;
+  min-width: 0;
+  min-height: 380px;
+  background: #fff;
+}
+
+.conversationHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: #bedacc;
+}
+
+.conversationPerson {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+  min-width: 0;
+}
+
+.conversationPerson strong {
+  overflow: hidden;
+  color: #202733;
+  font-size: 11px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.conversationPerson small {
+  color: #657080;
+  font-size: 9px;
+}
+
+.conversationActions {
+  position: relative;
+  display: flex;
+  gap: 3px;
+}
+
+.backButton {
+  display: none;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 auto;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #202733;
+  background: transparent;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  background: rgb(255 255 255 / 45%);
+}
+
+.conversationMenu {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 5px);
+  right: 0;
+  min-width: 166px;
+  padding: 5px;
+  border: 1px solid #edf0eb;
+  border-radius: 7px;
+  background: #fff;
+  box-shadow: 0 6px 20px rgb(20 25 40 / 14%);
+}
+
+.conversationMenu button {
+  display: flex;
+  width: 100%;
+  min-height: 32px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 4px;
+  color: #596373;
+  background: #fff;
+  font: inherit;
+  font-size: 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.conversationMenu button:hover {
+  color: #a33e38;
+  background: #fff2f0;
+}
+
+.conversationActions button,
+.emojiButton {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #202733;
+  background: transparent;
+  cursor: pointer;
+}
+
+.conversationActions button:hover,
+.emojiButton:hover {
+  background: rgb(255 255 255 / 45%);
+}
+
+.chatMessages {
+  display: flex;
+  overflow-y: auto;
+  min-height: 0;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #fff;
+  background-image: radial-gradient(#edf0eb 0.6px, transparent 0.6px);
+  background-size: 12px 12px;
+}
+
+.dayDivider {
+  align-self: center;
+  margin: auto 0 2px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  color: #657080;
+  background: rgb(255 255 255 / 85%);
+  font-size: 9px;
+}
+
+.chatBubble {
+  display: grid;
+  max-width: min(78%, 420px);
+  gap: 4px;
+  align-self: flex-start;
+  padding: 8px 10px 5px;
+  border-radius: 11px 11px 11px 3px;
+  color: #596373;
+  background: #effbf4;
+}
+
+.chatBubble p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.35;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.chatBubble time {
+  justify-self: end;
+  color: #89919d;
+  font-size: 8px;
+}
+
+.ownMessage {
+  align-self: flex-end;
+  border-radius: 11px 11px 3px 11px;
+  color: #202733;
+  background: #e5f77f;
+}
+
+.noMessages,
+.noChats {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  min-height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #737e8d;
+  background: #e8fbf1;
+  text-align: center;
+}
+
+.noMessages h2,
+.noChats h2 {
+  margin: 0;
+  color: #657080;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.noMessages p {
+  max-width: 440px;
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.noChats {
+  min-height: 0;
+  flex: 1;
+  background: #fff;
+}
+
+.composer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 10px 8px;
+  padding: 3px 4px;
+  border: 1px solid #cdd2d8;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.composer > input {
+  flex: 1;
+  min-width: 0;
+  height: 27px;
+  padding: 0 5px;
+  border: 0;
+  outline: 0;
+  color: #202733;
+  font: inherit;
+  font-size: 11px;
+}
+
+.composer > input::placeholder {
+  color: #89919d;
+}
+
+.attachButton {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+  place-items: center;
+  color: #657080;
+  cursor: pointer;
+}
+
+.attachButton input {
+  display: none;
+}
+
+.sendButton {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #202733;
+  background: #bedacc;
+  cursor: pointer;
+}
+
+.sendButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.statusMessage {
+  margin: 0;
+  padding: 4px 8px;
+  color: #657080;
+  background: #f6f7f5;
+  font-size: 10px;
+}
+
+.dialogBackdrop {
+  position: fixed;
+  z-index: 60;
+  inset: 0;
+  display: grid;
+  overflow-y: auto;
+  place-items: center;
+  padding: 18px;
+  background: rgb(32 39 51 / 30%);
+}
+
+.meetingDialog {
+  width: min(420px, 100%);
+  padding: 17px;
+  border-radius: 9px;
+  background: #fff;
+  box-shadow: 0 12px 40px rgb(20 25 40 / 15%);
+}
+
+.dialogHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.dialogHeading h2 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.dialogHeading button {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 0;
+  border-radius: 5px;
+  color: #657080;
+  background: transparent;
+  cursor: pointer;
+}
+
+.meetingDialog form {
+  display: grid;
+  gap: 12px;
+}
+
+.meetingDialog label {
+  display: grid;
+  gap: 5px;
+  color: #737e8d;
+  font-size: 10px;
+}
+
+.meetingDialog input {
+  min-height: 34px;
+  padding: 6px 9px;
+  border: 1px solid #edf0eb;
+  border-radius: 5px;
+  outline: 0;
+  background: #effbf4;
+  font: inherit;
+  font-size: 11px;
+}
+
+.meetingDialog input:focus {
+  border-color: #bedacc;
+}
+
+.meetingFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.meetingActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.visuallyHidden {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@media (max-width: 760px) {
+  .chatPage {
+    min-height: calc(100vh - 126px);
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .chatWorkspace {
+    grid-template-columns: minmax(135px, 0.8fr) minmax(0, 1.3fr);
+  }
+
+  .contactPanel,
+  .conversationPanel {
+    min-height: 450px;
+  }
+
+  .contactPanel {
+    padding: 6px;
+  }
+
+  .contactItem {
+    gap: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .avatar {
+    flex-basis: 26px;
+    width: 26px;
+    height: 26px;
+    font-size: 9px;
+  }
+
+  .contactTime,
+  .unreadDot {
+    display: none;
+  }
+
+  .conversationActions {
+    gap: 0;
+  }
+
+  .conversationActions button {
+    width: 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .chatPage {
+    min-height: calc(100vh - 150px);
+  }
+
+  .chatWorkspace {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(165px, 0.55fr) minmax(300px, 1fr);
+    overflow: visible;
+  }
+
+  .chatWorkspace:not(.chatSelected) {
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .chatWorkspace:not(.chatSelected) .conversationPanel {
+    display: none;
+  }
+
+  .chatWorkspace.chatSelected {
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .chatWorkspace.chatSelected .contactPanel {
+    display: none;
+  }
+
+  .chatWorkspace.chatSelected .conversationPanel {
+    min-height: 450px;
+  }
+
+  .contactPanel {
+    min-height: 165px;
+    max-height: 220px;
+    border-right: 0;
+    border-bottom: 1px solid #f0f1f3;
+  }
+
+  .contactList {
+    overflow-y: auto;
+  }
+
+  .conversationPanel {
+    min-height: 350px;
+  }
+
+  .backButton {
+    display: grid;
+  }
+
+  .chatToolbar {
+    gap: 5px;
+  }
+
+  .chatToolbar .limeButton {
+    padding: 0 6px;
+    font-size: 9px;
+  }
+}
