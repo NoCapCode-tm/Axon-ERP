@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
+import ExportModal from '../components/ExportModal';
 import styles from '../CSS/Userlist.module.css';
 
 // dummy data
@@ -90,6 +91,7 @@ export default function AllUsers() {
   const [users, setUsers] = useState(initialUsers);
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
+  const [exportOpen, setExportOpen] = useState(false);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -117,16 +119,26 @@ export default function AllUsers() {
     console.log(type, user);
   };
 
-  // downloads whatever the search currently shows, all pages
-  const handleExport = () => {
-    const header = ['User Name', 'User Title', 'School Name', 'Email ID', 'Status'];
-    const lines = [header, ...filtered.map((u) => [u.name, u.title, u.school, u.email, u.status])]
-      .map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(','))
-      .join('\n');
-    const url = URL.createObjectURL(new Blob([lines], { type: 'text/csv;charset=utf-8;' }));
+  // Called by the export dialog. Exports whatever the search currently shows, all pages.
+  // Throwing shows the error line inside the dialog.
+  const handleExport = async ({ fileName, format }) => {
+    if (format === 'excel' || format === 'pdf') throw new Error('Not supported yet');
+
+    const content =
+      format === 'json'
+        ? JSON.stringify(filtered, null, 2)
+        : [
+            ['User Name', 'User Title', 'School Name', 'Email ID', 'Status'],
+            ...filtered.map((u) => [u.name, u.title, u.school, u.email, u.status]),
+          ]
+            .map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(','))
+            .join('\n');
+
+    const type = format === 'json' ? 'application/json' : 'text/csv;charset=utf-8;';
+    const url = URL.createObjectURL(new Blob([content], { type }));
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'users.csv';
+    a.download = fileName;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -156,7 +168,7 @@ export default function AllUsers() {
                 <input type="search" placeholder="Search school by name" value={query} onChange={handleSearch} />
                 <Search size={26} aria-hidden="true" />
               </label>
-              <button type="button" className={styles.exportBtn} onClick={handleExport}>Export</button>
+              <button type="button" className={styles.exportBtn} onClick={() => setExportOpen(true)}>Export</button>
             </div>
 
             {/* laptop: table */}
@@ -250,6 +262,13 @@ export default function AllUsers() {
           </footer>
         </section>
       </main>
+
+      <ExportModal
+        open={exportOpen}
+        onClose={() => setExportOpen(false)}
+        title="Export User List"
+        onExport={handleExport}
+      />
     </div>
   );
 }
