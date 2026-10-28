@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Search, PlusCircle, User, UserCog, UserMinus, ChevronLeft, ChevronRight } from 'lucide-react';
 import Sidebar from '../components/Sidebar.jsx';
 import Topbar from '../components/Topbar.jsx';
+import NewTicketModal from '../components/NewTicketModal.jsx';
 import styles from '../CSS/Ticket.module.css';
 
 // dummy data
@@ -94,6 +95,7 @@ export default function Ticket() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
+  const [modal, setModal] = useState(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -111,7 +113,8 @@ export default function Ticket() {
 
   // TODO: connect these to your modals / API
   const handleAction = (type, ticket) => console.log(type, ticket);
-  const handleNewTicket = () => console.log('new ticket');
+  const handleNewTicket = () => setModal('new-ticket');
+  const closeModal = () => setModal(null);
 
   return (
     <div className={styles.shell}>
@@ -235,6 +238,12 @@ export default function Ticket() {
           </footer>
         </section>
       </main>
+
+      <NewTicketModal
+        open={modal === 'new-ticket'}
+        onClose={closeModal}
+        onSubmit={(ticket) => console.log('new ticket', ticket)}
+      />
     </div>
   );
 }
