@@ -1,4 +1,5 @@
 .sidebar {
+  --sidebar-w: 260px;
   width: var(--sidebar-w);
   flex-shrink: 0;
   position: sticky;
