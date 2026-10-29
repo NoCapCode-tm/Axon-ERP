@@ -42,10 +42,17 @@ const upcomingEvents = [
   { name: 'Unit Test - Calculus', className: 'Class X - A', date: 'Oct 21, 2025' },
 ];
 
-const initialWeek = new Date(2026, 5, 15);
+const initialWeek = new Date(2026, 5, 13);
 
 function formatDate(date) {
   return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function formatWeekRange(startDate) {
+  const endDate = new Date(startDate);
+  endDate.setDate(endDate.getDate() + 6);
+
+  return `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}, ${startDate.getFullYear()}`;
 }
 
 function Schedule() {
@@ -53,17 +60,38 @@ function Schedule() {
   const [selectedClass, setSelectedClass] = useState({ dayIndex: 0, periodIndex: 0 });
   const [actionMessage, setActionMessage] = useState('');
 
-  const weekEnd = new Date(weekStart);
-  weekEnd.setDate(weekEnd.getDate() + 5);
+  const weekRangeLabel = formatWeekRange(weekStart);
+
+  const selectedDate = new Date(weekStart);
+  selectedDate.setDate(selectedDate.getDate() + selectedClass.dayIndex);
 
   const selectedDay = days[selectedClass.dayIndex];
   const selectedPeriod = periods[selectedClass.periodIndex];
   const selectedClassName = timetable[selectedClass.periodIndex][selectedClass.dayIndex];
 
-  const moveWeek = (offset) => {
+  const dayClasses = periods
+    .map((period, periodIndex) => {
+      const className = timetable[periodIndex][selectedClass.dayIndex];
+      if (!className) {
+        return null;
+      }
+
+      return {
+        className,
+        subject: 'Mathematics',
+        room: rooms[className],
+        students: className === 'Class X - A' ? '38' : '32',
+        time: period.time,
+        periodIndex,
+        completed: periodIndex < 2,
+      };
+    })
+    .filter(Boolean);
+
+  const moveWeek = (offsetWeeks) => {
     setWeekStart((current) => {
       const next = new Date(current);
-      next.setDate(next.getDate() + offset * 7);
+      next.setDate(next.getDate() + (offsetWeeks * 7));
       return next;
     });
   };
@@ -79,7 +107,7 @@ function Schedule() {
           <button type="button" aria-label="Previous week" onClick={() => moveWeek(-1)}>
             <ChevronLeft size={17} aria-hidden="true" />
           </button>
-          <span>{formatDate(weekStart)} - {formatDate(weekEnd)}, {weekEnd.getFullYear()}</span>
+          <span>{weekRangeLabel}</span>
           <button type="button" aria-label="Next week" onClick={() => moveWeek(1)}>
             <ChevronRight size={17} aria-hidden="true" />
           </button>
@@ -182,6 +210,27 @@ function Schedule() {
             </div>
           </section>
         </aside>
+      </div>
+
+      <div className={styles.mobileScheduleList} aria-label={`Classes for ${selectedDay.label}`}>
+        {dayClasses.map((entry) => (
+          <button
+            key={`${entry.className}-${entry.periodIndex}`}
+            type="button"
+            className={`${styles.mobileClassCard} ${entry.completed ? styles.completedClass : styles.upcomingClass} ${selectedClass.periodIndex === entry.periodIndex ? styles.activeCard : ''}`}
+            onClick={() => setSelectedClass({ dayIndex: selectedClass.dayIndex, periodIndex: entry.periodIndex })}
+          >
+            <div className={styles.mobileClassHeader}>
+              <span>{entry.className}</span>
+              <span>{entry.time}</span>
+            </div>
+            <div className={styles.mobileClassBody}>
+              <div><span>Subject :</span><span>{entry.subject}</span></div>
+              <div><span>Room :</span><span>{entry.room}</span></div>
+              <div><span>Students :</span><span>{entry.students}</span></div>
+            </div>
+          </button>
+        ))}
       </div>
     </main>
   );

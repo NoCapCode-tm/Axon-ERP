@@ -54,6 +54,28 @@ test('Teacher notifications and settings actions navigate to their pages', () =>
   expect(screen.getByRole('heading', { name: 'Settings' })).toBeInTheDocument();
 });
 
+test('Dashboard actions navigate to existing Teacher pages', () => {
+  render(<App />);
+
+  fireEvent.click(screen.getAllByRole('button', { name: 'Mark Attendance' })[0]);
+  expect(window.location.pathname).toBe('/teacher/attendance');
+
+  fireEvent.click(screen.getByRole('link', { name: 'Dashboard' }));
+  fireEvent.click(screen.getAllByRole('button', { name: 'View All' })[1]);
+  expect(window.location.pathname).toBe('/teacher/lms');
+
+  fireEvent.click(screen.getByRole('link', { name: 'Dashboard' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Evaluate Pending Assignment' }));
+  expect(window.location.pathname).toBe('/teacher/lms');
+});
+
+test('Upcoming Exams View All navigates to the requested exams path', () => {
+  render(<App />);
+
+  fireEvent.click(screen.getAllByRole('button', { name: 'View All' })[0]);
+  expect(window.location.pathname).toBe('/teacher/exams');
+});
+
 test('Messages opens the Teacher communication screen and its tabs', () => {
   render(<App />);
 
@@ -233,11 +255,11 @@ test('start a new chat opens the contact picker and selects a conversation', () 
 
 test('Schedule sidebar entry opens the Teacher schedule view', () => {
   render(<App />);
-  fireEvent.click(screen.getByRole('button', { name: 'Schedule' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Class Schedule' }));
   expect(screen.getByRole('heading', { name: 'Class Schedule' })).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: 'Timetable' })).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: 'Class Details' })).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: 'Schedule' })).toHaveAttribute('aria-current', 'page');
+  expect(screen.getByRole('button', { name: 'Class Schedule' })).toHaveAttribute('aria-current', 'page');
   expect(screen.getByRole('link', { name: 'Dashboard' })).toHaveAttribute('aria-current', 'false');
   fireEvent.click(screen.getAllByRole('button', { name: 'Mark Attendance' })[0]);
   expect(screen.getByRole('status')).toHaveTextContent('Mark Attendance selected.');

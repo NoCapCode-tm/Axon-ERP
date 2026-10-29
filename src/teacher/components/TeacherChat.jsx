@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowLeft,
   EllipsisVertical,
@@ -8,7 +8,6 @@ import {
   Search,
   Send,
   Smile,
-  UserRound,
   Video,
   X,
 } from 'lucide-react';
@@ -25,9 +24,7 @@ const contacts = Array.from({ length: 14 }, (_, index) => ({
 
 function ContactAvatar() {
   return (
-    <span className={styles.avatar} aria-hidden="true">
-      <UserRound size={18} strokeWidth={1.8} />
-    </span>
+    <span className={styles.avatar} aria-hidden="true">PS</span>
   );
 }
 
@@ -140,12 +137,27 @@ function TeacherChat({ initialContacts = contacts }) {
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [clearConfirmOpen, setClearConfirmOpen] = useState(false);
   const [contactPickerOpen, setContactPickerOpen] = useState(false);
+  const conversationActionsRef = useRef(null);
 
   const selectedContact = contactsState.find((contact) => contact.id === selectedContactId);
   const visibleContacts = useMemo(() => contactsState.filter((contact) =>
     contact.name.toLowerCase().includes(search.trim().toLowerCase())
   ), [search, contactsState]);
   const selectedMessages = messages[selectedContactId] || [];
+
+  useEffect(() => {
+    document.body.classList.toggle('teacher-chat-open', Boolean(selectedContact));
+    return () => document.body.classList.remove('teacher-chat-open');
+  }, [selectedContact]);
+
+  useEffect(() => {
+    if (!optionsOpen) return undefined;
+    const closeMenu = (event) => {
+      if (!conversationActionsRef.current?.contains(event.target)) setOptionsOpen(false);
+    };
+    document.addEventListener('pointerdown', closeMenu);
+    return () => document.removeEventListener('pointerdown', closeMenu);
+  }, [optionsOpen]);
 
   const selectContact = (contact) => {
     setSelectedContactId(contact.id);
@@ -218,18 +230,21 @@ function TeacherChat({ initialContacts = contacts }) {
 
   const showUnavailableAction = (label) => {
     setActionStatus(`${label} is not available in this preview.`);
+    window.setTimeout(() => setActionStatus(''), 2500);
   };
 
   return (
     <section className={styles.chatPage} aria-label="SETU messaging">
-      <div className={styles.chatToolbar}>
-        <button type="button" className={styles.limeButton} onClick={markAllRead}>
-          Mark all as read
-        </button>
-        <button type="button" className={styles.limeButton} onClick={() => setMeetingOpen(true)}>
-          Schedule a meeting
-        </button>
-      </div>
+      {!selectedContact && (
+        <div className={styles.chatToolbar}>
+          <button type="button" className={styles.limeButton} onClick={markAllRead}>
+            Mark all as read
+          </button>
+          <button type="button" className={styles.limeButton} onClick={() => setMeetingOpen(true)}>
+            Schedule a meeting
+          </button>
+        </div>
+      )}
 
       {meetingStatus && <p className={styles.statusMessage} role="status">{meetingStatus}</p>}
 
@@ -297,7 +312,7 @@ function TeacherChat({ initialContacts = contacts }) {
                   <strong>{selectedContact.name}</strong>
                   <small>{selectedContact.role}</small>
                 </span>
-                <div className={styles.conversationActions}>
+                <div className={styles.conversationActions} ref={conversationActionsRef}>
                   <button type="button" aria-label="Start voice call" onClick={() => showUnavailableAction('Voice calling')}>
                     <Phone size={17} />
                   </button>

@@ -1,76 +1,130 @@
-import React from 'react';
-import { Bell, Mail, Menu, Settings } from 'lucide-react';
+import React, { useState } from 'react';
+import { Bell, Mail, Menu, MoreVertical, Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../CSS/Dashboard.module.css';
 
 const noop = () => {};
 
 function TeacherTopbar({
-  title = 'Welcome, Ms. Priya Kapoor',
+  title = 'Dashboard',
+  subtitle = '',
   onMenuClick = noop,
   onMessagesClick = noop,
   onRouteAction = noop,
   menuOpen = false,
-  messagesActive = false,
-  notificationsActive = false,
 }) {
   const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [selectedAction, setSelectedAction] = useState('');
+
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+  const selectAction = (action) => {
+    setSelectedAction(action);
+    closeMobileMenu();
+  };
 
   return (
     <header className={styles.topbar}>
-      <button
-        className={styles.topbarMenu}
-        type="button"
-        aria-label="Open navigation menu"
-        aria-controls="teacher-navigation"
-        aria-expanded={menuOpen}
-        onClick={onMenuClick}
-      >
-        <Menu aria-hidden="true" size={22} />
-      </button>
-      <div className={styles.welcome}>
-        <h1>{title}</h1>
-        <p>
-          <span>Mathematics</span>
-          <span>Senior Section</span>
-          <span>Academic Year 2025 - 26 Term 1</span>
-        </p>
+      <div className={styles.topbarTitleGroup}>
+        <button
+          className={styles.topbarMenu}
+          type="button"
+          aria-label="Open navigation menu"
+          aria-controls="teacher-navigation"
+          aria-expanded={menuOpen}
+          onClick={onMenuClick}
+        >
+          <Menu aria-hidden="true" size={22} />
+        </button>
+        <div className={styles.welcome}>
+          <h1>{title || 'Dashboard'}</h1>
+          {subtitle && <p>{subtitle}</p>}
+        </div>
       </div>
       <div className={styles.topbarActions} role="group" aria-label="Teacher account actions">
         <button
-          className={messagesActive ? styles.topbarActionActive : ''}
+          className={`${styles.topbarIconButton}${selectedAction === 'messages' ? ` ${styles.topbarIconButtonActive}` : ''}`}
           type="button"
           aria-label="Messages"
-          title="Messages"
-          aria-pressed={messagesActive}
-          onClick={onMessagesClick}
+          onClick={() => {
+            selectAction('messages');
+            onMessagesClick();
+          }}
         >
-          <Mail aria-hidden="true" size={20} />
+          <Mail size={20} aria-hidden="true" />
         </button>
         <button
-          className={notificationsActive ? styles.topbarActionActive : ''}
+          className={`${styles.topbarIconButton}${selectedAction === 'notifications' ? ` ${styles.topbarIconButtonActive}` : ''}`}
           type="button"
           aria-label="Notifications"
-          title="Notifications"
           onClick={() => {
+            selectAction('notifications');
             onRouteAction();
             navigate('/teacher/notifications');
           }}
         >
-          <Bell aria-hidden="true" size={20} />
+          <Bell size={20} aria-hidden="true" />
         </button>
         <button
+          className={`${styles.topbarIconButton}${selectedAction === 'settings' ? ` ${styles.topbarIconButtonActive}` : ''}`}
           type="button"
           aria-label="Settings"
-          title="Settings"
           onClick={() => {
+            selectAction('settings');
             onRouteAction();
             navigate('/teacher/settings');
           }}
         >
-          <Settings aria-hidden="true" size={20} />
+          <Settings size={20} aria-hidden="true" />
         </button>
       </div>
+      <button
+        className={styles.mobileTopbarMore}
+        type="button"
+        aria-label="More options"
+        aria-expanded={mobileMenuOpen}
+        aria-controls="teacher-mobile-actions"
+        onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
+      >
+        <MoreVertical size={22} aria-hidden="true" />
+      </button>
+      {mobileMenuOpen && (
+        <div className={styles.mobileTopbarMenu} id="teacher-mobile-actions">
+          <button
+            type="button"
+            className={selectedAction === 'notifications' ? styles.mobileTopbarMenuActive : ''}
+            onClick={() => {
+              selectAction('notifications');
+              navigate('/teacher/notifications');
+            }}
+          >
+            <Bell size={18} aria-hidden="true" />
+            <span>Notifications</span>
+          </button>
+          <button
+            type="button"
+            className={selectedAction === 'messages' ? styles.mobileTopbarMenuActive : ''}
+            onClick={() => {
+              selectAction('messages');
+              onMessagesClick();
+            }}
+          >
+            <Mail size={18} aria-hidden="true" />
+            <span>Messages</span>
+          </button>
+          <button
+            type="button"
+            className={selectedAction === 'settings' ? styles.mobileTopbarMenuActive : ''}
+            onClick={() => {
+              selectAction('settings');
+              navigate('/teacher/settings');
+            }}
+          >
+            <Settings size={18} aria-hidden="true" />
+            <span>Settings</span>
+          </button>
+        </div>
+      )}
     </header>
   );
 }

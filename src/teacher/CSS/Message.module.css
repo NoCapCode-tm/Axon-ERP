@@ -56,7 +56,7 @@
   border: 0;
   border-radius: 4px;
   color: #202733;
-  background: #e5f77f;
+  background: #E5F588;
   font: inherit;
   font-size: 10px;
   cursor: pointer;
@@ -64,7 +64,7 @@
 }
 
 .limeButton:hover {
-  background: #d9ef68;
+  background: #E5F588;
 }
 
 .filterControl {
@@ -76,7 +76,7 @@
   padding: 0 7px 0 10px;
   border-radius: 4px;
   color: #202733;
-  background: #e5f77f;
+  background: #E5F588;
 }
 
 .filterControl select {
@@ -213,14 +213,14 @@
   border: 0;
   border-radius: 50%;
   color: #657080;
-  background: #e5f77f;
+  background: #E5F588;
   cursor: pointer;
 }
 
 .postReactions button:hover,
 .postReactions .reactionActive {
   color: #202733;
-  background: #cce85b;
+  background: #E5F588;
 }
 
 .reactionCount {
@@ -504,7 +504,7 @@
   padding: 0 8px;
   border-radius: 4px;
   color: #202733;
-  background: #e5f77f;
+  background: #E5F588;
   font-size: 9px;
   cursor: pointer;
 }

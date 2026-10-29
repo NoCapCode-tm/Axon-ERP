@@ -5,6 +5,7 @@
   min-height: calc(100vh - 113px);
   padding: 0 10px 10px 8px;
   box-sizing: border-box;
+  background: #F8F8F8;
 }
 
 .chatToolbar {
@@ -23,14 +24,14 @@
   border: 0;
   border-radius: 4px;
   color: #202733;
-  background: #e5f77f;
+  background: #E5F588;
   font: inherit;
   font-size: 10px;
   cursor: pointer;
 }
 
 .limeButton:hover {
-  background: #d9ef68;
+  background: #E5F588;
 }
 
 .limeButton:disabled {
@@ -162,9 +163,15 @@
   overflow: hidden;
   border-radius: 50%;
   color: #3c705d;
-  background: #bedacc;
+  background: #BDD9CB;
   font-size: 10px;
   font-weight: 600;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .contactCopy {
@@ -217,7 +224,7 @@
   align-items: center;
   gap: 8px;
   padding: 6px 10px;
-  background: #bedacc;
+  background: #BDD9CB;
 }
 
 .conversationPerson {
@@ -243,7 +250,7 @@
 
 .conversationActions {
   position: relative;
-  display: flex;
+  display: none;
   gap: 3px;
 }
 
@@ -327,9 +334,11 @@
   justify-content: flex-end;
   gap: 8px;
   padding: 12px 16px;
-  background-color: #fff;
-  background-image: radial-gradient(#edf0eb 0.6px, transparent 0.6px);
-  background-size: 12px 12px;
+  background-color: #F8F8F8;
+  background-image: radial-gradient(circle, rgba(107, 114, 128, 0.14) 1px, transparent 1px);
+  background-position: center top;
+  background-repeat: repeat;
+  background-size: 18px 18px;
 }
 
 .dayDivider {
@@ -371,7 +380,7 @@
   align-self: flex-end;
   border-radius: 11px 11px 3px 11px;
   color: #202733;
-  background: #e5f77f;
+  background: #E5F588;
 }
 
 .noMessages,
@@ -459,7 +468,7 @@
   border: 0;
   border-radius: 50%;
   color: #202733;
-  background: #bedacc;
+  background: #BDD9CB;
   cursor: pointer;
 }
 
@@ -543,7 +552,7 @@
 }
 
 .meetingDialog input:focus {
-  border-color: #bedacc;
+  border-color: #BDD9CB;
 }
 
 .meetingFields {
@@ -616,8 +625,69 @@
 }
 
 @media (max-width: 520px) {
+  :global(body.teacher-chat-open) {
+    overflow: hidden;
+  }
+
+  :global(body.teacher-chat-open) [class*="topbar"] {
+    display: none;
+  }
+
   .chatPage {
-    min-height: calc(100vh - 150px);
+    min-height: calc(100vh - 72px);
+    padding: 0 8px 8px;
+  }
+
+  :global(body.teacher-chat-open) .chatPage {
+    display: flex;
+    height: calc(100dvh - 72px);
+    min-height: 0;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .composer {
+    position: relative;
+    min-height: 50px;
+    align-items: center;
+    gap: 8px;
+    margin: 0 8px 8px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .attachButton {
+    width: 42px;
+    height: 50px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .composer > input {
+    order: 2;
+    min-width: 0;
+    height: 38px;
+    padding: 0 42px 0 15px;
+    border: 1px solid #cdd2d8;
+    border-radius: 22px;
+    font-size: 17px;
+  }
+
+  .emojiButton {
+    position: absolute;
+    right: 66px;
+    z-index: 1;
+    order: 3;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+  }
+
+  .sendButton {
+    order: 4;
   }
 
   .chatWorkspace {
@@ -642,8 +712,23 @@
     display: none;
   }
 
+  :global(body.teacher-chat-open) .chatWorkspace.chatSelected {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 0;
+  }
+
   .chatWorkspace.chatSelected .conversationPanel {
-    min-height: 450px;
+    display: grid;
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    grid-template-rows: 82px minmax(0, 1fr) 58px;
+    overflow: hidden;
   }
 
   .contactPanel {
@@ -658,11 +743,139 @@
   }
 
   .conversationPanel {
-    min-height: 350px;
+    min-height: 0;
   }
 
   .backButton {
     display: grid;
+  }
+
+  .conversationHeader .avatar {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+  }
+
+  .conversationHeader {
+    gap: 10px;
+    padding: 8px 16px;
+  }
+
+  .conversationPerson {
+    gap: 3px;
+  }
+
+  .conversationPerson strong {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .conversationPerson small {
+    font-size: 14px;
+  }
+
+  .conversationActions {
+    display: flex;
+    gap: 4px;
+  }
+
+  .conversationActions button {
+    width: 36px;
+    height: 36px;
+    outline: none;
+    background: transparent;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .conversationActions button:hover,
+  .conversationActions button:active,
+  .conversationActions button:focus,
+  .conversationActions button:focus-visible {
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .conversationActions button svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .backButton {
+    width: 32px;
+    height: 32px;
+  }
+
+  .backButton svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .chatMessages {
+    gap: 14px;
+    min-height: 0;
+    padding: 14px 0 12px;
+    background-position: center top;
+    background-size: 386px auto;
+  }
+
+  .dayDivider {
+    margin: auto 0 2px;
+    padding: 4px 9px;
+    font-size: 14px;
+  }
+
+  .chatBubble {
+    flex: 0 0 auto;
+    max-width: 82%;
+    gap: 5px;
+    padding: 10px 18px 8px;
+    border-radius: 14px 14px 14px 4px;
+    color: #202733;
+    background: #E5F588;
+  }
+
+  .chatBubble p {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  .chatBubble time {
+    font-size: 12px;
+  }
+
+  .ownMessage {
+    border-radius: 14px 14px 4px 14px;
+    color: #596373;
+    background: #BDD9CB;
+  }
+
+  .attachButton {
+    width: 42px;
+    height: 50px;
+  }
+
+  .attachButton svg,
+  .emojiButton svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .emojiButton {
+    width: 32px;
+    height: 32px;
+  }
+
+  .sendButton {
+    width: 50px;
+    height: 42px;
+    border-radius: 18px;
+    background: #BDD9CB;
+  }
+
+  .sendButton svg {
+    width: 21px;
+    height: 21px;
   }
 
   .chatToolbar {

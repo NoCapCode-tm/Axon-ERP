@@ -24,7 +24,7 @@
   border: 0;
   border-radius: 4px;
   color: #202733;
-  background: #e5f77f;
+  background: #E5F588;
   font: inherit;
   font-size: 10px;
 }
@@ -34,7 +34,7 @@
 }
 
 .markAllButton:hover {
-  background: #d9ef68;
+  background: #E5F588;
 }
 
 .filter {
