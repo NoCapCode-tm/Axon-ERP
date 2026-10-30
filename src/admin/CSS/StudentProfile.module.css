@@ -1,0 +1,137 @@
+/* Pairs with StudentProfile.jsx. Uses the --mint/--lime/--ink vars from Student.module.css (declared on body).
+   Breakpoints: mobile <640, tablet 640-1023, laptop >=1024 */
+
+.back{display:inline-grid;place-items:center;width:32px;height:32px;margin:0 0 8px -6px;padding:0;border:0;border-radius:50%;background:transparent;color:var(--ink);cursor:pointer}
+.back:hover{background:var(--mint-200)}
+.card{padding:20px;margin-bottom:16px}
+.cardHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.cardHead h2{margin:0}
+.row{display:flex;gap:8px;margin:0 0 8px;font-size:.9rem;color:var(--ink)}
+.row>span:first-child{color:var(--ink-soft)}
+.colon{color:var(--ink-soft)}
+.deskOnly{display:none}.mobOnly{display:inline}
+@media(min-width:1024px){.deskOnly{display:inline}.mobOnly{display:none}}
+
+/* actions */
+.actionsRow{display:flex;justify-content:flex-end;margin-bottom:12px}
+.actionsWide{display:flex;gap:12px}
+.actionsNarrow{display:none}
+@media(max-width:639px){.actionsWide{display:none}.actionsNarrow{display:block}}
+
+/* hero */
+.hero{display:flex;gap:20px;padding:20px;margin-bottom:16px}
+.photo{width:154px;height:154px;flex:none;border-radius:var(--radius);object-fit:cover;background:var(--mint-300)}
+.heroBody{flex:1;min-width:0}
+.name{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-size:1.4rem;font-weight:600}
+.dot{width:10px;height:10px;border-radius:50%;background:#12a150}
+.info{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 24px}
+.info .row{margin-bottom:6px}
+.contact p{margin:0 0 6px;font-size:.9rem}
+.contactLabel{margin:0 0 10px!important;font-size:1rem!important}
+@media(max-width:1023px){
+  .hero{flex-direction:column;align-items:center;gap:12px}
+  .photo{width:200px;height:200px;border-radius:50%}
+  .heroBody{width:100%}
+  .name{justify-content:center;margin-bottom:16px}
+  .contactLabel{display:none}
+}
+@media(max-width:639px){.info{grid-template-columns:1fr;gap:0}.photo{width:180px;height:180px}}
+
+/* stats */
+.stats{display:flex;gap:16px;margin-bottom:16px;overflow-x:auto}
+.stat{flex:1 0 170px;padding:14px 16px}
+.statLabel{margin:0;font-size:.9rem;color:var(--ink-soft)}
+.statValue{margin:8px 0 4px;font-size:1.9rem;font-weight:700;color:var(--ink)}
+.statNote{margin:0;font-size:.8rem;color:var(--ink-soft)}
+@media(max-width:1023px){.stat{flex-basis:calc(33% - 12px)}}
+@media(max-width:639px){.stat{flex-basis:calc(50% - 8px)}.stats{gap:12px}}
+
+/* trio */
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:0}
+.trio .card{margin-bottom:0}
+@media(max-width:1023px){.trio{grid-template-columns:repeat(2,minmax(0,1fr))}.attCard{grid-column:2;grid-row:1/span 2}}
+@media(max-width:639px){.trio{grid-template-columns:minmax(0,1fr)}.attCard{grid-column:auto;grid-row:auto}}
+.trio+.card{margin-top:16px}
+.attBody{display:flex;align-items:center;gap:24px}
+.donut{display:grid;place-items:center;width:130px;height:130px;flex:none;border-radius:50%;position:relative;font-size:.9rem;color:var(--ink)}
+.donut::before{content:'';position:absolute;inset:18px;border-radius:50%;background:#fff}
+.donut span{position:relative}
+.legend{margin:0;padding:0;list-style:none;display:grid;gap:12px;font-size:.9rem}
+.legend li{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.legend i{width:20px;height:20px;border-radius:3px}
+.legend b{font-weight:400}
+@media(max-width:1023px){.attBody{flex-direction:column;align-items:stretch;gap:24px}.donut{width:min(300px,70%);height:auto;aspect-ratio:1;margin:0 auto;font-size:1.6rem;font-weight:700}.donut::before{inset:15%}}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pair .card{margin-bottom:0}
+@media(max-width:639px){.pair{grid-template-columns:1fr}}
+
+/* tables */
+.tableWrap{overflow-x:auto}
+.table{width:100%;border-collapse:collapse;font-size:.85rem;color:var(--ink-soft)}
+.table th,.table td{padding:10px 12px;text-align:center;white-space:nowrap}
+.table thead th{background:var(--mint-50);color:var(--ink);font-weight:400}
+.table tbody tr{border-bottom:1px solid var(--mint-100)}
+.paid{color:#1e7a3c}.pending{color:var(--danger)}
+.viewBtn{padding:8px 16px;border:0;border-radius:4px;background:var(--lime);color:var(--ink);font:inherit;font-size:.8rem;cursor:pointer}
+.viewBtn:hover{background:var(--lime-strong)}
+
+/* attendance */
+.attGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;align-items:start}
+.attGrid .card{margin-bottom:0}
+@media(max-width:1023px){.attGrid{grid-template-columns:minmax(0,1fr)}}
+.cal{padding:16px;border-radius:var(--radius);background:var(--mint-50)}
+.calNav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:10px 16px;border-radius:999px;background:#fff;font-size:.9rem}
+.calNav button{display:grid;place-items:center;border:0;background:transparent;color:var(--ink);cursor:pointer}
+.calGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;text-align:center}
+.calHead{padding:8px 0 12px;font-size:.8rem;color:var(--ink-soft)}
+.day{display:grid;place-items:center;aspect-ratio:1/.9;border-radius:6px;font-size:.9rem;color:var(--ink-soft)}
+.present{background:var(--lime)}
+.absent{background:#bcd9cc}
+.leave{background:#d6f5e6}
+.today{background:#ccd87a}
+.calLegend{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin:20px 0 0;padding:0;list-style:none;font-size:.8rem}
+.calLegend li{display:flex;align-items:center;gap:8px}
+.calLegend i{width:14px;height:14px;border-radius:50%}
+
+/* documents */
+.docGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media(max-width:639px){.docGrid{grid-template-columns:1fr}}
+.docCard{padding:16px;border-radius:var(--radius);background:#d5f4e4}
+.docTitle{margin:0 0 12px;font-size:1.1rem;font-weight:600}
+.docThumb{height:200px;border-radius:12px;background:#fff}
+@media(max-width:639px){.docThumb{height:220px}}
+.docMeta{display:flex;align-items:center;gap:10px;margin:12px 0}
+.fileName{margin:0;font-size:.9rem}
+.fileSize{margin:0;font-size:.75rem;color:var(--ink-soft)}
+.docBtns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.overlay{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.45)}
+.modal{position:relative;width:min(680px,100%);max-height:100%;overflow:auto;padding:24px;border-radius:var(--radius);background:#fff}
+.close{position:absolute;top:6px;right:6px;display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:50%;background:transparent;color:var(--ink);cursor:pointer}
+.slide{position:relative;display:grid;place-items:center;height:min(60vh,480px);border-radius:16px;background:#e6faee;color:var(--ink-soft)}
+.slideCount{position:absolute;top:12px;left:50%;transform:translateX(-50%);color:var(--ink)}
+.dots{position:absolute;bottom:14px;display:flex;gap:10px}
+.dots button{width:16px;height:16px;padding:0;border:0;border-radius:50%;background:var(--mint-400);cursor:pointer}
+.dots .dotOn{background:var(--lime)}
+.modalFoot{display:flex;align-items:center;gap:12px;margin-top:16px}
+.grow{flex:1;min-width:0}
+@media(max-width:639px){.modalFoot{flex-wrap:wrap}.modal{padding:16px}}
+
+/* tabs + activity + fees */
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px;padding:6px;border-radius:999px;background:#f1f3f5}
+.tabs button{padding:12px;border:0;border-radius:999px;background:transparent;color:var(--ink-soft);font:inherit;font-size:.95rem;cursor:pointer}
+.tabs .tabOn{background:#fff;color:var(--ink)}
+.log{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.log li{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:14px 16px;border-radius:10px}
+.logHi{background:#e6faee}
+.logTitle{margin:0 0 4px;font-size:.95rem;color:var(--ink)}
+.logDesc{margin:0;font-size:.85rem;color:var(--ink-soft)}
+.logDate{font-size:.85rem;color:var(--ink-soft)}
+.feeSums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:16px}
+.feeSum{display:flex;gap:12px;padding:14px 16px}
+.feeIcon{width:80px;height:80px;flex:none;background:var(--mint-300)}
+@media(max-width:639px){.feeSums{display:flex;overflow-x:auto}.feeSum{flex:0 0 85%}.feeIcon{width:50px;height:50px}}
+.feeList{display:none;margin:0;padding:0;list-style:none;gap:12px}
+.feeList li{display:flex;align-items:stretch;justify-content:space-between;gap:12px;padding:0 0 0 16px;overflow:hidden;border:1px solid var(--mint-100);border-radius:10px}
+.feeList li>div{padding:14px 0}
+.feeBtn{width:136px;border:0;background:var(--lime);color:var(--ink);font:inherit;cursor:pointer}
+@media(max-width:1023px){.feeTable{display:none}.feeList{display:grid}}
