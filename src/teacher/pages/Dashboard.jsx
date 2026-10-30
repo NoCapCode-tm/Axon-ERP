@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../CSS/Dashboard.module.css';
 
 const metrics = [
@@ -33,6 +34,8 @@ const assignments = [
 ];
 
 function Dashboard() {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.dashboard}>
       <section className={styles.primaryColumn} aria-label="Teaching overview">
@@ -59,7 +62,11 @@ function Dashboard() {
                   <span>{item.subject}</span>
                   <span>{item.time}</span>
                 </div>
-                <button className={styles.actionButton} type="button">
+                <button
+                  className={styles.actionButton}
+                  type="button"
+                  onClick={() => navigate('/teacher/attendance')}
+                >
                   Mark Attendance
                 </button>
               </div>
@@ -72,7 +79,11 @@ function Dashboard() {
         <section className={styles.panel}>
           <div className={styles.panelHeading}>
             <h2>Upcoming Exams</h2>
-            <button className={styles.viewAll} type="button">
+            <button
+              className={styles.viewAll}
+              type="button"
+              onClick={() => navigate('/teacher/exams')}
+            >
               View All
             </button>
           </div>
@@ -92,7 +103,11 @@ function Dashboard() {
         <section className={`${styles.panel} ${styles.assignmentPanel}`}>
           <div className={styles.panelHeading}>
             <h2>Pending Assignments Submission</h2>
-            <button className={styles.viewAll} type="button">
+            <button
+              className={styles.viewAll}
+              type="button"
+              onClick={() => navigate('/teacher/lms')}
+            >
               View All
             </button>
           </div>
@@ -117,7 +132,11 @@ function Dashboard() {
               </article>
             ))}
           </div>
-          <button className={styles.evaluateButton} type="button">
+          <button
+            className={styles.evaluateButton}
+            type="button"
+            onClick={() => navigate('/teacher/lms')}
+          >
             Evaluate Pending Assignment
           </button>
         </section>
