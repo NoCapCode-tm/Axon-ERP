@@ -43,7 +43,7 @@ function TeacherTopbar({
       </div>
       <div className={styles.topbarActions} role="group" aria-label="Teacher account actions">
         <button
-          className={`${styles.topbarIconButton}${selectedAction === 'messages' ? ` ${styles.topbarIconButtonActive}` : ''}`}
+          className={styles.topbarIconButton}
           type="button"
           aria-label="Messages"
           onClick={() => {
@@ -54,7 +54,7 @@ function TeacherTopbar({
           <Mail size={20} aria-hidden="true" />
         </button>
         <button
-          className={`${styles.topbarIconButton}${selectedAction === 'notifications' ? ` ${styles.topbarIconButtonActive}` : ''}`}
+          className={styles.topbarIconButton}
           type="button"
           aria-label="Notifications"
           onClick={() => {
@@ -66,7 +66,7 @@ function TeacherTopbar({
           <Bell size={20} aria-hidden="true" />
         </button>
         <button
-          className={`${styles.topbarIconButton}${selectedAction === 'settings' ? ` ${styles.topbarIconButtonActive}` : ''}`}
+          className={styles.topbarIconButton}
           type="button"
           aria-label="Settings"
           onClick={() => {
