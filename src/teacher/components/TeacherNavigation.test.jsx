@@ -8,7 +8,12 @@ jest.mock('react-router', () => {
   global.TextEncoder = TextEncoder;
   return jest.requireActual('react-router');
 });
-jest.mock('react-router-dom', () => jest.requireActual('react-router'));
+jest.mock('react-router-dom', () => {
+  const { TextDecoder, TextEncoder } = require('util');
+  global.TextDecoder = TextDecoder;
+  global.TextEncoder = TextEncoder;
+  return jest.requireActual('react-router');
+});
 
 beforeEach(() => {
   window.history.replaceState({}, '', '/teacher/dashboard');
@@ -253,14 +258,113 @@ test('start a new chat opens the contact picker and selects a conversation', () 
   expect(conversation.querySelector('.avatar svg')).toBeInTheDocument();
 });
 
-test('Schedule sidebar entry opens the Teacher schedule view', () => {
+test('Schedule sidebar entry opens the Teacher schedule view', async () => {
   render(<App />);
-  fireEvent.click(screen.getByRole('button', { name: 'Class Schedule' }));
-  expect(screen.getByRole('heading', { name: 'Class Schedule' })).toBeInTheDocument();
+  fireEvent.click(await screen.findByRole('button', { name: 'Schedule' }, { timeout: 10000 }));
+  expect(screen.getByRole('heading', { name: 'Schedule' })).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: 'Timetable' })).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: 'Class Details' })).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: 'Class Schedule' })).toHaveAttribute('aria-current', 'page');
+  expect(screen.getByRole('button', { name: 'Schedule' })).toHaveAttribute('aria-current', 'page');
   expect(screen.getByRole('link', { name: 'Dashboard' })).toHaveAttribute('aria-current', 'false');
   fireEvent.click(screen.getAllByRole('button', { name: 'Mark Attendance' })[0]);
-  expect(screen.getByRole('status')).toHaveTextContent('Mark Attendance selected.');
+  expect(screen.getAllByRole('heading', { name: 'Attendance Entry' })).toHaveLength(2);
+  fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+  expect(screen.getByRole('heading', { name: 'Timetable' })).toBeInTheDocument();
+});
+
+test('Upload Marks opens Marks Entry and returns to the schedule', async () => {
+  render(<App />);
+  fireEvent.click(await screen.findByRole('button', { name: 'Schedule' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Upload Marks' }));
+
+  expect(screen.getByRole('heading', { name: 'Marks Entry' })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: 'Student List' })).toBeInTheDocument();
+  expect(screen.getByText('Total Students')).toBeInTheDocument();
+
+  fireEvent.change(screen.getByRole('spinbutton', { name: 'Marks for Aarav Sharma, roll 01' }), {
+    target: { value: '85' },
+  });
+  expect(screen.getByText('85.0')).toBeInTheDocument();
+  expect(screen.getAllByText('A')[0]).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Back to schedule' }));
+  expect(screen.getByRole('heading', { name: 'Timetable' })).toBeInTheDocument();
+});
+
+test('Upload Marks works from the routed Teacher schedule page', async () => {
+  window.history.replaceState({}, '', '/teacher/schedule');
+  render(<App />);
+
+  fireEvent.click(await screen.findByRole('button', { name: 'Upload Marks' }));
+  expect(screen.getByRole('heading', { name: 'Marks Entry' })).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Back to schedule' }));
+  expect(screen.getByRole('heading', { name: 'Timetable' })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: 'Schedule' })).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Mark Attendance' }));
+  expect(screen.getAllByRole('heading', { name: 'Attendance Entry' })).toHaveLength(2);
+  fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+  expect(screen.getByRole('heading', { name: 'Timetable' })).toBeInTheDocument();
+});
+
+test('Upload Study Material opens the Evaluation Workspace and returns to Schedule', async () => {
+  render(<App />);
+  fireEvent.click(await screen.findByRole('button', { name: 'Schedule' }, { timeout: 10000 }));
+  fireEvent.click(screen.getByRole('button', { name: 'Upload Study Material' }));
+
+  expect(screen.getByRole('heading', { name: 'Evaluation Workspace' })).toBeInTheDocument();
+  expect(screen.getByText('Linear Equations')).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: 'Submission Preview' })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: 'Marks & Feedback' })).toBeInTheDocument();
+  expect(screen.getByRole('spinbutton', { name: 'Understanding of concept' })).toHaveValue(5);
+
+  fireEvent.click(screen.getByRole('button', { name: 'Next Student' }));
+  expect(screen.getByRole('button', { name: 'Next Student' })).toBeEnabled();
+  fireEvent.click(screen.getByRole('button', { name: 'Save Draft' }));
+  expect(screen.getByRole('status')).toHaveTextContent('Draft saved.');
+
+  fireEvent.click(screen.getByRole('button', { name: 'Back to schedule' }));
+  expect(screen.getByRole('heading', { name: 'Timetable' })).toBeInTheDocument();
+});
+
+test('Create Assignment opens the assignment form and returns to Schedule', async () => {
+  render(<App />);
+  fireEvent.click(await screen.findByRole('button', { name: 'Schedule' }, { timeout: 10000 }));
+  fireEvent.click(screen.getByRole('button', { name: 'Create Assignment' }));
+
+  expect(screen.getByRole('heading', { name: 'Create Assignment' })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: 'Assignment Details' })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: 'Additional Settings' })).toBeInTheDocument();
+  expect(screen.getByLabelText('Title *')).toBeRequired();
+  expect(screen.getAllByText('Select date')).toHaveLength(4);
+  expect(screen.getAllByRole('radio', { name: /Online Submission|Offline Submission|Both/ })).toHaveLength(3);
+  expect(screen.getByRole('radio', { name: /Online Submission/ })).toBeChecked();
+  fireEvent.click(screen.getByRole('radio', { name: 'Both' }));
+  expect(screen.getByRole('radio', { name: 'Both' })).toBeChecked();
+
+  fireEvent.change(screen.getByLabelText('Title *'), { target: { value: 'Algebra Practice' } });
+  fireEvent.change(screen.getByLabelText('Subject *'), { target: { value: 'Mathematics' } });
+  fireEvent.change(screen.getByLabelText('Assign to Class / Section *'), { target: { value: 'Class X - A' } });
+  fireEvent.change(screen.getByLabelText('Type *'), { target: { value: 'Worksheet' } });
+  fireEvent.change(screen.getByLabelText('Description / Instructions *'), { target: { value: 'Complete questions 1-10.' } });
+  fireEvent.change(screen.getByLabelText('Assign On *'), { target: { value: '2026-11-02' } });
+  fireEvent.change(screen.getByLabelText('Due Date *'), { target: { value: '2026-11-09' } });
+  fireEvent.change(screen.getByLabelText('Max Marks *'), { target: { value: '20' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Create Assignment', exact: true }));
+  expect(screen.getByRole('status')).toHaveTextContent('Assignment created successfully.');
+
+  fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+  expect(screen.getByRole('heading', { name: 'Timetable' })).toBeInTheDocument();
+});
+
+test('Create Assignment works from the routed Teacher schedule page', async () => {
+  window.history.replaceState({}, '', '/teacher/schedule');
+  render(<App />);
+
+  fireEvent.click(await screen.findByRole('button', { name: 'Create Assignment' }));
+  expect(screen.getByRole('heading', { name: 'Assignment Details' })).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Back to schedule' }));
+  expect(screen.getByRole('heading', { name: 'Timetable' })).toBeInTheDocument();
 });

@@ -4,6 +4,10 @@ import TeacherSidebar from './TeacherSidebar';
 import TeacherTopbar from './TeacherTopbar';
 import TeacherMessages from '../pages/Messages';
 import TeacherSchedule from '../pages/Schedule';
+import TeacherMarksEntry from '../pages/MarksEntry';
+import TeacherEvaluationWorkspace from '../pages/EvaluationWorkspace';
+import TeacherCreateAssignment from '../pages/CreateAssignment';
+import { AttendanceEntry as TeacherAttendanceEntry } from '../pages/Attendance';
 import styles from '../CSS/Dashboard.module.css';
 
 function DashboardMobileIcon({ active = false }) {
@@ -85,6 +89,11 @@ function TeacherLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [messagesOpen, setMessagesOpen] = useState(false);
   const [scheduleOpen, setScheduleOpen] = useState(false);
+  const [marksEntryOpen, setMarksEntryOpen] = useState(false);
+  const [attendanceEntryOpen, setAttendanceEntryOpen] = useState(false);
+  const [attendanceEntryDate, setAttendanceEntryDate] = useState('');
+  const [evaluationWorkspaceOpen, setEvaluationWorkspaceOpen] = useState(false);
+  const [createAssignmentOpen, setCreateAssignmentOpen] = useState(false);
 
   const mobileTabs = [
     { label: 'Dashboard', icon: DashboardMobileIcon, path: '/teacher/dashboard', active: location.pathname === '/teacher/dashboard' },
@@ -98,34 +107,90 @@ function TeacherLayout() {
     setSidebarOpen(false);
     setMessagesOpen(false);
     setScheduleOpen(false);
+    setMarksEntryOpen(false);
+    setAttendanceEntryOpen(false);
+    setEvaluationWorkspaceOpen(false);
+    setCreateAssignmentOpen(false);
   }, []);
   const openSidebar = useCallback(() => setSidebarOpen(true), []);
   const openMessages = useCallback(() => {
     setSidebarOpen(false);
     setScheduleOpen(false);
+    setMarksEntryOpen(false);
+    setAttendanceEntryOpen(false);
+    setEvaluationWorkspaceOpen(false);
+    setCreateAssignmentOpen(false);
     setMessagesOpen(true);
   }, []);
   const openSchedule = useCallback(() => {
     setMessagesOpen(false);
+    setMarksEntryOpen(false);
+    setAttendanceEntryOpen(false);
+    setEvaluationWorkspaceOpen(false);
+    setCreateAssignmentOpen(false);
     setScheduleOpen(true);
   }, []);
+  const openMarksEntry = useCallback(() => {
+    setMessagesOpen(false);
+    setAttendanceEntryOpen(false);
+    setEvaluationWorkspaceOpen(false);
+    setCreateAssignmentOpen(false);
+    setMarksEntryOpen(true);
+  }, []);
+  const openAttendanceEntry = useCallback((date) => {
+    setMessagesOpen(false);
+    setMarksEntryOpen(false);
+    setAttendanceEntryDate(date);
+    setCreateAssignmentOpen(false);
+    setAttendanceEntryOpen(true);
+  }, []);
+  const openEvaluationWorkspace = useCallback(() => {
+    setMessagesOpen(false);
+    setMarksEntryOpen(false);
+    setAttendanceEntryOpen(false);
+    setCreateAssignmentOpen(false);
+    setEvaluationWorkspaceOpen(true);
+  }, []);
+  const openCreateAssignment = useCallback(() => {
+    setMessagesOpen(false);
+    setMarksEntryOpen(false);
+    setAttendanceEntryOpen(false);
+    setEvaluationWorkspaceOpen(false);
+    setCreateAssignmentOpen(true);
+  }, []);
+  const closeAttendanceEntry = useCallback(() => setAttendanceEntryOpen(false), []);
+  const closeMarksEntry = useCallback(() => setMarksEntryOpen(false), []);
+  const closeEvaluationWorkspace = useCallback(() => setEvaluationWorkspaceOpen(false), []);
+  const closeCreateAssignment = useCallback(() => setCreateAssignmentOpen(false), []);
   const closeMessages = useCallback(() => {
     setMessagesOpen(false);
     setScheduleOpen(false);
+    setMarksEntryOpen(false);
+    setAttendanceEntryOpen(false);
+    setEvaluationWorkspaceOpen(false);
+    setCreateAssignmentOpen(false);
   }, []);
   const pageTitle = messagesOpen
     ? 'Message'
-    : scheduleOpen
-      ? 'Schedule'
-      : location.pathname === '/teacher/notifications'
-        ? 'Notification'
-        : location.pathname === '/teacher/settings'
-          ? 'Settings'
-            : location.pathname === '/teacher/attendance'
-              ? 'Attendance'
-              : location.pathname === '/teacher/lms'
-                ? 'LMS'
-            : undefined;
+    : createAssignmentOpen
+      ? 'Create Assignment'
+    : evaluationWorkspaceOpen
+      ? 'Evaluation Workspace'
+    : attendanceEntryOpen
+      ? 'Attendance Entry'
+      : marksEntryOpen
+        ? 'Marks Entry'
+        : (scheduleOpen || location.pathname === '/teacher/schedule')
+          ? 'Schedule'
+          : location.pathname === '/teacher/notifications'
+            ? 'Notification'
+            : location.pathname === '/teacher/settings'
+              ? 'Settings'
+              : location.pathname === '/teacher/attendance'
+                ? 'Attendance'
+                : location.pathname === '/teacher/lms'
+                  ? 'LMS'
+                  : 'Dashboard';
 
   return (
     <div className={styles.app}>
@@ -136,18 +201,56 @@ function TeacherLayout() {
         scheduleActive={scheduleOpen}
       />
       <div className={styles.workspace}>
-        <TeacherTopbar
-          title={pageTitle}
-          subtitle={scheduleOpen ? 'Mathematics • Senior Section • Academic Year 2025 - 26 • Term 1' : ''}
-          onMenuClick={openSidebar}
-          onMessagesClick={openMessages}
-          onRouteAction={closeMessages}
-          menuOpen={sidebarOpen}
-          messagesActive={messagesOpen}
-          notificationsActive={location.pathname === '/teacher/notifications'}
-          settingsActive={location.pathname === '/teacher/settings'}
-        />
-        {messagesOpen ? <TeacherMessages /> : scheduleOpen ? <TeacherSchedule /> : <Outlet />}
+        {!attendanceEntryOpen && (
+          <TeacherTopbar
+            title={pageTitle}
+            subtitle={!messagesOpen && (
+              marksEntryOpen
+              || scheduleOpen
+              || evaluationWorkspaceOpen
+              || createAssignmentOpen
+              || location.pathname === '/teacher/schedule'
+              || location.pathname === '/teacher/dashboard'
+            )
+              ? 'Mathematics • Senior Section • Academic Year 2025 - 26 • Term 1'
+              : ''}
+            onMenuClick={openSidebar}
+            onMessagesClick={openMessages}
+            onRouteAction={closeMessages}
+            menuOpen={sidebarOpen}
+            messagesActive={messagesOpen}
+            notificationsActive={location.pathname === '/teacher/notifications'}
+            settingsActive={location.pathname === '/teacher/settings'}
+          />
+        )}
+        {createAssignmentOpen ? (
+          <TeacherCreateAssignment onBack={closeCreateAssignment} />
+        ) : evaluationWorkspaceOpen ? (
+          <TeacherEvaluationWorkspace onBack={closeEvaluationWorkspace} />
+        ) : attendanceEntryOpen ? (
+          <TeacherAttendanceEntry
+            date={attendanceEntryDate}
+            onBack={closeAttendanceEntry}
+            onSave={closeAttendanceEntry}
+            onMessages={openMessages}
+          />
+        ) : messagesOpen ? <TeacherMessages /> : marksEntryOpen ? (
+          <TeacherMarksEntry onBack={closeMarksEntry} />
+        ) : scheduleOpen ? (
+          <TeacherSchedule
+            onUploadMarks={openMarksEntry}
+            onMarkAttendance={openAttendanceEntry}
+            onUploadStudyMaterial={openEvaluationWorkspace}
+            onCreateAssignment={openCreateAssignment}
+          />
+        ) : (
+          <Outlet context={{
+            onUploadMarks: openMarksEntry,
+            onMarkAttendance: openAttendanceEntry,
+            onUploadStudyMaterial: openEvaluationWorkspace,
+            onCreateAssignment: openCreateAssignment,
+          }} />
+        )}
       </div>
 
       <nav className={styles.mobileBottomNav} aria-label="Mobile navigation">

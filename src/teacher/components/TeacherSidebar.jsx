@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { LayoutDashboard } from 'lucide-react';
-import styles from '../CSS/Dashboard.module.css';
+import sidebarStyles from '../../superadmin/CSS/Sidebar.module.css';
+import layoutStyles from '../CSS/Dashboard.module.css';
 import logo from '../../asset/axon-og.png';
 
 function ScheduleIcon() {
@@ -154,39 +155,49 @@ function TeacherSidebar({
 
   return (
     <>
-      <button
-        className={`${styles.backdrop}${open ? ` ${styles.backdropVisible}` : ''}`}
-        type="button"
-        aria-label="Close navigation menu"
-        tabIndex={open ? 0 : -1}
+      <div
+        className={`${sidebarStyles.backdrop}${open ? ` ${sidebarStyles.show}` : ''}`}
         onClick={onClose}
+        aria-hidden="true"
       />
       <aside
-        className={`${styles.sidebar}${open ? ` ${styles.sidebarOpen}` : ''}`}
+        className={`${sidebarStyles.sidebar}${open ? ` ${sidebarStyles.open}` : ''}`}
         aria-label="Teacher navigation"
+        style={{
+          '--surface': '#ffffff',
+          '--lime': '#e4f77c',
+          '--text': '#14181f',
+          '--muted': '#6b7280',
+          '--radius-sm': '8px',
+          '--fs-md': '1rem',
+          '--fs-lg': '1.375rem',
+          fontFamily: '"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif',
+          color: 'var(--text)',
+          WebkitFontSmoothing: 'antialiased',
+        }}
       >
-        <div className={styles.brand}>
-          <img src={logo} alt="Axon" className={styles.brandMark} />
-          <span className={styles.brandName}>Axon</span>
+        <div className={sidebarStyles.brand}>
+          <img src={logo} alt="Axon" className={sidebarStyles.logo} />
+          <span className={sidebarStyles.brandName}>Axon</span>
         </div>
-        <nav className={styles.navigation} id="teacher-navigation" aria-label="Teacher navigation">
+        <nav className={sidebarStyles.nav} id="teacher-navigation" aria-label="Teacher navigation">
           {navigation.map(({ label, path, icon: Icon }) => (
             path ? (
               <NavLink
                 className={({ isActive }) =>
-                  `${styles.navigationLink}${isActive && !scheduleActive ? ` ${styles.activeLink}` : ''}`
+                  `${sidebarStyles.link} ${layoutStyles.teacherSidebarLink}${isActive && !scheduleActive ? ` ${sidebarStyles.active} ${layoutStyles.teacherSidebarLinkActive}` : ''}`
                 }
                 aria-current={scheduleActive ? 'false' : 'page'}
                 key={path}
                 to={path}
                 onClick={onClose}
               >
-                {Icon && <Icon aria-hidden="true" />}
+                {Icon && <span className={layoutStyles.teacherSidebarIcon}><Icon size={22} aria-hidden="true" /></span>}
                 <span>{label}</span>
               </NavLink>
             ) : (
               <button
-                className={`${styles.navigationLink}${scheduleActive ? ` ${styles.activeLink}` : ''}`}
+                className={`${sidebarStyles.link} ${layoutStyles.teacherSidebarLink}${scheduleActive ? ` ${sidebarStyles.active} ${layoutStyles.teacherSidebarLinkActive}` : ` ${layoutStyles.teacherScheduleInactive}`}`}
                 key={label}
                 type="button"
                 aria-current={scheduleActive ? 'page' : undefined}
@@ -195,7 +206,7 @@ function TeacherSidebar({
                   onScheduleClick();
                 }}
               >
-                {Icon && <Icon aria-hidden="true" />}
+                {Icon && <span className={layoutStyles.teacherSidebarIcon}><Icon size={22} aria-hidden="true" /></span>}
                 <span>{label}</span>
               </button>
             )

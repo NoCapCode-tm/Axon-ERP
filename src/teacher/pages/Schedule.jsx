@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useOutletContext } from 'react-router-dom';
 import styles from '../CSS/Schedule.module.css';
 
 const days = [
@@ -55,7 +56,8 @@ function formatWeekRange(startDate) {
   return `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}, ${startDate.getFullYear()}`;
 }
 
-function Schedule() {
+function Schedule({ onUploadMarks, onMarkAttendance, onUploadStudyMaterial, onCreateAssignment }) {
+  const outletContext = useOutletContext();
   const [weekStart, setWeekStart] = useState(initialWeek);
   const [selectedClass, setSelectedClass] = useState({ dayIndex: 0, periodIndex: 0 });
   const [actionMessage, setActionMessage] = useState('');
@@ -68,6 +70,10 @@ function Schedule() {
   const selectedDay = days[selectedClass.dayIndex];
   const selectedPeriod = periods[selectedClass.periodIndex];
   const selectedClassName = timetable[selectedClass.periodIndex][selectedClass.dayIndex];
+  const openMarksEntry = onUploadMarks || outletContext?.onUploadMarks;
+  const openAttendanceEntry = onMarkAttendance || outletContext?.onMarkAttendance;
+  const openEvaluationWorkspace = onUploadStudyMaterial || outletContext?.onUploadStudyMaterial;
+  const openAssignmentForm = onCreateAssignment || outletContext?.onCreateAssignment;
 
   const dayClasses = periods
     .map((period, periodIndex) => {
@@ -114,7 +120,26 @@ function Schedule() {
         </div>
         <div className={styles.scheduleActions}>
           {['Upload Marks', 'Mark Attendance', 'Upload Study Material', 'Create Assignment'].map((action) => (
-            <button className={styles.actionButton} type="button" key={action} onClick={() => runAction(action)}>
+            <button
+              className={styles.actionButton}
+              type="button"
+              key={action}
+              onClick={
+                action === 'Upload Marks' && openMarksEntry
+                  ? openMarksEntry
+                  : action === 'Mark Attendance' && openAttendanceEntry
+                    ? () => openAttendanceEntry(selectedDate.toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                    }))
+                    : action === 'Upload Study Material' && openEvaluationWorkspace
+                      ? openEvaluationWorkspace
+                    : action === 'Create Assignment' && openAssignmentForm
+                      ? openAssignmentForm
+                    : () => runAction(action)
+              }
+            >
               {action}
             </button>
           ))}

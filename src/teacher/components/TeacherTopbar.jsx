@@ -37,13 +37,13 @@ function TeacherTopbar({
           <Menu aria-hidden="true" size={22} />
         </button>
         <div className={styles.welcome}>
-          <h1>{title || 'Dashboard'}</h1>
+          <h1 className={title === 'Dashboard' ? styles.dashboardHeading : undefined}>{title || 'Dashboard'}</h1>
           {subtitle && <p>{subtitle}</p>}
         </div>
       </div>
       <div className={styles.topbarActions} role="group" aria-label="Teacher account actions">
         <button
-          className={`${styles.topbarIconButton}${selectedAction === 'messages' ? ` ${styles.topbarIconButtonActive}` : ''}`}
+          className={styles.topbarIconButton}
           type="button"
           aria-label="Messages"
           onClick={() => {
@@ -54,7 +54,7 @@ function TeacherTopbar({
           <Mail size={20} aria-hidden="true" />
         </button>
         <button
-          className={`${styles.topbarIconButton}${selectedAction === 'notifications' ? ` ${styles.topbarIconButtonActive}` : ''}`}
+          className={styles.topbarIconButton}
           type="button"
           aria-label="Notifications"
           onClick={() => {
@@ -66,7 +66,7 @@ function TeacherTopbar({
           <Bell size={20} aria-hidden="true" />
         </button>
         <button
-          className={`${styles.topbarIconButton}${selectedAction === 'settings' ? ` ${styles.topbarIconButtonActive}` : ''}`}
+          className={styles.topbarIconButton}
           type="button"
           aria-label="Settings"
           onClick={() => {
