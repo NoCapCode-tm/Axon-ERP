@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
 .app {
   display: flex;
   min-height: 100vh;
@@ -98,6 +100,61 @@
   height: 24px;
 }
 
+.teacherSidebarIcon {
+  display: grid;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+}
+
+.teacherSidebarIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.teacherSidebarLink {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  font-weight: 400;
+}
+
+.teacherSidebarLinkActive {
+  font-weight: 400;
+}
+
+.teacherSidebarLink:focus,
+.teacherSidebarLink:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.teacherSidebarLink.teacherScheduleInactive {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.teacherSidebarLink.teacherScheduleInactive:focus,
+.teacherSidebarLink.teacherScheduleInactive:focus-visible,
+.teacherSidebarLink.teacherScheduleInactive:active {
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.teacherSidebarLink.teacherScheduleInactive:hover {
+  color: #6b7280;
+  background: #f4f4f4 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
 .navigationLink:hover {
   color: #202733;
   background: #E5F588;
@@ -172,6 +229,10 @@
   font-size: 18px;
   font-weight: 600;
   line-height: 1.2;
+}
+
+.welcome h1.dashboardHeading {
+  font-weight: 700;
 }
 
 .welcome p {
@@ -304,7 +365,7 @@
 
 .panelHeading > span {
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .scheduleList {
@@ -407,11 +468,16 @@
   padding: 11px 7px 9px;
 }
 
-.examItem h3,
 .assignmentMeta h3 {
   margin: 0;
   font-size: 12px;
   font-weight: 600;
+}
+
+.examItem h3 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .itemMeta {
@@ -448,6 +514,7 @@
 .assignmentMeta h3,
 .assignmentMeta span {
   font-size: 10px;
+  font-weight: 600;
   white-space: nowrap;
 }
 

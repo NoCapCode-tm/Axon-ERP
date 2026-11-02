@@ -37,7 +37,7 @@ function TeacherTopbar({
           <Menu aria-hidden="true" size={22} />
         </button>
         <div className={styles.welcome}>
-          <h1>{title || 'Dashboard'}</h1>
+          <h1 className={title === 'Dashboard' ? styles.dashboardHeading : undefined}>{title || 'Dashboard'}</h1>
           {subtitle && <p>{subtitle}</p>}
         </div>
       </div>

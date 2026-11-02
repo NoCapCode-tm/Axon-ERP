@@ -446,20 +446,6 @@
   gap: 7px;
 }
 
-.initialsAvatar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  color: #2f6d5e;
-  background: #c5dfd4;
-  font-size: 11px;
-  font-weight: 600;
-}
-
 .studentDetails {
   display: inline-flex;
   flex-direction: column;

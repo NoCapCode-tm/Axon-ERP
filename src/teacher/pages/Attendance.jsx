@@ -41,7 +41,7 @@ function readStorage(key, fallback) {
   }
 }
 
-function AttendanceEntry({ date, onBack, onSave }) {
+function AttendanceEntry({ date, onBack, onSave, onMessages }) {
   const [query, setQuery] = useState('');
   const [statuses, setStatuses] = useState(() => {
     const stored = readStorage('teacher-attendance-entry', {});
@@ -77,6 +77,11 @@ function AttendanceEntry({ date, onBack, onSave }) {
     URL.revokeObjectURL(link.href);
   };
   const openMessages = () => {
+    if (onMessages) {
+      onMessages();
+      onBack();
+      return;
+    }
     const messagesButton = Array.from(document.querySelectorAll('button[aria-label="Messages"]'))
       .find((button) => !button.closest('[class*="entryPage"]'));
     messagesButton?.click();
@@ -135,7 +140,6 @@ function AttendanceEntry({ date, onBack, onSave }) {
           {filteredStudents.map((student) => (
             <div className={styles.entryRow} key={student.roll}>
               <span>{student.roll}</span><span>{student.className}</span><span className={styles.studentIdentity}>
-                <span className={styles.initialsAvatar} aria-hidden="true">AS</span>
                 <span className={styles.studentDetails}><strong>{student.studentName}</strong><small>ID 8989</small></span>
               </span><span>{student.parentName}</span><span>{student.phone}</span><span className={styles.activeStatus}>Active</span>
               <span className={styles.statusButtons}>
@@ -239,3 +243,4 @@ function Attendance() {
 }
 
 export default Attendance;
+export { AttendanceEntry };
