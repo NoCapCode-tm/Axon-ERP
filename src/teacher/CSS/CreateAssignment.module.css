@@ -434,6 +434,12 @@
   }
 }
 
+@media (max-width: 900px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 760px) {
   .page {
     min-height: calc(100vh - 126px);

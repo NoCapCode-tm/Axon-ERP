@@ -557,10 +557,6 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  .welcome p {
-    display: none;
-  }
-
   .sidebar {
     position: fixed;
     z-index: 30;
@@ -706,6 +702,25 @@
   }
 
   .topbarActions {
+    display: none;
+  }
+
+  .topbarWithMobileActions .topbarActions {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 2px;
+  }
+
+  .topbarWithMobileActions .topbarIconButton {
+    width: 28px;
+    height: 28px;
+  }
+
+  .topbarWithMobileActions .mobileTopbarMore {
+    display: none;
+  }
+
+  .topbarWithoutSubtitleOnMobile .welcome p {
     display: none;
   }
 

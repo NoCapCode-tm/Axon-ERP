@@ -204,16 +204,8 @@ function TeacherLayout() {
         {!attendanceEntryOpen && (
           <TeacherTopbar
             title={pageTitle}
-            subtitle={!messagesOpen && (
-              marksEntryOpen
-              || scheduleOpen
-              || evaluationWorkspaceOpen
-              || createAssignmentOpen
-              || location.pathname === '/teacher/schedule'
-              || location.pathname === '/teacher/dashboard'
-            )
-              ? 'Mathematics • Senior Section • Academic Year 2025 - 26 • Term 1'
-              : ''}
+            showActionsOnMobile={location.pathname === '/teacher/settings'}
+            hideSubtitleOnMobile={location.pathname === '/teacher/settings'}
             onMenuClick={openSidebar}
             onMessagesClick={openMessages}
             onRouteAction={closeMessages}
