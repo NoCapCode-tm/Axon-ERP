@@ -101,31 +101,6 @@ function EvaluationWorkspace({ onBack }) {
       {message && <p className={styles.statusMessage} role="status">{message}</p>}
 
       <div className={styles.workspaceGrid}>
-        <section className={`${styles.panel} ${styles.studentPanel}`} aria-labelledby="student-list-heading">
-          <h2 id="student-list-heading">Student List</h2>
-          <div className={styles.studentTable}>
-            <div className={styles.studentHeader} role="row">
-              <span>Roll No.</span><span>Student Name</span><span>Status</span>
-            </div>
-            {students.map((student, index) => (
-              <button
-                className={`${styles.studentRow}${selectedStudent === index ? ` ${styles.selectedStudent}` : ''}`}
-                type="button"
-                key={student.id}
-                aria-pressed={selectedStudent === index}
-                onClick={() => {
-                  setSelectedStudent(index);
-                  setMessage('');
-                }}
-              >
-                <span>{student.roll}</span>
-                <span>{student.name}</span>
-                <span>{student.status}</span>
-              </button>
-            ))}
-          </div>
-        </section>
-
         <div className={styles.submissionColumn}>
           <section className={`${styles.panel} ${styles.previewPanel}`} aria-labelledby="submission-preview-heading">
             <h2 id="submission-preview-heading">Submission Preview</h2>
@@ -175,6 +150,31 @@ function EvaluationWorkspace({ onBack }) {
             </dl>
           </section>
         </div>
+
+        <section className={`${styles.panel} ${styles.studentPanel}`} aria-labelledby="student-list-heading">
+          <h2 id="student-list-heading">Student List</h2>
+          <div className={styles.studentTable}>
+            <div className={styles.studentHeader} role="row">
+              <span>Roll No.</span><span>Student Name</span><span>Status</span>
+            </div>
+            {students.map((student, index) => (
+              <button
+                className={`${styles.studentRow}${selectedStudent === index ? ` ${styles.selectedStudent}` : ''}`}
+                type="button"
+                key={student.id}
+                aria-pressed={selectedStudent === index}
+                onClick={() => {
+                  setSelectedStudent(index);
+                  setMessage('');
+                }}
+              >
+                <span>{student.roll}</span>
+                <span>{student.name}</span>
+                <span>{student.status}</span>
+              </button>
+            ))}
+          </div>
+        </section>
 
         <div className={styles.evaluationColumn}>
           <section className={`${styles.panel} ${styles.rubricPanel}`} aria-labelledby="evaluation-heading">

@@ -5,6 +5,7 @@ import styles from '../CSS/MarksEntry.module.css';
 const students = Array.from({ length: 40 }, (_, index) => ({
   roll: String(index + 1).padStart(2, '0'),
   name: 'Aarav Sharma',
+  studentId: '8989',
   status: 'Active',
 }));
 
@@ -13,7 +14,7 @@ function getGrade(mark) {
   const score = Number(mark);
   if (!Number.isFinite(score)) return '-';
   if (score >= 90) return 'A+';
-  if (score >= 80) return 'A';
+  if (score >= 74) return 'A';
   if (score >= 70) return 'B';
   if (score >= 60) return 'C';
   if (score >= 40) return 'D';
@@ -21,7 +22,9 @@ function getGrade(mark) {
 }
 
 function MarksEntry({ onBack }) {
-  const [marks, setMarks] = useState({});
+  const [marks, setMarks] = useState(() => Object.fromEntries(
+    students.map(({ roll }) => [roll, '74']),
+  ));
   const [statusFilter, setStatusFilter] = useState('All');
   const [message, setMessage] = useState('');
   const [profileStudent, setProfileStudent] = useState(null);
@@ -181,10 +184,22 @@ function MarksEntry({ onBack }) {
             <tbody>
               {visibleStudents.map((student) => (
                 <tr key={student.roll}>
-                  <td>{student.roll}</td>
-                  <td>{student.name}</td>
-                  <td className={styles.activeStatus}>{student.status}</td>
-                  <td>
+                  <td className={styles.rollCell} data-label="Roll No.">{student.roll}</td>
+                  <td className={styles.studentCell} data-label="Student Name">
+                    <button
+                      className={styles.studentIdentity}
+                      type="button"
+                      aria-label={`View profile for ${student.name}, ID ${student.studentId}`}
+                      onClick={() => setProfileStudent(student)}
+                    >
+                      <span className={styles.studentDetails}>
+                        <strong>{student.name}</strong>
+                        <small>ID {student.studentId}</small>
+                      </span>
+                    </button>
+                  </td>
+                  <td className={`${styles.activeStatus} ${styles.statusCell}`} data-label="Status">{student.status}</td>
+                  <td className={styles.marksCell} data-label="Marks">
                     <input
                       className={styles.markInput}
                       type="number"
@@ -195,8 +210,10 @@ function MarksEntry({ onBack }) {
                       onChange={(event) => updateMark(student.roll, event.target.value)}
                     />
                   </td>
-                  <td>{getGrade(marks[student.roll])}</td>
-                  <td>
+                  <td className={styles.gradeCell} data-label="Grade">
+                    <span className={styles.gradeValue}>{getGrade(marks[student.roll])}</span>
+                  </td>
+                  <td className={styles.actionsCell} data-label="Actions">
                     <button
                       className={styles.profileButton}
                       type="button"

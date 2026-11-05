@@ -317,6 +317,13 @@ test('Upload Study Material opens the Evaluation Workspace and returns to Schedu
   expect(screen.getByText('Linear Equations')).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: 'Submission Preview' })).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: 'Marks & Feedback' })).toBeInTheDocument();
+  expect(Array.from(document.querySelectorAll('main h2'), (heading) => heading.textContent)).toEqual([
+    'Submission Preview',
+    'Submission Details',
+    'Student List',
+    'Evaluation',
+    'Marks & Feedback',
+  ]);
   expect(screen.getByRole('spinbutton', { name: 'Understanding of concept' })).toHaveValue(5);
 
   fireEvent.click(screen.getByRole('button', { name: 'Next Student' }));

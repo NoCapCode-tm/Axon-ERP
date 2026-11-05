@@ -1,0 +1,512 @@
+.settingsPage {
+  min-width: 0;
+  padding: 0 8px 24px;
+  color: #202733;
+}
+
+.tabs {
+  display: grid;
+  min-height: 31px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: stretch;
+  margin-bottom: 7px;
+  padding: 3px;
+  border-radius: 18px;
+  background: #f1f2f4;
+}
+
+.tab {
+  min-width: 0;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 15px;
+  background: transparent;
+  color: #778191;
+  font: inherit;
+  font-size: 10px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.activeTab {
+  background: #fff;
+  color: #202733;
+}
+
+.panel {
+  min-width: 0;
+  padding: 13px 12px 17px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.panelHeading {
+  margin-bottom: 0;
+}
+
+.panelHeading h2 {
+  margin: 0 0 4px;
+  color: #202733;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.panelHeading p {
+  margin: 0;
+  color: #858e9b;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px 6px;
+}
+
+.field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+  color: #4b5665;
+  font-size: 10px;
+}
+
+.field > span:first-child,
+.field > label {
+  color: #4b5665;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  min-width: 0;
+  height: 35px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  outline: none;
+  background: #f0fbf5;
+  color: #687486;
+  font: inherit;
+  font-size: 10px;
+}
+
+.field input::placeholder {
+  color: #7d8997;
+  opacity: 1;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: #b6d8c5;
+}
+
+.preferencesGrid {
+  margin-top: 24px;
+}
+
+.modeField {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 6px;
+  color: #4b5665;
+  font-size: 10px;
+}
+
+.modeOptions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modeButton {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  gap: 5px;
+  padding: 0 7px;
+  border: 0;
+  border-radius: 3px;
+  background: #e8f8ef;
+  color: #4b5665;
+  font: inherit;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.modeButton.selectedMode {
+  background: #dceddf;
+}
+
+.modeIndicator {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.modeIndicator.darkIndicator {
+  background: #17212d;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.primaryButton,
+.secondaryButton,
+.actionButton {
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 3px;
+  color: #303a47;
+  font: inherit;
+  font-size: 9px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.primaryButton,
+.actionButton {
+  background: #e5f588;
+}
+
+.secondaryButton {
+  background: #e5f588;
+}
+
+.primaryButton:hover,
+.secondaryButton:hover,
+.actionButton:hover {
+  background: #d8ed68;
+}
+
+.profileForm {
+  gap: 0;
+}
+
+.photoControls {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  margin: 39px 0 7px;
+}
+
+.profilePhoto {
+  display: grid;
+  width: 90px;
+  height: 90px;
+  padding: 0;
+  overflow: hidden;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: #bdd9cb;
+  cursor: pointer;
+}
+
+.profilePhoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photoActions {
+  display: flex;
+  gap: 7px;
+}
+
+.profileGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px 6px;
+}
+
+.profileGrid .field:nth-child(-n + 6) {
+  grid-column: span 2;
+}
+
+.profileGrid .field input {
+  height: 35px;
+}
+
+.profileForm .formActions {
+  margin-top: 18px;
+}
+
+.notificationList {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: 26px;
+}
+
+.toggleField {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 13px;
+}
+
+.notificationIcon {
+  flex: 0 0 20px;
+  margin-left: 8px;
+  color: #505d6b;
+}
+
+.toggleCopy {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.toggleCopy strong {
+  color: #4b5665;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.toggleCopy small {
+  color: #8a939f;
+  font-size: 9px;
+}
+
+.toggle {
+  position: relative;
+  display: inline-flex;
+  width: 48px;
+  height: 19px;
+  flex: 0 0 auto;
+  align-items: center;
+  margin-right: 28px;
+}
+
+.toggle input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.toggle > span {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: #bdd9cb;
+  cursor: pointer;
+  transition: background-color 140ms ease;
+}
+
+.toggle > span::after {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #e5f588;
+  content: "";
+  transition: transform 140ms ease, background-color 140ms ease;
+}
+
+.toggle input:checked + span {
+  background: #9dc9ad;
+}
+
+.toggle input:checked + span::after {
+  background: #fff;
+  transform: translateX(27px);
+}
+
+.toggle input:focus-visible + span {
+  outline: 2px solid #728e42;
+  outline-offset: 2px;
+}
+
+.notificationsForm .formActions {
+  margin-top: 10px;
+}
+
+.securityGrid {
+  margin-top: 24px;
+  gap: 7px 6px;
+}
+
+.passwordInput {
+  position: relative;
+  display: block;
+}
+
+.passwordInput input {
+  padding-right: 37px;
+}
+
+.passwordInput button {
+  position: absolute;
+  top: 50%;
+  right: 9px;
+  display: grid;
+  width: 24px;
+  height: 22px;
+  padding: 0;
+  place-items: center;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: #788493;
+  cursor: pointer;
+}
+
+.passwordIcon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+}
+
+.securityForm .formActions {
+  margin-top: 6px;
+}
+
+.dataCards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+  margin-top: 18px;
+}
+
+.dataCard {
+  display: flex;
+  min-width: 0;
+  min-height: 165px;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 8px 12px;
+  box-sizing: border-box;
+  border-radius: 7px;
+  background: #e8fbf1;
+  color: #596373;
+  text-align: center;
+}
+
+.dataCard > svg {
+  margin-bottom: 7px;
+  color: #52606d;
+}
+
+.dataCard h3 {
+  margin: 0;
+  color: #4b5665;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.dataCard p {
+  margin: 7px 0 4px;
+  font-size: 10px;
+}
+
+.dataCard > span {
+  min-height: 14px;
+  margin-bottom: 5px;
+  color: #89919d;
+  font-size: 8px;
+}
+
+.actionButton {
+  min-height: 26px;
+  margin-top: auto;
+}
+
+.fileInput {
+  display: none;
+}
+
+.status {
+  margin: 6px 0 0;
+  color: #596373;
+  font-size: 10px;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .fieldGrid,
+  .profileGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .profileGrid .field:nth-child(n) {
+    grid-column: auto;
+  }
+
+  .dataCards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 7px;
+  }
+
+  .dataCard {
+    min-height: 165px;
+  }
+}
+
+@media (max-width: 700px) {
+  .settingsPage {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .panel {
+    padding: 12px 10px;
+  }
+
+  .toggle {
+    margin-right: 4px;
+  }
+}
+
+@media (max-width: 560px) {
+  .tabs {
+    display: flex;
+    min-height: 33px;
+    gap: 2px;
+    overflow-x: auto;
+    padding: 2px;
+  }
+
+  .tab {
+    flex: 0 0 auto;
+    padding: 0 9px;
+    font-size: 9px;
+  }
+
+  .photoControls {
+    margin-top: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle > span,
+  .toggle > span::after {
+    transition: none;
+  }
+}

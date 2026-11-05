@@ -4,14 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../CSS/Dashboard.module.css';
 
 const noop = () => {};
+export const TEACHER_CONTEXT_SUBTITLE = 'Mathematics • Senior Section • Academic Year 2025 - 26 • Term 1';
 
 function TeacherTopbar({
   title = 'Dashboard',
-  subtitle = '',
+  subtitle = TEACHER_CONTEXT_SUBTITLE,
   onMenuClick = noop,
   onMessagesClick = noop,
   onRouteAction = noop,
   menuOpen = false,
+  showActionsOnMobile = false,
+  hideSubtitleOnMobile = false,
 }) {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -24,7 +27,7 @@ function TeacherTopbar({
   };
 
   return (
-    <header className={styles.topbar}>
+    <header className={`${styles.topbar}${showActionsOnMobile ? ` ${styles.topbarWithMobileActions}` : ''}${hideSubtitleOnMobile ? ` ${styles.topbarWithoutSubtitleOnMobile}` : ''}`}>
       <div className={styles.topbarTitleGroup}>
         <button
           className={styles.topbarMenu}

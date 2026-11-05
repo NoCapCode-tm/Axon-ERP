@@ -179,6 +179,29 @@
   color: #46855b;
 }
 
+.studentIdentity {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.studentDetails small {
+  display: none;
+}
+
+.studentDetails strong {
+  font: inherit;
+  font-weight: 400;
+}
+
+.gradeValue {
+  display: inline;
+}
+
 .markInput {
   width: 58px;
   height: 24px;
@@ -244,6 +267,155 @@
   margin-top: 12px;
 }
 
+@media (min-width: 721px) and (max-width: 900px) {
+  .marksPage {
+    min-height: calc(100vh - 68px);
+    padding: 0 16px 24px;
+  }
+
+  .summaryCards {
+    gap: 8px;
+  }
+
+  .summaryCard {
+    min-height: 54px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .studentPanel {
+    padding: 16px 14px;
+  }
+
+  .panelToolbar {
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .panelToolbar h2 {
+    flex: 0 0 auto;
+    font-size: 18px;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+
+  .actions > button,
+  .filterControl {
+    min-height: 32px;
+    padding: 0 10px;
+    font-size: 10px;
+  }
+
+  .tableScroller {
+    overflow: visible;
+  }
+
+  .marksTable {
+    min-width: 0;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    table-layout: auto;
+  }
+
+  .marksTable thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  .marksTable tbody {
+    display: grid;
+    gap: 8px;
+  }
+
+  .marksTable tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 76px 60px 92px;
+    grid-template-areas:
+      "roll marks grade actions"
+      "name marks grade actions"
+      "status marks grade actions";
+    align-items: center;
+    gap: 0 8px;
+    padding: 8px;
+    border: 1px solid #e1f4e9;
+    border-radius: 9px;
+  }
+
+  .marksTable th,
+  .marksTable td {
+    height: auto;
+    padding: 2px 4px;
+    text-align: left;
+  }
+
+  .marksTable td {
+    min-width: 0;
+    color: #596373;
+    font-size: 11px;
+  }
+
+  .marksTable td::before {
+    display: block;
+    margin-bottom: 2px;
+    color: #858e9b;
+    content: attr(data-label);
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  .marksTable td:nth-child(1) {
+    grid-area: roll;
+  }
+
+  .marksTable td:nth-child(2) {
+    grid-area: name;
+    font-size: 13px;
+  }
+
+  .marksTable td:nth-child(3) {
+    grid-area: status;
+  }
+
+  .marksTable td:nth-child(4) {
+    grid-area: marks;
+  }
+
+  .marksTable td:nth-child(5) {
+    grid-area: grade;
+  }
+
+  .marksTable td:nth-child(6) {
+    grid-area: actions;
+  }
+
+  .marksTable td:nth-child(4)::before,
+  .marksTable td:nth-child(5)::before,
+  .marksTable td:nth-child(6)::before {
+    text-align: center;
+  }
+
+  .markInput {
+    width: 100%;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .profileButton {
+    width: 100%;
+    min-height: 30px;
+    padding: 0 5px;
+    font-size: 9px;
+  }
+}
+
 @media (max-width: 720px) {
   .marksPage {
     min-height: calc(100vh - 126px);
@@ -284,25 +456,243 @@
   }
 
   .marksTable {
-    min-width: 660px;
+    min-width: 0;
     font-size: 11px;
+  }
+
+  .tableScroller {
+    overflow: visible;
+  }
+
+  .marksTable thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  .marksTable tbody {
+    display: grid;
+    gap: 8px;
+  }
+
+  .marksTable tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 68px 52px;
+    grid-template-areas:
+      "roll marks grade"
+      "name marks grade"
+      "status actions actions";
+    align-items: center;
+    gap: 0 7px;
+    padding: 8px 6px;
+    border: 1px solid #e1f4e9;
+    border-radius: 9px;
   }
 
   .marksTable th,
   .marksTable td {
-    height: 36px;
+    height: auto;
+    padding: 2px 4px;
+    text-align: left;
   }
 
-  .marksTable th {
-    height: 34px;
+  .marksTable td {
+    min-width: 0;
+    color: #596373;
+    font-size: 11px;
+  }
+
+  .marksTable td::before {
+    display: block;
+    margin-bottom: 2px;
+    color: #858e9b;
+    content: attr(data-label);
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  .marksTable td:nth-child(1) {
+    grid-area: roll;
+  }
+
+  .marksTable td:nth-child(2) {
+    grid-area: name;
+    font-size: 12px;
+  }
+
+  .marksTable td:nth-child(3) {
+    grid-area: status;
+  }
+
+  .marksTable td:nth-child(4) {
+    grid-area: marks;
+  }
+
+  .marksTable td:nth-child(5) {
+    grid-area: grade;
+  }
+
+  .marksTable td:nth-child(6) {
+    grid-area: actions;
+    justify-self: end;
+    width: min(100%, 110px);
+  }
+
+  .marksTable td:nth-child(4)::before,
+  .marksTable td:nth-child(5)::before,
+  .marksTable td:nth-child(6)::before {
+    text-align: center;
   }
 
   .markInput {
-    height: 28px;
+    width: 100%;
+    height: 30px;
   }
 
   .profileButton {
+    width: 100%;
     min-height: 28px;
     font-size: 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  .marksTable {
+    min-width: 0;
+    border-spacing: 0;
+  }
+
+  .marksTable thead {
+    display: none;
+  }
+
+  .marksTable tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .marksTable tbody tr {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 8px;
+    border: 1px solid #e1f4e9;
+    border-radius: 9px;
+    box-sizing: border-box;
+  }
+
+  .marksTable th,
+  .marksTable td {
+    height: auto;
+    padding: 0;
+    text-align: left;
+  }
+
+  .marksTable .rollCell,
+  .marksTable .statusCell,
+  .marksTable .actionsCell {
+    display: none;
+  }
+
+  .marksTable .studentCell {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .marksTable .studentCell::before {
+    display: none;
+  }
+
+  .studentIdentity {
+    display: inline-flex;
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .studentDetails {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .studentDetails strong {
+    overflow: hidden;
+    color: #566171;
+    font-size: 14px;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .studentDetails small {
+    display: block;
+    color: #89929e;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  .marksTable .marksCell,
+  .marksTable .gradeCell {
+    display: flex;
+    flex: 0 0 34px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    color: #677281;
+  }
+
+  .marksTable .marksCell::before,
+  .marksTable .gradeCell::before {
+    display: block;
+    margin: 0;
+    color: #858e9b;
+    font-size: 8px;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .marksTable .marksCell::before {
+    content: "Marks";
+  }
+
+  .markInput,
+  .gradeValue {
+    display: grid;
+    width: 34px;
+    height: 28px;
+    padding: 0;
+    place-items: center;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 0;
+    background: #f0fbf5;
+    color: #596575;
+    font-size: 14px;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .markInput {
+    -moz-appearance: textfield;
+  }
+
+  .markInput::-webkit-inner-spin-button,
+  .markInput::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
+
+  .gradeValue {
+    font-weight: 400;
   }
 }

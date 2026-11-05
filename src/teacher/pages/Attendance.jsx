@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ChevronDown, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import styles from '../CSS/Attendance.module.css';
-import TeacherTopbar from '../components/TeacherTopbar';
+import TeacherTopbar, { TEACHER_CONTEXT_SUBTITLE } from '../components/TeacherTopbar';
 
 const classes = {
   school: { label: 'Overall', students: 80, present: 72 },
@@ -93,14 +93,14 @@ function AttendanceEntry({ date, onBack, onSave, onMessages }) {
       <div className={styles.entryHeader}>
         <TeacherTopbar
           title="Attendance Entry"
-          subtitle="Mathematics • Senior Section • Academic Year 2025 - 26 • Term 1"
+          subtitle={TEACHER_CONTEXT_SUBTITLE}
           onMessagesClick={openMessages}
           onRouteAction={onBack}
         />
       </div>
       <div className={styles.mobileEntryHeading}>
         <h1>Attendance Entry</h1>
-        <p>Mathematics - Senior Section - Academic Year 2025 - 26 - Term 1</p>
+        <p>{TEACHER_CONTEXT_SUBTITLE}</p>
       </div>
       <button type="button" className={styles.entryBackButton} onClick={onBack} aria-label="Back">
         <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
