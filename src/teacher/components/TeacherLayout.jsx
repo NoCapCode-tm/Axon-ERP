@@ -205,7 +205,7 @@ function TeacherLayout() {
           <TeacherTopbar
             title={pageTitle}
             showActionsOnMobile={location.pathname === '/teacher/settings'}
-            hideSubtitleOnMobile={location.pathname === '/teacher/settings'}
+            hideSubtitleOnMobile={location.pathname === '/teacher/settings' || location.pathname === '/teacher/lms'}
             onMenuClick={openSidebar}
             onMessagesClick={openMessages}
             onRouteAction={closeMessages}
@@ -216,7 +216,10 @@ function TeacherLayout() {
           />
         )}
         {createAssignmentOpen ? (
-          <TeacherCreateAssignment onBack={closeCreateAssignment} />
+          <TeacherCreateAssignment
+            onBack={closeCreateAssignment}
+            backLabel={scheduleOpen || location.pathname === '/teacher/schedule' ? 'Back to schedule' : 'Back to LMS'}
+          />
         ) : evaluationWorkspaceOpen ? (
           <TeacherEvaluationWorkspace onBack={closeEvaluationWorkspace} />
         ) : attendanceEntryOpen ? (

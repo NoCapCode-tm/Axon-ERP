@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import App from '../../App';
+import TeacherAttendance from '../pages/Attendance';
 import TeacherChat from './TeacherChat';
 
 jest.mock('react-router', () => {
@@ -72,6 +73,39 @@ test('Dashboard actions navigate to existing Teacher pages', () => {
   fireEvent.click(screen.getByRole('link', { name: 'Dashboard' }));
   fireEvent.click(screen.getByRole('button', { name: 'Evaluate Pending Assignment' }));
   expect(window.location.pathname).toBe('/teacher/lms');
+});
+
+test('Attendance period menu opens and updates the selected period', () => {
+  render(<TeacherAttendance />);
+
+  fireEvent.click(screen.getByRole('button', { name: 'Attendance period' }));
+  const options = screen.getAllByRole('option');
+  expect(options).toHaveLength(4);
+  expect(screen.getByRole('option', { name: 'This Week' })).toHaveAttribute('aria-selected', 'true');
+
+  fireEvent.click(screen.getByRole('option', { name: 'This Month' }));
+  expect(screen.getByRole('button', { name: 'Attendance period' })).toHaveTextContent('This Month');
+  expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+});
+
+test('LMS dashboard opens the Create Assignment form and returns to LMS', async () => {
+  window.history.replaceState({}, '', '/teacher/lms');
+  render(<App />);
+
+  const lmsHeading = await screen.findByRole('heading', { name: 'LMS' }, { timeout: 10000 });
+  expect(lmsHeading).toBeInTheDocument();
+  expect(screen.getAllByRole('banner')[0].className).toContain('topbarWithoutSubtitleOnMobile');
+  expect(screen.getByRole('heading', { name: 'Pending Attendance' })).toBeInTheDocument();
+  expect(screen.getByText('Average Attendance')).toBeInTheDocument();
+  expect(screen.getAllByRole('button', { name: 'Create Assignment' })).toHaveLength(1);
+  expect(screen.queryByRole('button', { name: 'Evaluated' })).not.toBeInTheDocument();
+  expect(screen.getAllByText('Open')).toHaveLength(6);
+
+  fireEvent.click(screen.getByRole('button', { name: 'Create Assignment' }));
+  expect(screen.getByRole('heading', { name: 'Assignment Details' })).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Back to LMS' }));
+  expect(screen.getByRole('heading', { name: 'LMS' })).toBeInTheDocument();
 });
 
 test('Upcoming Exams View All navigates to the requested exams path', () => {

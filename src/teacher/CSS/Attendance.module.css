@@ -84,17 +84,13 @@
   background: #e5f77f;
 }
 
-.filterButton,
-.periodButton {
+.filterButton {
   position: relative;
 }
 
-.periodButton select {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  opacity: 0;
-  cursor: pointer;
+.periodControl {
+  position: relative;
+  display: inline-flex;
 }
 
 .periodButton {
@@ -106,6 +102,48 @@
   border-radius: 6px;
   background: #e5f77f;
   font-size: 11px;
+  font-family: inherit;
+  color: #202733;
+  border: 0;
+  cursor: pointer;
+}
+
+.periodButton:focus-visible,
+.periodOption:focus-visible {
+  outline: 2px solid #8eaa32;
+  outline-offset: 2px;
+}
+
+.periodMenu {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 3px);
+  right: 0;
+  display: grid;
+  min-width: 100%;
+  overflow: hidden;
+  border: 1px solid #d5e6db;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 3px 8px rgb(32 39 51 / 14%);
+}
+
+.periodOption {
+  min-height: 31px;
+  padding: 0 12px;
+  border: 0;
+  color: #202733;
+  background: #fff;
+  font: inherit;
+  font-size: 11px;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.periodOption:hover,
+.periodOption[aria-selected='true'] {
+  background: #e5f77f;
 }
 
 .summaryGrid {

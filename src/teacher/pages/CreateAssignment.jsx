@@ -5,7 +5,7 @@ import styles from '../CSS/CreateAssignment.module.css';
 const acceptedExtensions = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'zip', 'jpg', 'jpeg', 'png'];
 const maxFileSize = 100 * 1024 * 1024;
 
-function CreateAssignment({ onBack }) {
+function CreateAssignment({ onBack, backLabel = 'Back to schedule' }) {
   const [files, setFiles] = useState([]);
   const [message, setMessage] = useState('');
   const [descriptionLength, setDescriptionLength] = useState(0);
@@ -53,7 +53,7 @@ function CreateAssignment({ onBack }) {
 
   return (
     <main className={styles.page}>
-      <button className={styles.backButton} type="button" onClick={onBack} aria-label="Back to schedule">
+      <button className={styles.backButton} type="button" onClick={onBack} aria-label={backLabel}>
         <ChevronLeft size={20} aria-hidden="true" />
       </button>
 
