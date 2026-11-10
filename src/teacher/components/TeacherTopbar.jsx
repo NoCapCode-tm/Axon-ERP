@@ -15,6 +15,7 @@ function TeacherTopbar({
   menuOpen = false,
   showActionsOnMobile = false,
   hideSubtitleOnMobile = false,
+  className = '',
 }) {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -27,7 +28,7 @@ function TeacherTopbar({
   };
 
   return (
-    <header className={`${styles.topbar}${showActionsOnMobile ? ` ${styles.topbarWithMobileActions}` : ''}${hideSubtitleOnMobile ? ` ${styles.topbarWithoutSubtitleOnMobile}` : ''}`}>
+    <header className={`${styles.topbar}${showActionsOnMobile ? ` ${styles.topbarWithMobileActions}` : ''}${hideSubtitleOnMobile ? ` ${styles.topbarWithoutSubtitleOnMobile}` : ''}${className ? ` ${className}` : ''}`}>
       <div className={styles.topbarTitleGroup}>
         <button
           className={styles.topbarMenu}

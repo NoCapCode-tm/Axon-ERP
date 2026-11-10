@@ -1,1 +1,781 @@
 
+.page {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  min-height: calc(100vh - 72px);
+  padding: 18px 24px 28px;
+  box-sizing: border-box;
+  color: #24292f;
+  background: #f7f8f6;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metricCard {
+  display: flex;
+  min-width: 0;
+  min-height: 104px;
+  align-items: center;
+  gap: 13px;
+  padding: 14px;
+  border: 1px solid #eef0ed;
+  border-radius: 10px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.metricIcon {
+  display: grid;
+  width: 43px;
+  height: 43px;
+  flex: 0 0 43px;
+  place-items: center;
+  border-radius: 12px;
+  background: #dcece2;
+}
+
+.metricIcon span {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #527b5f;
+  border-radius: 50%;
+}
+
+.primaryIcon {
+  background: #e5f588;
+}
+
+.primaryIcon span {
+  border-color: #687e28;
+}
+
+.metricCopy {
+  display: grid;
+  min-width: 0;
+  gap: 7px;
+}
+
+.metricCopy > span {
+  overflow: hidden;
+  color: #777f88;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.metricCopy strong {
+  color: #262c32;
+  font-size: 23px;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.studentPanel {
+  min-width: 0;
+  overflow: visible;
+  border: 1px solid #eceeeb;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgb(23 32 21 / 3%);
+}
+
+.panelHeader {
+  display: flex;
+  min-height: 88px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eff0ee;
+}
+
+.panelHeader h1 {
+  margin: 0;
+  color: #282e34;
+  font-size: 20px;
+  font-weight: 650;
+}
+
+.controls {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchBox {
+  display: flex;
+  width: min(250px, 30vw);
+  min-height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11px;
+  border: 1px solid #e8ebe6;
+  border-radius: 7px;
+  color: #7c838c;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.searchBox input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  color: #282e34;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+}
+
+.searchBox input::placeholder {
+  color: #a0a5ab;
+}
+
+.filterControl {
+  position: relative;
+}
+
+.filterButton,
+.addButton {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 7px;
+  color: #282e34;
+  background: #e5f588;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.filterButton:hover,
+.addButton:hover {
+  background: #d9ed70;
+}
+
+.filterGlyph {
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: currentColor;
+  clip-path: polygon(0 10%, 100% 10%, 62% 55%, 62% 100%, 38% 100%, 38% 55%);
+}
+
+.filterMenu {
+  position: absolute;
+  z-index: 4;
+  top: calc(100% + 6px);
+  right: 0;
+  display: grid;
+  min-width: 145px;
+  overflow: hidden;
+  padding: 4px;
+  border: 1px solid #e6e9e3;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgb(24 32 20 / 12%);
+}
+
+.filterMenu button {
+  min-height: 34px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 5px;
+  color: #3a4046;
+  background: #fff;
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.filterMenu button:hover,
+.filterMenu button[aria-selected='true'] {
+  background: #e5f588;
+}
+
+.studentList {
+  display: grid;
+  gap: 0;
+  padding: 8px 18px 14px;
+}
+
+.studentCard {
+  display: flex;
+  min-width: 0;
+  min-height: 82px;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid #eff0ee;
+}
+
+.studentCard:last-child {
+  border-bottom: 0;
+}
+
+.avatar,
+.profileAvatar {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  place-items: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #523c25;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 0 0 1px #e6e8df;
+}
+
+.avatarTone0 {
+  background: linear-gradient(145deg, #f8d3b1, #eab882);
+}
+
+.avatarTone1 {
+  color: #5d4034;
+  background: linear-gradient(145deg, #f1ced2, #c99ea3);
+}
+
+.avatarTone2 {
+  color: #56412f;
+  background: linear-gradient(145deg, #f4dfb6, #bd9b6b);
+}
+
+.avatarTone3 {
+  color: #523d38;
+  background: linear-gradient(145deg, #f3c9b5, #c77e74);
+}
+
+.avatarTone4 {
+  color: #384354;
+  background: linear-gradient(145deg, #cad8ea, #8498ad);
+}
+
+.studentDetails {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: 6px;
+}
+
+.studentDetails strong {
+  overflow: hidden;
+  color: #252b31;
+  font-size: 14px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.studentDetails span {
+  color: #818891;
+  font-size: 11px;
+}
+
+.studentActions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+}
+
+.iconButton {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  place-items: center;
+  color: #111827;
+  background: #e5f588;
+  cursor: pointer;
+}
+
+.iconButton:hover {
+  background: #d9ed70;
+}
+
+.emptyState {
+  margin: 0;
+  padding: 34px 12px;
+  color: #777f88;
+  font-size: 13px;
+  text-align: center;
+}
+
+.status {
+  margin: 0;
+  color: #426d38;
+  font-size: 13px;
+}
+
+.modalBackdrop {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(21 26 20 / 40%);
+}
+
+.dialog {
+  width: min(100%, 420px);
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 18px 50px rgb(0 0 0 / 18%);
+}
+
+.dialogHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid #eceeeb;
+}
+
+.dialogHeader h2 {
+  margin: 0;
+  color: #282e34;
+  font-size: 18px;
+}
+
+.closeButton {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #454c54;
+  background: transparent;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  background: #f0f2ed;
+}
+
+.profileDetails {
+  display: grid;
+  justify-items: center;
+  gap: 9px;
+  padding: 24px 20px 26px;
+  color: #737b84;
+  font-size: 13px;
+}
+
+.profileDetails strong {
+  margin-top: 5px;
+  color: #252b31;
+  font-size: 17px;
+}
+
+.profileDetails a {
+  color: #4a6533;
+}
+
+.profileAvatar {
+  width: 68px;
+  height: 68px;
+  font-size: 17px;
+}
+
+.studentForm {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+}
+
+.studentForm label {
+  display: grid;
+  gap: 7px;
+  color: #4a5159;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.studentForm input {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid #dfe3dd;
+  border-radius: 6px;
+  color: #252a31;
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.dialogActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.cancelButton {
+  min-height: 40px;
+  padding: 0 15px;
+  border: 0;
+  border-radius: 7px;
+  color: #5e646c;
+  background: #f1f2ef;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .page {
+    gap: 12px;
+    padding: 12px 14px 22px;
+  }
+
+  .metrics {
+    gap: 8px;
+  }
+
+  .metricCard {
+    min-height: 76px;
+    gap: 7px;
+    padding: 9px;
+  }
+
+  .metricIcon {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+    border-radius: 9px;
+  }
+
+  .metricIcon span {
+    width: 14px;
+    height: 14px;
+  }
+
+  .metricCopy {
+    gap: 5px;
+  }
+
+  .metricCopy > span {
+    font-size: 10px;
+  }
+
+  .metricCopy strong {
+    font-size: 18px;
+  }
+
+  .panelHeader {
+    min-height: 72px;
+    padding: 12px 14px;
+  }
+
+  .studentList {
+    padding: 4px 14px 10px;
+  }
+
+  .studentCard {
+    min-height: 76px;
+  }
+
+  .avatar {
+    width: 50px;
+    height: 50px;
+    flex-basis: 50px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .page {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding: 10px 16px 24px;
+  }
+
+  .metrics {
+    order: 2;
+    grid-row: 2;
+    gap: 8px;
+  }
+
+  .metricCard {
+    min-height: 56px;
+    padding: 8px;
+    border: 0;
+    border-radius: 9px;
+  }
+
+  .metricIcon {
+    display: none;
+  }
+
+  .metricCopy {
+    gap: 5px;
+  }
+
+  .metricCopy > span {
+    color: #24292f;
+    font-size: 12px;
+  }
+
+  .metricCopy strong {
+    color: #697386;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .studentPanel,
+  .panelHeader {
+    display: contents;
+  }
+
+  .controls {
+    order: 1;
+    grid-row: 1;
+    grid-column: 1;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .searchBox {
+    width: auto;
+    min-height: 44px;
+    flex: 1;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 24px;
+    background: #eff9f3;
+  }
+
+  .searchBox input {
+    order: 1;
+    font-size: 13px;
+  }
+
+  .searchBox svg {
+    order: 2;
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    color: #172033;
+  }
+
+  .filterButton,
+  .addButton {
+    min-height: 44px;
+    padding: 0 12px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+
+  .panelHeader h1 {
+    display: flex;
+    order: 3;
+    grid-row: 3;
+    grid-column: 1;
+    min-height: 63px;
+    align-items: center;
+    margin: 0;
+    padding: 0 15px;
+    border-radius: 10px 10px 0 0;
+    background: #fff;
+    font-size: 19px;
+  }
+
+  .studentList {
+    order: 4;
+    grid-row: 4;
+    grid-column: 1;
+    gap: 7px;
+    padding: 0 15px 14px;
+    border-radius: 0 0 10px 10px;
+    background: #fff;
+  }
+
+  .studentCard {
+    min-height: 62px;
+    gap: 9px;
+    padding: 4px 7px;
+    border: 1px solid #e1f4e8;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  .studentCard:last-child {
+    border-bottom: 1px solid #e1f4e8;
+  }
+
+  .avatar {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+    color: #202733;
+    background: #f9c337;
+  }
+
+  .studentDetails {
+    gap: 4px;
+  }
+
+  .studentDetails strong {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .studentDetails span {
+    font-size: 11px;
+  }
+
+  .studentActions {
+    gap: 5px;
+  }
+
+  .iconButton {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    gap: 10px;
+    min-height: calc(100vh - 60px);
+    padding: 10px 10px 86px;
+  }
+
+  .metrics {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 1px 1px 4px;
+    scrollbar-width: none;
+  }
+
+  .metrics::-webkit-scrollbar {
+    display: none;
+  }
+
+  .metricCard {
+    min-width: 126px;
+    min-height: 72px;
+    flex: 0 0 126px;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .metricCopy > span {
+    font-size: 9px;
+  }
+
+  .metricCopy strong {
+    font-size: 17px;
+  }
+
+  .studentPanel {
+    border-radius: 10px;
+  }
+
+  .panelHeader {
+    display: grid;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .panelHeader h1 {
+    font-size: 17px;
+  }
+
+  .controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 40px 40px;
+    gap: 7px;
+  }
+
+  .searchBox {
+    width: 100%;
+    min-height: 38px;
+    padding: 0 8px;
+  }
+
+  .searchBox input {
+    font-size: 11px;
+  }
+
+  .filterButton,
+  .addButton {
+    width: 40px;
+    min-height: 38px;
+    gap: 0;
+    padding: 0;
+    border-radius: 7px;
+  }
+
+  .filterButton > span:first-child,
+  .addButton > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .filterGlyph {
+    width: 15px;
+    height: 15px;
+  }
+
+  .studentList {
+    padding: 2px 10px 8px;
+  }
+
+  .studentCard {
+    min-height: 75px;
+    gap: 10px;
+  }
+
+  .avatar {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+    font-size: 11px;
+  }
+
+  .studentDetails {
+    gap: 5px;
+  }
+
+  .studentDetails strong {
+    font-size: 12px;
+  }
+
+  .studentDetails span {
+    font-size: 10px;
+  }
+
+  .studentActions {
+    gap: 5px;
+  }
+
+  .iconButton {
+    width: 38px;
+    height: 38px;
+  }
+}
