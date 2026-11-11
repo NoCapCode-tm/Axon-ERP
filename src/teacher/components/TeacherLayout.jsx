@@ -218,14 +218,14 @@ function TeacherLayout() {
                 ? 'Attendance'
                 : location.pathname === '/teacher/lms'
                   ? 'LMS'
-                  : location.pathname === '/teacher/study-profiles'
-                    ? 'Student Profiles'
+                    : location.pathname === '/teacher/exams'
+                      ? 'Exams'
                     : location.pathname === '/teacher/student-material'
                       ? 'Study Material'
                       : 'Dashboard';
 
   return (
-    <div className={styles.app}>
+    <div className={`${styles.app}${location.pathname === '/teacher/exams' ? ` ${styles.examsResponsiveLayout}` : ''}`}>
       <TeacherSidebar
         open={sidebarOpen}
         onClose={closeSidebar}
@@ -233,7 +233,7 @@ function TeacherLayout() {
         scheduleActive={scheduleOpen}
       />
       <div className={styles.workspace}>
-        {!attendanceEntryOpen && (
+        {!attendanceEntryOpen && location.pathname !== '/teacher/study-profiles' && (
           <TeacherTopbar
             title={pageTitle}
             subtitle={uploadResourcesOpen
@@ -247,6 +247,8 @@ function TeacherLayout() {
               ? styles.uploadResourcesTopbar
               : location.pathname === '/teacher/student-material'
                 ? styles.studentMaterialResponsiveTopbar
+                : location.pathname === '/teacher/exams'
+                  ? styles.examsResponsiveTopbar
                 : ''}
             onMenuClick={openSidebar}
             onMessagesClick={openMessages}

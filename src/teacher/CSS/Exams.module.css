@@ -1,0 +1,343 @@
+.page {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-height: calc(100vh - 62px);
+  padding: 0 8px 18px;
+  box-sizing: border-box;
+  color: #202733;
+  background: #f7f7f7;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.metricCard {
+  display: grid;
+  min-width: 0;
+  min-height: 73px;
+  align-content: center;
+  gap: 3px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.metricLabel {
+  overflow: hidden;
+  color: #657080;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.metricValue {
+  color: #202733;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.metricNote {
+  color: #9299a3;
+  font-size: 9px;
+}
+
+.examPanel {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.panelHeader {
+  display: flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 12px;
+  box-sizing: border-box;
+}
+
+.panelHeader h2 {
+  margin: 0;
+  color: #202733;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.panelActions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.actionButton,
+.rowAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 4px;
+  color: #303a47;
+  background: #e5f588;
+  font: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.actionButton {
+  min-height: 24px;
+  padding: 0 8px;
+  font-size: 9px;
+}
+
+.actionButton:hover,
+.rowAction:hover {
+  background: #d8ed68;
+}
+
+.tableWrap {
+  width: 100%;
+  overflow-x: auto;
+  padding: 0 11px 9px;
+  box-sizing: border-box;
+}
+
+.examTable {
+  width: 100%;
+  min-width: 780px;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.examTable th {
+  height: 26px;
+  padding: 0 5px;
+  color: #303a47;
+  background: #effaf4;
+  font-size: 9px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.examTable td {
+  height: 30px;
+  padding: 0 5px;
+  color: #788493;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.rowAction {
+  min-height: 24px;
+  padding: 0 8px;
+  font-size: 8px;
+}
+
+.examCards {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .page {
+    gap: 5px;
+    padding: 0 8px 18px;
+  }
+
+  .metrics {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .metricCard {
+    flex: 0 0 calc((100% - 10px) / 3);
+    min-height: 74px;
+    padding: 7px;
+    scroll-snap-align: start;
+  }
+
+  .metrics::-webkit-scrollbar {
+    display: none;
+  }
+
+  .examPanel {
+    border-radius: 8px;
+  }
+
+  .panelHeader {
+    min-height: 48px;
+    padding: 6px 12px;
+  }
+
+  .panelHeader h2 {
+    font-size: 14px;
+  }
+
+  .actionButton {
+    min-height: 25px;
+    padding: 0 7px;
+    font-size: 9px;
+  }
+
+  .tableWrap {
+    display: none;
+  }
+
+  .examCards {
+    display: grid;
+    gap: 6px;
+    padding: 0 12px 12px;
+  }
+
+  .examCard {
+    display: flex;
+    min-width: 0;
+    min-height: 57px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 7px 7px 7px 11px;
+    border: 1px solid #e1f4e8;
+    border-radius: 7px;
+    box-sizing: border-box;
+  }
+
+  .examCardDetails {
+    min-width: 0;
+  }
+
+  .examCardDetails h3 {
+    overflow: hidden;
+    margin: 0 0 3px;
+    color: #536071;
+    font-size: 12px;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .examCardDetails p {
+    overflow: hidden;
+    margin: 0;
+    color: #858e9a;
+    font-size: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .examCardActions {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .iconAction {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    color: #202733;
+    background: #e5f588;
+    cursor: pointer;
+  }
+
+  .iconAction:hover {
+    background: #d8ed68;
+  }
+}
+
+@media (max-width: 560px) {
+  .page {
+    gap: 5px;
+    min-height: calc(100vh - 112px);
+    padding: 0 8px 76px;
+  }
+
+  .metrics {
+    display: flex;
+    gap: 9px;
+  }
+
+  .metricCard {
+    flex: 0 0 280px;
+    min-height: 120px;
+    align-content: space-between;
+    gap: 0;
+    padding: 10px 11px;
+  }
+
+  .metricLabel {
+    font-size: 16px;
+  }
+
+  .metricValue {
+    font-size: 32px;
+  }
+
+  .metricNote {
+    font-size: 14px;
+  }
+
+  .panelHeader {
+    min-height: 48px;
+    padding: 5px 10px;
+  }
+
+  .panelHeader h2 {
+    font-size: 14px;
+  }
+
+  .actionButton {
+    min-height: 25px;
+    padding: 0 7px;
+    font-size: 9px;
+  }
+
+  .examCards {
+    gap: 6px;
+    padding: 0 9px 10px;
+  }
+
+  .examCard {
+    min-height: 58px;
+    gap: 5px;
+    padding: 6px 6px 6px 9px;
+  }
+
+  .examCardDetails h3 {
+    font-size: 11px;
+  }
+
+  .examCardDetails p {
+    font-size: 7px;
+  }
+
+  .examCardActions {
+    gap: 3px;
+  }
+
+  .iconAction {
+    width: 31px;
+    height: 31px;
+  }
+
+  .iconAction svg {
+    width: 14px;
+    height: 14px;
+  }
+
+}

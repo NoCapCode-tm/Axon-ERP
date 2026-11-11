@@ -1061,6 +1061,38 @@
   }
 }
 
+@media (max-width: 900px) {
+  .topbar.examsResponsiveTopbar {
+    min-height: 44px;
+    padding: 8px 14px 6px;
+  }
+
+  .examsResponsiveTopbar .welcome p {
+    display: none;
+  }
+
+  .examsResponsiveTopbar .welcome h1 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 561px) and (max-width: 700px) {
+  .examsResponsiveLayout {
+    padding-bottom: 0;
+  }
+
+  .examsResponsiveLayout .mobileBottomNav {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar.examsResponsiveTopbar {
+    min-height: 40px;
+    padding: 6px 8px;
+  }
+}
+
 @media (min-width: 561px) and (max-width: 1100px) {
   .sidebar {
     position: fixed;
