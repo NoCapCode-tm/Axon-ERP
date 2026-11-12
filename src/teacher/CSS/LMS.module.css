@@ -183,12 +183,44 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .metricCard {
+    min-height: 74px;
+  }
+
   .metricCard:last-child {
     display: none;
   }
 
   .metricIcon {
     display: none;
+  }
+
+  .metricContent > span {
+    font-size: 10px;
+  }
+
+  .metricContent strong {
+    font-size: 20px;
+  }
+
+  .metricContent small {
+    font-size: 9px;
+  }
+
+  .addButton {
+    display: none;
+  }
+
+  .pendingPanel {
+    padding: 10px 8px;
+  }
+
+  .sectionHeader {
+    margin-bottom: 10px;
+  }
+
+  .sectionHeader h2 {
+    font-size: 14px;
   }
 
   .desktopTitle,
@@ -202,13 +234,13 @@
 
   .mobileAssignmentList {
     display: grid;
-    gap: 7px;
+    gap: 5px;
   }
 
   .mobileAssignment {
     display: flex;
     min-width: 0;
-    min-height: 56px;
+    min-height: 40px;
     align-items: stretch;
     justify-content: space-between;
     overflow: hidden;
@@ -220,15 +252,15 @@
     display: grid;
     min-width: 0;
     align-content: center;
-    gap: 4px;
-    padding: 6px 10px;
+    gap: 3px;
+    padding: 4px 7px;
   }
 
   .mobileAssignmentInfo h3 {
     overflow: hidden;
     margin: 0;
     color: #596373;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -238,7 +270,7 @@
     overflow: hidden;
     margin: 0;
     color: #7b8491;
-    font-size: 9px;
+    font-size: 8px;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -248,10 +280,11 @@
   }
 
   .mobileAssignment > button {
-    width: 112px;
-    min-width: 112px;
-    flex: 0 0 112px;
-    min-height: 56px;
+    width: clamp(65px, 22vw, 112px);
+    min-width: clamp(65px, 22vw, 112px);
+    flex: 0 0 clamp(65px, 22vw, 112px);
+    min-height: 40px;
+    font-size: 8px;
     border-radius: 0;
   }
 }
@@ -263,7 +296,7 @@
   }
 
   .createBar {
-    min-height: 34px;
+    min-height: 30px;
   }
 
   .metricGrid {
@@ -282,53 +315,54 @@
   .metricCard,
   .metricCard:last-child {
     display: flex;
-    min-height: 88px;
-    flex: 0 0 235px;
+    min-height: 74px;
+    flex: 0 0 60vw;
+    max-width: 235px;
     scroll-snap-align: start;
   }
 
   .metricContent > span {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .metricContent strong {
-    font-size: 24px;
+    font-size: 20px;
   }
 
   .metricContent small {
-    font-size: 11px;
+    font-size: 9px;
   }
 
   .pendingPanel {
-    padding: 12px 10px;
+    padding: 10px 8px;
   }
 
   .sectionHeader {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .sectionHeader h2 {
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .mobileAssignment {
-    min-height: 58px;
+    min-height: 40px;
   }
 
   .mobileAssignment > button {
-    min-height: 58px;
-    width: 112px;
-    min-width: 112px;
-    flex-basis: 112px;
-    font-size: 10px;
+    min-height: 40px;
+    width: clamp(65px, 22vw, 112px);
+    min-width: clamp(65px, 22vw, 112px);
+    flex-basis: clamp(65px, 22vw, 112px);
+    font-size: 8px;
   }
 
   .mobileAssignmentInfo h3 {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .mobileAssignmentInfo p {
-    font-size: 10px;
+    font-size: 8px;
   }
 }
 

@@ -23,14 +23,19 @@ function LMS() {
   const outletContext = useOutletContext() || {};
   const { onCreateAssignment, onUploadStudyMaterial } = outletContext;
   const [showAll, setShowAll] = useState(false);
-  const visibleAssignments = showAll ? assignments : assignments.slice(0, 6);
+  const evaluatedAssignmentIds = outletContext.evaluatedAssignmentIds || [];
+  const assignmentRows = assignments.map((assignment) => ({
+    ...assignment,
+    status: evaluatedAssignmentIds.includes(assignment.id) ? 'Evaluated' : assignment.status,
+  }));
+  const visibleAssignments = showAll ? assignmentRows : assignmentRows.slice(0, 6);
 
   const createAssignment = () => {
     if (onCreateAssignment) onCreateAssignment();
   };
 
-  const openEvaluation = () => {
-    if (onUploadStudyMaterial) onUploadStudyMaterial();
+  const openEvaluation = (assignmentId) => {
+    if (onUploadStudyMaterial) onUploadStudyMaterial(assignmentId);
   };
 
   const viewAllButton = (
@@ -104,7 +109,7 @@ function LMS() {
                       type="button"
                       className={assignment.status === 'Evaluated' ? styles.evaluatedButton : styles.evaluateButton}
                       disabled={assignment.status === 'Evaluated' || !onUploadStudyMaterial}
-                      onClick={openEvaluation}
+                      onClick={() => openEvaluation(assignment.id)}
                     >
                       {assignment.status === 'Evaluated' ? 'Evaluated' : 'Evaluate Now'}
                     </button>
@@ -126,7 +131,7 @@ function LMS() {
                 type="button"
                 className={assignment.status === 'Evaluated' ? styles.evaluatedButton : styles.evaluateButton}
                 disabled={assignment.status === 'Evaluated' || !onUploadStudyMaterial}
-                onClick={openEvaluation}
+                onClick={() => openEvaluation(assignment.id)}
               >
                 {assignment.status === 'Evaluated' ? 'Evaluated' : 'Evaluate Now'}
               </button>

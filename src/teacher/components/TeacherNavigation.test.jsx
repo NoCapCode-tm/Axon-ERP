@@ -108,6 +108,21 @@ test('LMS dashboard opens the Create Assignment form and returns to LMS', async 
   expect(screen.getByRole('heading', { name: 'LMS' })).toBeInTheDocument();
 });
 
+test('evaluating an LMS assignment marks it Evaluated when returning from the workspace', async () => {
+  window.history.replaceState({}, '', '/teacher/lms');
+  render(<App />);
+
+  const evaluateButton = await screen.findAllByRole('button', { name: 'Evaluate Now' }, { timeout: 10000 });
+  fireEvent.click(evaluateButton[0]);
+  expect(screen.getByRole('heading', { name: 'Evaluation Workspace' })).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Back to schedule' }));
+  const evaluatedButtons = await screen.findAllByRole('button', { name: 'Evaluated' });
+  expect(evaluatedButtons).toHaveLength(2);
+  evaluatedButtons.forEach((button) => expect(button).toBeDisabled());
+  expect(screen.getAllByRole('button', { name: 'Evaluate Now' })).toHaveLength(10);
+});
+
 test('Upcoming Exams View All navigates to the requested exams path', () => {
   render(<App />);
 

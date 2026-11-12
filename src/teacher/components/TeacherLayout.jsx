@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import TeacherSidebar from './TeacherSidebar';
 import TeacherTopbar from './TeacherTopbar';
@@ -7,6 +7,7 @@ import TeacherSchedule from '../pages/Schedule';
 import TeacherMarksEntry from '../pages/MarksEntry';
 import TeacherEvaluationWorkspace from '../pages/EvaluationWorkspace';
 import TeacherCreateAssignment from '../pages/CreateAssignment';
+import TeacherUploadResources from '../pages/UploadResources';
 import { AttendanceEntry as TeacherAttendanceEntry } from '../pages/Attendance';
 import styles from '../CSS/Dashboard.module.css';
 
@@ -93,7 +94,15 @@ function TeacherLayout() {
   const [attendanceEntryOpen, setAttendanceEntryOpen] = useState(false);
   const [attendanceEntryDate, setAttendanceEntryDate] = useState('');
   const [evaluationWorkspaceOpen, setEvaluationWorkspaceOpen] = useState(false);
+  const [evaluatedAssignmentIds, setEvaluatedAssignmentIds] = useState([]);
   const [createAssignmentOpen, setCreateAssignmentOpen] = useState(false);
+  const [uploadResourcesOpen, setUploadResourcesOpen] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname !== '/teacher/student-material') {
+      setUploadResourcesOpen(false);
+    }
+  }, [location.pathname]);
 
   const mobileTabs = [
     { label: 'Dashboard', icon: DashboardMobileIcon, path: '/teacher/dashboard', active: location.pathname === '/teacher/dashboard' },
@@ -111,6 +120,7 @@ function TeacherLayout() {
     setAttendanceEntryOpen(false);
     setEvaluationWorkspaceOpen(false);
     setCreateAssignmentOpen(false);
+    setUploadResourcesOpen(false);
   }, []);
   const openSidebar = useCallback(() => setSidebarOpen(true), []);
   const openMessages = useCallback(() => {
@@ -120,6 +130,7 @@ function TeacherLayout() {
     setAttendanceEntryOpen(false);
     setEvaluationWorkspaceOpen(false);
     setCreateAssignmentOpen(false);
+    setUploadResourcesOpen(false);
     setMessagesOpen(true);
   }, []);
   const openSchedule = useCallback(() => {
@@ -128,6 +139,7 @@ function TeacherLayout() {
     setAttendanceEntryOpen(false);
     setEvaluationWorkspaceOpen(false);
     setCreateAssignmentOpen(false);
+    setUploadResourcesOpen(false);
     setScheduleOpen(true);
   }, []);
   const openMarksEntry = useCallback(() => {
@@ -135,6 +147,7 @@ function TeacherLayout() {
     setAttendanceEntryOpen(false);
     setEvaluationWorkspaceOpen(false);
     setCreateAssignmentOpen(false);
+    setUploadResourcesOpen(false);
     setMarksEntryOpen(true);
   }, []);
   const openAttendanceEntry = useCallback((date) => {
@@ -142,6 +155,7 @@ function TeacherLayout() {
     setMarksEntryOpen(false);
     setAttendanceEntryDate(date);
     setCreateAssignmentOpen(false);
+    setUploadResourcesOpen(false);
     setAttendanceEntryOpen(true);
   }, []);
   const openEvaluationWorkspace = useCallback(() => {
@@ -149,19 +163,37 @@ function TeacherLayout() {
     setMarksEntryOpen(false);
     setAttendanceEntryOpen(false);
     setCreateAssignmentOpen(false);
+    setUploadResourcesOpen(false);
     setEvaluationWorkspaceOpen(true);
   }, []);
+  const evaluateLmsAssignment = useCallback((assignmentId) => {
+    setEvaluatedAssignmentIds((current) => (
+      current.includes(assignmentId) ? current : [...current, assignmentId]
+    ));
+    openEvaluationWorkspace();
+  }, [openEvaluationWorkspace]);
   const openCreateAssignment = useCallback(() => {
     setMessagesOpen(false);
     setMarksEntryOpen(false);
     setAttendanceEntryOpen(false);
     setEvaluationWorkspaceOpen(false);
+    setUploadResourcesOpen(false);
     setCreateAssignmentOpen(true);
+  }, []);
+  const openUploadResources = useCallback(() => {
+    setMessagesOpen(false);
+    setScheduleOpen(false);
+    setMarksEntryOpen(false);
+    setAttendanceEntryOpen(false);
+    setEvaluationWorkspaceOpen(false);
+    setCreateAssignmentOpen(false);
+    setUploadResourcesOpen(true);
   }, []);
   const closeAttendanceEntry = useCallback(() => setAttendanceEntryOpen(false), []);
   const closeMarksEntry = useCallback(() => setMarksEntryOpen(false), []);
   const closeEvaluationWorkspace = useCallback(() => setEvaluationWorkspaceOpen(false), []);
   const closeCreateAssignment = useCallback(() => setCreateAssignmentOpen(false), []);
+  const closeUploadResources = useCallback(() => setUploadResourcesOpen(false), []);
   const closeMessages = useCallback(() => {
     setMessagesOpen(false);
     setScheduleOpen(false);
@@ -169,9 +201,12 @@ function TeacherLayout() {
     setAttendanceEntryOpen(false);
     setEvaluationWorkspaceOpen(false);
     setCreateAssignmentOpen(false);
+    setUploadResourcesOpen(false);
   }, []);
   const pageTitle = messagesOpen
     ? 'Message'
+    : uploadResourcesOpen
+      ? 'Upload Resources'
     : createAssignmentOpen
       ? 'Create Assignment'
     : evaluationWorkspaceOpen
@@ -190,10 +225,14 @@ function TeacherLayout() {
                 ? 'Attendance'
                 : location.pathname === '/teacher/lms'
                   ? 'LMS'
-                  : 'Dashboard';
+                    : location.pathname === '/teacher/exams'
+                      ? 'Exams'
+                    : location.pathname === '/teacher/student-material'
+                      ? 'Study Material'
+                      : 'Dashboard';
 
   return (
-    <div className={styles.app}>
+    <div className={`${styles.app}${location.pathname === '/teacher/exams' ? ` ${styles.examsResponsiveLayout}` : ''}`}>
       <TeacherSidebar
         open={sidebarOpen}
         onClose={closeSidebar}
@@ -201,11 +240,23 @@ function TeacherLayout() {
         scheduleActive={scheduleOpen}
       />
       <div className={styles.workspace}>
-        {!attendanceEntryOpen && (
+        {!attendanceEntryOpen && location.pathname !== '/teacher/study-profiles' && (
           <TeacherTopbar
             title={pageTitle}
+            subtitle={uploadResourcesOpen
+              ? undefined
+              : location.pathname === '/teacher/study-profiles'
+                ? ''
+                : undefined}
             showActionsOnMobile={location.pathname === '/teacher/settings'}
             hideSubtitleOnMobile={location.pathname === '/teacher/settings' || location.pathname === '/teacher/lms'}
+            className={uploadResourcesOpen
+              ? styles.uploadResourcesTopbar
+              : location.pathname === '/teacher/student-material'
+                ? styles.studentMaterialResponsiveTopbar
+                : location.pathname === '/teacher/exams'
+                  ? styles.examsResponsiveTopbar
+                : ''}
             onMenuClick={openSidebar}
             onMessagesClick={openMessages}
             onRouteAction={closeMessages}
@@ -215,7 +266,9 @@ function TeacherLayout() {
             settingsActive={location.pathname === '/teacher/settings'}
           />
         )}
-        {createAssignmentOpen ? (
+        {uploadResourcesOpen ? (
+          <TeacherUploadResources onBack={closeUploadResources} />
+        ) : createAssignmentOpen ? (
           <TeacherCreateAssignment
             onBack={closeCreateAssignment}
             backLabel={scheduleOpen || location.pathname === '/teacher/schedule' ? 'Back to schedule' : 'Back to LMS'}
@@ -240,10 +293,13 @@ function TeacherLayout() {
           />
         ) : (
           <Outlet context={{
+            onOpenSidebar: openSidebar,
             onUploadMarks: openMarksEntry,
             onMarkAttendance: openAttendanceEntry,
-            onUploadStudyMaterial: openEvaluationWorkspace,
+            onUploadStudyMaterial: evaluateLmsAssignment,
+            evaluatedAssignmentIds,
             onCreateAssignment: openCreateAssignment,
+            onUploadResources: openUploadResources,
           }} />
         )}
       </div>

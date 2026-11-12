@@ -1,0 +1,509 @@
+.page {
+  min-height: calc(100vh - 62px);
+  padding: 0 10px 20px;
+  box-sizing: border-box;
+  color: #202733;
+  background: #f7f7f7;
+}
+
+.backRow {
+  display: flex;
+  min-height: 27px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.backButton {
+  display: grid;
+  width: 26px;
+  height: 24px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 4px;
+  color: #202733;
+  background: transparent;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  background: #e9eee9;
+}
+
+.tabletActions {
+  display: none;
+}
+
+.form {
+  display: grid;
+  gap: 6px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+}
+
+.searchBox {
+  display: flex;
+  min-width: 0;
+  min-height: 36px;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border-radius: 5px;
+  color: #687383;
+  background: #eff9f3;
+  box-sizing: border-box;
+}
+
+.searchBox input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  color: #495361;
+  background: transparent;
+  font: inherit;
+  font-size: 11px;
+}
+
+.searchBox input::placeholder {
+  color: #657080;
+  opacity: 1;
+}
+
+.uploadButton,
+.createButton,
+.cancelButton {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 4px;
+  color: #303a47;
+  background: #e5f588;
+  font: inherit;
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.uploadButton:hover,
+.createButton:hover {
+  background: #d8ed68;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.75fr) minmax(270px, 1fr);
+  align-items: stretch;
+  gap: 6px;
+}
+
+.panel {
+  min-width: 0;
+  padding: 11px 12px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.panel h2 {
+  margin: 0 0 18px;
+  color: #202733;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.fields {
+  display: grid;
+  gap: 9px;
+}
+
+.field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+  color: #495361;
+  font-size: 11px;
+}
+
+.field > span:first-child {
+  color: #303a47;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.field b {
+  color: #303a47;
+  font-weight: 600;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-width: 0;
+  height: 32px;
+  padding: 0 8px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  outline: none;
+  color: #4a5564;
+  background: #f7f7f7;
+  font: inherit;
+  font-size: 11px;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #788493;
+  opacity: 1;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #b6d8c6;
+}
+
+.field textarea {
+  height: 95px;
+  padding: 8px;
+  resize: vertical;
+}
+
+.instructionsField {
+  position: relative;
+}
+
+.instructionsField textarea {
+  padding-bottom: 17px;
+}
+
+.characterCount {
+  position: absolute;
+  right: 8px;
+  bottom: 7px;
+  color: #657080;
+  font-size: 9px;
+}
+
+.attachmentsPanel > p {
+  margin: 0 0 6px;
+  color: #788493;
+  font-size: 10px;
+}
+
+.dropZone {
+  display: flex;
+  min-height: 360px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px dashed transparent;
+  background: #e8fbf1;
+  color: #71808e;
+  font-size: 10px;
+}
+
+.dropZone > svg {
+  display: none;
+}
+
+.dropZone:focus-within,
+.dropZone:hover {
+  border-color: #c4dfd0;
+}
+
+.dropZone button {
+  min-height: 28px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 4px;
+  color: #303a47;
+  background: #e5f588;
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.dropZone button:hover {
+  background: #d8ed68;
+}
+
+.dropZone input {
+  display: none;
+}
+
+.fileHint {
+  display: block;
+  margin-top: 6px;
+  color: #788493;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.fileList {
+  max-height: 48px;
+  margin: 5px 0 0;
+  padding-left: 16px;
+  overflow: auto;
+  color: #526170;
+  font-size: 10px;
+}
+
+.statusMessage {
+  margin: 2px 0 0;
+  color: #4a6f58;
+  font-size: 11px;
+}
+
+@media (min-width: 561px) and (max-width: 900px) {
+  .page {
+    min-height: calc(100vh - 62px);
+    padding: 0 16px 20px;
+  }
+
+  .backRow {
+    min-height: 63px;
+    align-items: flex-end;
+    margin-bottom: 10px;
+  }
+
+  .backButton {
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+
+  .tabletActions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .cancelButton,
+  .createButton {
+    min-height: 30px;
+    padding: 0 11px;
+    font-size: 10px;
+  }
+
+  .form {
+    gap: 8px;
+  }
+
+  .toolbar {
+    gap: 8px;
+  }
+
+  .searchBox {
+    min-height: 34px;
+    padding: 0 13px;
+  }
+
+  .searchBox input {
+    font-size: 12px;
+  }
+
+  .uploadButton {
+    min-height: 34px;
+    font-size: 10px;
+  }
+
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .panel {
+    padding: 12px;
+  }
+
+  .panel h2 {
+    margin-bottom: 16px;
+    font-size: 16px;
+  }
+
+  .fields {
+    gap: 9px;
+  }
+
+  .field,
+  .field > span:first-child {
+    font-size: 11px;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    height: 31px;
+    background: #f0fbf4;
+    font-size: 11px;
+  }
+
+  .field textarea {
+    height: 83px;
+  }
+
+  .characterCount {
+    bottom: 8px;
+    font-size: 10px;
+  }
+
+  .attachmentsPanel > p {
+    font-size: 11px;
+  }
+
+  .dropZone {
+    min-height: 212px;
+  }
+
+  .dropZone > svg {
+    display: block;
+    color: #839277;
+  }
+
+  .dropZone button {
+    min-height: 30px;
+    font-size: 10px;
+  }
+
+  .fileHint {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 560px) {
+  .page {
+    min-height: calc(100vh - 134px);
+    padding: 0 12px 82px;
+  }
+
+  .backRow {
+    min-height: 20px;
+    margin-bottom: 1px;
+  }
+
+  .backButton {
+    width: 22px;
+    height: 20px;
+  }
+
+  .tabletActions {
+    display: none;
+  }
+
+  .form {
+    gap: 8px;
+  }
+
+  .toolbar {
+    gap: 7px;
+  }
+
+  .searchBox {
+    min-height: 32px;
+    gap: 5px;
+    padding: 0 7px 0 11px;
+  }
+
+  .searchBox input {
+    font-size: 9px;
+  }
+
+  .searchBox svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .uploadButton {
+    min-height: 32px;
+    gap: 5px;
+    padding: 0 7px;
+    font-size: 8px;
+  }
+
+  .uploadButton svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .panel {
+    padding: 9px 8px;
+    border-radius: 8px;
+  }
+
+  .panel h2 {
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+
+  .fields {
+    gap: 8px;
+  }
+
+  .field,
+  .field > span:first-child {
+    font-size: 9px;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    height: 23px;
+    padding: 0 6px;
+    background: #f0fbf4;
+    font-size: 8px;
+  }
+
+  .field textarea {
+    height: 77px;
+    padding: 6px;
+  }
+
+  .characterCount {
+    right: 7px;
+    bottom: 7px;
+    font-size: 8px;
+  }
+
+  .attachmentsPanel > p {
+    margin-bottom: 6px;
+    font-size: 9px;
+    line-height: 1.35;
+  }
+
+  .dropZone {
+    min-height: 150px;
+  }
+
+  .dropZone > svg {
+    display: block;
+    width: 17px;
+    height: 17px;
+    color: #839277;
+  }
+
+  .dropZone button {
+    min-height: 25px;
+    font-size: 8px;
+  }
+
+  .fileHint {
+    font-size: 8px;
+  }
+}
