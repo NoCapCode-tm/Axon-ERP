@@ -197,7 +197,7 @@
 }
 
 .studentMaterialResponsiveTopbar {
-  display: none;
+  display: flex;
 }
 
 .topbarTitleGroup {
@@ -556,6 +556,10 @@
 }
 
 @media (max-width: 900px) {
+  .topbar .welcome p {
+    display: none;
+  }
+
   .uploadResourcesTopbar .welcome p {
     display: none;
   }

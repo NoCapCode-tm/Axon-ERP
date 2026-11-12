@@ -1,9 +1,9 @@
 .page {
   display: grid;
   align-content: start;
-  gap: 10px;
+  gap: 7px;
   min-height: calc(100vh - 72px);
-  padding: 10px 10px 28px;
+  padding: 0 8px 28px;
   box-sizing: border-box;
   color: #202b3c;
   background: #f8f8f8;
@@ -11,11 +11,11 @@
 
 .pageHeader {
   display: flex;
-  min-height: 53px;
+  min-height: 49px;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  padding: 0 10px;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -23,32 +23,12 @@
   display: flex;
   min-width: 0;
   align-items: flex-start;
-  gap: 10px;
-}
-
-.menuButton {
-  display: grid;
-  width: 30px;
-  height: 30px;
-  flex: 0 0 30px;
-  place-items: center;
-  margin: -2px 0 0;
-  padding: 0;
-  border: 0;
-  border-radius: 5px;
-  color: #202b3c;
-  background: transparent;
-  cursor: pointer;
-}
-
-.menuButton:hover {
-  background: #e9eee9;
 }
 
 .pageHeader h1 {
-  margin: 0 0 5px;
+  margin: 0 0 3px;
   color: #202b3c;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 650;
   line-height: 1.15;
 }
@@ -56,7 +36,7 @@
 .pageHeader p {
   margin: 0;
   color: #9098a4;
-  font-size: 12px;
+  font-size: 9px;
 }
 
 .headerActions {
@@ -86,7 +66,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
 }
 
 .searchBox {
@@ -94,10 +74,10 @@
   flex: 1;
   width: 100%;
   min-width: 0;
-  min-height: 48px;
+  min-height: 36px;
   align-items: center;
   gap: 12px;
-  padding: 0 40px;
+  padding: 0 28px;
   border: 0;
   border-radius: 28px;
   color: #202b3c;
@@ -113,7 +93,7 @@
   color: #252a31;
   background: transparent;
   font: inherit;
-  font-size: 14px;
+  font-size: 10px;
 }
 
 .searchBox input::placeholder {
@@ -149,9 +129,10 @@
 }
 
 .toolbar > .uploadButton {
-  min-height: 48px;
-  border-radius: 5px;
-  font-size: 12px;
+  min-height: 36px;
+  padding: 0 11px;
+  border-radius: 4px;
+  font-size: 10px;
   font-weight: 500;
 }
 
@@ -165,28 +146,28 @@
 
 .panelHeader {
   display: flex;
-  min-height: 74px;
+  min-height: 53px;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 12px 16px;
+  padding: 8px 11px;
   box-sizing: border-box;
 }
 
 .panelHeader h2 {
   margin: 0;
   color: #202b3c;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 650;
   letter-spacing: -0.02em;
 }
 
 .viewAllButton {
-  min-width: 65px;
-  min-height: 35px;
-  padding: 0 12px;
+  min-width: 48px;
+  min-height: 27px;
+  padding: 0 9px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
 }
 
@@ -207,21 +188,21 @@
 }
 
 .materialTable th {
-  height: 37px;
-  padding: 0 14px;
+  height: 26px;
+  padding: 0 10px;
   color: #4a535f;
   background: #effaf4;
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 500;
   white-space: nowrap;
 }
 
 .materialTable td {
-  height: 43px;
-  padding: 0 14px;
+  height: 31px;
+  padding: 0 10px;
   border-bottom: 0;
   color: #7d8794;
-  font-size: 14px;
+  font-size: 10px;
   white-space: nowrap;
 }
 
@@ -239,10 +220,10 @@
 }
 
 .editButton {
-  min-height: 36px;
-  padding: 0 12px;
+  min-height: 26px;
+  padding: 0 9px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 9px;
   font-weight: 500;
 }
 

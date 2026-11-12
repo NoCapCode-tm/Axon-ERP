@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Bell, Mail, Menu, Plus, Search, Settings, Upload, X } from 'lucide-react';
+import { Plus, Search, Upload, X } from 'lucide-react';
 import { useOutletContext } from 'react-router-dom';
 import styles from '../CSS/StudentMaterial.module.css';
 
@@ -69,28 +69,6 @@ function StudentMaterial() {
 
   return (
     <main className={styles.page}>
-      <header className={styles.pageHeader}>
-        <div className={styles.pageHeading}>
-          <button
-            type="button"
-            className={styles.menuButton}
-            aria-label="Open navigation menu"
-            onClick={outletContext.onOpenSidebar}
-          >
-            <Menu size={23} aria-hidden="true" />
-          </button>
-          <div>
-            <h1>Study Material</h1>
-            <p>Mathematics · Senior Section · Academic Year 2025 - 26 · Term 1</p>
-          </div>
-        </div>
-        <div className={styles.headerActions} aria-label="Page actions">
-          <button type="button" aria-label="Messages"><Mail size={24} /></button>
-          <button type="button" aria-label="Notifications"><Bell size={24} /></button>
-          <button type="button" aria-label="Settings"><Settings size={24} /></button>
-        </div>
-      </header>
-
       <header className={styles.toolbar}>
         <label className={styles.searchBox}>
           <input

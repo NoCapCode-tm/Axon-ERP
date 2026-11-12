@@ -94,6 +94,7 @@ function TeacherLayout() {
   const [attendanceEntryOpen, setAttendanceEntryOpen] = useState(false);
   const [attendanceEntryDate, setAttendanceEntryDate] = useState('');
   const [evaluationWorkspaceOpen, setEvaluationWorkspaceOpen] = useState(false);
+  const [evaluatedAssignmentIds, setEvaluatedAssignmentIds] = useState([]);
   const [createAssignmentOpen, setCreateAssignmentOpen] = useState(false);
   const [uploadResourcesOpen, setUploadResourcesOpen] = useState(false);
 
@@ -165,6 +166,12 @@ function TeacherLayout() {
     setUploadResourcesOpen(false);
     setEvaluationWorkspaceOpen(true);
   }, []);
+  const evaluateLmsAssignment = useCallback((assignmentId) => {
+    setEvaluatedAssignmentIds((current) => (
+      current.includes(assignmentId) ? current : [...current, assignmentId]
+    ));
+    openEvaluationWorkspace();
+  }, [openEvaluationWorkspace]);
   const openCreateAssignment = useCallback(() => {
     setMessagesOpen(false);
     setMarksEntryOpen(false);
@@ -238,7 +245,7 @@ function TeacherLayout() {
             title={pageTitle}
             subtitle={uploadResourcesOpen
               ? undefined
-              : location.pathname === '/teacher/study-profiles' || location.pathname === '/teacher/student-material'
+              : location.pathname === '/teacher/study-profiles'
                 ? ''
                 : undefined}
             showActionsOnMobile={location.pathname === '/teacher/settings'}
@@ -289,7 +296,8 @@ function TeacherLayout() {
             onOpenSidebar: openSidebar,
             onUploadMarks: openMarksEntry,
             onMarkAttendance: openAttendanceEntry,
-            onUploadStudyMaterial: openEvaluationWorkspace,
+            onUploadStudyMaterial: evaluateLmsAssignment,
+            evaluatedAssignmentIds,
             onCreateAssignment: openCreateAssignment,
             onUploadResources: openUploadResources,
           }} />
