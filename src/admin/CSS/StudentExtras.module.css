@@ -1,0 +1,205 @@
+/* Pairs with Student.jsx (Assignment History + Promote modal).
+   Uses --mint/--lime/--ink vars from Student.module.css (declared on body).
+   Breakpoints: mobile <640, tablet 640-1023, laptop >=1024 */
+
+.panel {
+  padding: 20px;
+}
+
+/* assignment history */
+.assignGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media (max-width: 1023px) {
+  .assignGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 639px) {
+  .assignGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.assignCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: #e6faee;
+  color: var(--ink-soft);
+}
+.assignTop {
+  display: flex;
+  gap: 14px;
+}
+.assignThumb {
+  width: 72px;
+  height: 72px;
+  flex: none;
+  border-radius: 10px;
+  background: #bcd9cc;
+}
+.assignText {
+  min-width: 0;
+}
+.assignTitle {
+  margin: 0 0 4px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.assignSub {
+  margin: 0 0 4px;
+  font-size: 0.9rem;
+}
+.assignDue {
+  margin: 0;
+  font-size: 0.8rem;
+}
+.assignBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.assignLabel {
+  margin: 0 0 4px;
+  font-size: 0.9rem;
+}
+.marks {
+  text-align: right;
+}
+.assignMarks {
+  margin: 0;
+  font-size: 0.9rem;
+}
+.evaluated,
+.pending {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+.evaluated {
+  color: #1e7a3c;
+}
+.pending {
+  color: var(--danger);
+}
+
+/* promote modal */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.45);
+}
+.modal {
+  position: relative;
+  width: min(760px, 100%);
+  max-height: 100%;
+  overflow: auto;
+  padding: 24px;
+  border-radius: var(--radius);
+  background: #fff;
+}
+.close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.close:hover {
+  background: var(--mint-200);
+}
+.modalGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+@media (max-width: 639px) {
+  .modalGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .modal {
+    padding: 16px;
+  }
+}
+.modalFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+}
+.error {
+  flex: 1 1 100%;
+  margin: 0;
+  text-align: right;
+  color: var(--danger);
+  font-size: 0.75rem;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.label {
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+.selectWrap {
+  position: relative;
+  display: block;
+}
+.control {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 44px 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--mint-50);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+.control:focus {
+  border-color: var(--ink);
+}
+.control:focus-visible {
+  box-shadow: var(--focus);
+}
+.placeholder {
+  color: var(--ink-soft);
+}
+.selectWrap > svg {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--ink);
+}
