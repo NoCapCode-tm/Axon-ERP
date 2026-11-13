@@ -395,52 +395,6 @@
   font-size: 17px;
 }
 
-.studentForm {
-  display: grid;
-  gap: 14px;
-  padding: 18px;
-}
-
-.studentForm label {
-  display: grid;
-  gap: 7px;
-  color: #4a5159;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.studentForm input {
-  width: 100%;
-  min-height: 40px;
-  padding: 0 10px;
-  border: 1px solid #dfe3dd;
-  border-radius: 6px;
-  color: #252a31;
-  background: #fff;
-  font: inherit;
-  font-size: 13px;
-  box-sizing: border-box;
-}
-
-.dialogActions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 5px;
-}
-
-.cancelButton {
-  min-height: 40px;
-  padding: 0 15px;
-  border: 0;
-  border-radius: 7px;
-  color: #5e646c;
-  background: #f1f2ef;
-  font: inherit;
-  font-size: 12px;
-  cursor: pointer;
-}
-
 @media (max-width: 900px) {
   .page {
     gap: 12px;
@@ -727,7 +681,6 @@
     border-radius: 7px;
   }
 
-  .filterButton > span:first-child,
   .addButton > span {
     position: absolute;
     width: 1px;
@@ -777,5 +730,607 @@
   .iconButton {
     width: 38px;
     height: 38px;
+  }
+}
+
+.page {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  min-height: calc(100vh - 62px);
+  padding: 0 8px 24px;
+}
+
+.pageHeader {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 8px;
+}
+
+.pageTitleGroup {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+}
+
+.pageTitle h1 {
+  margin: 0;
+  color: #202733;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.pageTitle p {
+  margin: 4px 0 0;
+  color: #7b8491;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.menuButton,
+.mobileMore {
+  display: none;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  color: #202733;
+  background: transparent;
+  cursor: pointer;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerActions button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #202733;
+  background: transparent;
+  cursor: pointer;
+}
+
+.headerActions button:hover,
+.mobileMore:hover {
+  background: #e5f588;
+}
+
+.mobileMenu {
+  position: absolute;
+  z-index: 8;
+  top: calc(100% - 2px);
+  right: 6px;
+  display: grid;
+  min-width: 150px;
+  padding: 4px;
+  border: 1px solid #e6e9e3;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgb(24 32 20 / 12%);
+}
+
+.mobileMenu button {
+  display: flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 9px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 5px;
+  color: #3a4046;
+  background: #fff;
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+}
+
+.controls {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+}
+
+.searchBox {
+  width: auto;
+  min-height: 38px;
+  flex: 1;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 24px;
+  background: #eff9f3;
+}
+
+.searchBox input {
+  order: 1;
+}
+
+.searchBox svg {
+  order: 2;
+  flex: 0 0 auto;
+  color: #172033;
+}
+
+.filterButton,
+.addButton {
+  min-height: 38px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.filterButton {
+  gap: 9px;
+}
+
+.addButton {
+  gap: 8px;
+}
+
+.metrics {
+  gap: 7px;
+}
+
+.metricCard {
+  min-height: 44px;
+  justify-content: flex-start;
+  padding: 7px;
+  border: 0;
+  border-radius: 8px;
+}
+
+.metricIcon {
+  display: none;
+}
+
+.metricCopy {
+  gap: 4px;
+}
+
+.metricCopy > span {
+  color: #202733;
+  font-size: 10px;
+}
+
+.metricCopy strong {
+  color: #697386;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.studentPanel {
+  overflow: hidden;
+  border: 0;
+  border-radius: 9px;
+  box-shadow: none;
+}
+
+.panelHeader {
+  min-height: 43px;
+  padding: 8px 10px 4px;
+  border: 0;
+}
+
+.panelHeader h2 {
+  margin: 0;
+  color: #202733;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.studentTableWrap {
+  padding: 0 10px 8px;
+  overflow-x: auto;
+}
+
+.studentTable {
+  width: 100%;
+  border-collapse: collapse;
+  color: #778190;
+  font-size: 10px;
+  text-align: center;
+}
+
+.studentTable th {
+  height: 26px;
+  padding: 0 8px;
+  color: #4a535f;
+  background: #e9fbf1;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.studentTable td {
+  height: 30px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.activeStatus {
+  color: #398658;
+}
+
+.inactiveStatus {
+  color: #b15d5d;
+}
+
+.profileButton {
+  min-height: 25px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 4px;
+  color: #202733;
+  background: #e5f588;
+  font: inherit;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.studentList {
+  display: none;
+}
+
+.avatar {
+  overflow: hidden;
+  border: 0;
+  background: #ffbf26;
+  box-shadow: none;
+  font-size: 24px;
+}
+
+.avatar > span {
+  transform: translateY(2px);
+}
+
+@media (min-width: 901px) {
+  .page {
+    gap: 7px;
+    padding: 0 8px 24px;
+  }
+
+  .studentTableWrap {
+    padding: 0 10px 8px;
+  }
+}
+
+@media (max-width: 900px) {
+  .page {
+    gap: 8px;
+    padding: 0 14px 20px;
+  }
+
+  .pageHeader {
+    min-height: 62px;
+    padding: 12px 2px 10px;
+  }
+
+  .menuButton {
+    display: grid;
+  }
+
+  .pageTitle h1 {
+    font-size: 18px;
+  }
+
+  .pageTitle p {
+    display: none;
+  }
+
+  .headerActions {
+    gap: 8px;
+  }
+
+  .controls {
+    gap: 8px;
+    order: initial;
+    grid-row: auto;
+    grid-column: auto;
+  }
+
+  .metrics {
+    order: initial;
+    grid-row: auto;
+  }
+
+  .searchBox {
+    min-height: 44px;
+    padding: 0 16px;
+  }
+
+  .searchBox input {
+    font-size: 12px;
+  }
+
+  .filterButton,
+  .addButton {
+    min-height: 44px;
+    padding: 0 11px;
+    font-size: 11px;
+  }
+
+  .metrics {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .metricCard {
+    min-height: 54px;
+    padding: 8px;
+  }
+
+  .metricCopy > span {
+    font-size: 11px;
+  }
+
+  .metricCopy strong {
+    font-size: 12px;
+  }
+
+  .studentPanel {
+    display: block;
+    overflow: hidden;
+  }
+
+  .panelHeader {
+    display: flex;
+    min-height: 58px;
+    padding: 10px 14px;
+    border: 0;
+  }
+
+  .panelHeader h2 {
+    font-size: 18px;
+  }
+
+  .studentTableWrap {
+    display: none;
+  }
+
+  .studentList {
+    display: grid;
+    gap: 7px;
+    padding: 0 14px 14px;
+  }
+
+  .studentCard {
+    min-height: 62px;
+    gap: 9px;
+    padding: 5px 8px;
+    border: 1px solid #e1f4e8;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  .studentCard:last-child {
+    border-bottom: 1px solid #e1f4e8;
+  }
+
+  .avatar {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+
+  .studentDetails {
+    gap: 4px;
+  }
+
+  .studentDetails strong {
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .studentDetails span {
+    font-size: 10px;
+  }
+
+  .studentActions {
+    gap: 5px;
+  }
+
+  .iconButton {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    gap: 8px;
+    min-height: calc(100vh - 60px);
+    padding: 0 10px 86px;
+  }
+
+  .pageHeader {
+    min-height: 62px;
+    gap: 12px;
+    padding: 12px 10px 10px;
+  }
+
+  .pageTitleGroup {
+    gap: 8px;
+  }
+
+  .pageTitle h1 {
+    font-size: 18px;
+  }
+
+  .headerActions {
+    display: none;
+  }
+
+  .mobileMore {
+    display: grid;
+  }
+
+  .controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 96px 62px;
+    gap: 8px;
+  }
+
+  .searchBox {
+    min-width: 0;
+    min-height: 62px;
+    padding: 0 18px 0 30px;
+  }
+
+  .searchBox input {
+    min-width: 0;
+    font-size: 14px;
+  }
+
+  .searchBox svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .filterButton {
+    width: 96px;
+    min-height: 62px;
+    justify-content: space-evenly;
+    padding: 0 8px;
+    font-size: 13px;
+  }
+
+  .addButton > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .filterButton svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .addButton {
+    width: 62px;
+    min-height: 62px;
+    justify-self: end;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .addButton svg {
+    width: 29px;
+    height: 29px;
+  }
+
+  .metrics {
+    display: flex;
+    gap: 7px;
+    overflow-x: auto;
+    padding: 1px 1px 3px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .metrics::-webkit-scrollbar {
+    display: none;
+  }
+
+  .metricCard {
+    min-width: 0;
+    min-height: 76px;
+    flex: 0 0 39%;
+    padding: 10px;
+  }
+
+  .metricCopy > span {
+    font-size: 14px;
+  }
+
+  .metricCopy strong {
+    font-size: 16px;
+  }
+
+  .studentPanel {
+    border-radius: 9px;
+  }
+
+  .panelHeader {
+    min-height: 60px;
+    padding: 10px 20px;
+  }
+
+  .panelHeader h2 {
+    font-size: 22px;
+  }
+
+  .studentList {
+    gap: 6px;
+    padding: 0 20px 14px;
+  }
+
+  .studentCard {
+    min-height: 72px;
+    gap: 8px;
+    padding: 6px 6px;
+  }
+
+  .avatar {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+    font-size: 24px;
+  }
+
+  .studentDetails {
+    gap: 4px;
+  }
+
+  .studentDetails strong {
+    font-size: 16px;
+  }
+
+  .studentDetails span {
+    font-size: 13px;
+  }
+
+  .studentActions {
+    gap: 5px;
+  }
+
+  .iconButton {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+  }
+
+  .iconButton svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .iconButton:first-child svg {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 700px) {
+  .pageHeader {
+    margin: 0 -4px;
+    padding-right: 0;
+    padding-left: 0;
   }
 }

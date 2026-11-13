@@ -248,7 +248,6 @@ function TeacherLayout() {
               : location.pathname === '/teacher/study-profiles'
                 ? ''
                 : undefined}
-            showActionsOnMobile={location.pathname === '/teacher/settings'}
             hideSubtitleOnMobile={location.pathname === '/teacher/settings' || location.pathname === '/teacher/lms'}
             className={uploadResourcesOpen
               ? styles.uploadResourcesTopbar
