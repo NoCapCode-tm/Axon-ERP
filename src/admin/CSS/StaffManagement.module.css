@@ -1,0 +1,351 @@
+/* Manrope (weights used: 400, 500, 600, 700) */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
+.shell {
+  --bg: #f8f8f8;
+  --surface: #ffffff;
+  --lime: #e4f77c;
+  --mint-soft: #ecfbf1;
+  --track: #f1f3f5;
+
+  --text: #14181f;
+  --muted: #6b7280;
+  --green: #1f6b3a;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --gap: 16px;
+
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.5rem;
+
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.shell button {
+  font-family: inherit;
+}
+
+.page {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  min-width: 0;
+}
+
+/* BUTTONS */
+
+.btn {
+  border: 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: var(--lime);
+  color: var(--text);
+  padding: 12px 16px;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: filter 0.15s;
+}
+
+.btn:hover {
+  filter: brightness(0.96);
+}
+
+.btn:focus-visible,
+.iconBtn:focus-visible,
+.tab:focus-visible,
+.pageBtn:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.btnIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* round lime icon button (view / call) */
+.iconBtn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.15s;
+}
+
+.iconBtn:hover {
+  filter: brightness(0.96);
+}
+
+/* TABS */
+
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  background: var(--track);
+  border-radius: 999px;
+}
+
+.tab {
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-size: var(--fs-md);
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.tabActive {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* SECTION HEADER */
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+}
+
+.empty {
+  margin: 16px 0 0;
+  color: var(--muted);
+}
+
+/* TABLE (laptop) */
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: var(--fs-md);
+}
+
+.table th {
+  background: var(--mint-soft);
+  padding: 16px 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 8px 12px;
+  color: #4c5868;
+  height: 64px;
+}
+
+/* CARD LIST (tablet + mobile) */
+
+.list {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #e6f5ec;
+  border-radius: var(--radius);
+}
+
+.itemId {
+  font-size: var(--fs-md);
+  color: #4c5868;
+  flex-shrink: 0;
+}
+
+.itemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemName {
+  margin: 0 0 4px;
+  font-size: var(--fs-md);
+  font-weight: 500;
+  color: #4c5868;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemMeta {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 8px;
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+
+.sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.paid {
+  color: var(--green);
+}
+
+.itemActions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* FOOTER + PAGINATION */
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.count {
+  margin: 0;
+  font-size: var(--fs-md);
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pageBtn {
+  display: grid;
+  place-items: center;
+  min-width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  font-size: var(--fs-md);
+  cursor: pointer;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background: var(--track);
+}
+
+.pageBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pageActive {
+  color: var(--text);
+  font-weight: 600;
+  background: var(--lime);
+}
+
+.pageGap {
+  padding: 0 4px;
+  color: var(--muted);
+}
+
+/* RESPONSIVE */
+
+/* tablet + mobile: table becomes cards */
+@media (max-width: 1024px) {
+  .tableWrap {
+    display: none;
+  }
+
+  .list {
+    display: flex;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 640px) {
+  .page {
+    padding: 12px 12px 96px; /* room for the bottom tab bar */
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  /* title on top, Add Teacher button right-aligned underneath */
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 16px;
+  }
+
+  .sectionTitle {
+    align-self: flex-start;
+    font-size: 1.375rem;
+  }
+
+  .item {
+    gap: 12px;
+    padding: 14px 12px;
+  }
+
+  .itemActions {
+    gap: 6px;
+  }
+
+  .footer {
+    justify-content: center;
+  }
+}
