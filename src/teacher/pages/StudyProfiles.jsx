@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import {
+  ArrowLeft,
   Bell,
   ChevronDown,
   Eye,
@@ -9,7 +10,6 @@ import {
   Plus,
   Search,
   Settings,
-  X,
 } from 'lucide-react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import styles from '../CSS/StudyProfiles.module.css';
@@ -51,9 +51,191 @@ function StudyProfiles() {
     ));
   }, [filter, query, students]);
 
-  const closeProfileDialog = () => {
-    setProfileStudent(null);
-  };
+  if (profileStudent) {
+    const reportRows = [
+      ['Mathematics', '88%', '92%', '90%', '95%', '91%', 'A+'],
+      ['Science', '70%', '75%', '65%', '62%', '68%', 'B'],
+      ['English', '85%', '80%', '78%', '82%', '81%', 'A'],
+      ['Social Studies', '90%', '88%', '85%', '92%', '89%', 'A+'],
+      ['Hindi', '78%', '82%', '80%', '85%', '81%', 'A'],
+      ['Computer', '95%', '92%', '90%', '93%', '93%', 'A+'],
+    ];
+
+    return (
+      <main className={`${styles.page} ${styles.profilePage}`}>
+        <header className={styles.pageHeader}>
+          <div className={styles.pageTitleGroup}>
+            <button
+              type="button"
+              className={styles.menuButton}
+              aria-label="Open navigation menu"
+              aria-controls="teacher-navigation"
+              onClick={onOpenSidebar}
+            >
+              <Menu size={24} aria-hidden="true" />
+            </button>
+            <div className={styles.pageTitle}>
+              <h1>Student Profile</h1>
+              <p>Mathematics · Senior Section · Academic Year 2025 - 26 · Term 1</p>
+            </div>
+          </div>
+          <div className={styles.headerActions} role="group" aria-label="Teacher account actions">
+            <button type="button" aria-label="Messages"><Mail size={21} aria-hidden="true" /></button>
+            <button type="button" aria-label="Notifications" onClick={() => navigate('/teacher/notifications')}>
+              <Bell size={21} aria-hidden="true" />
+            </button>
+            <button type="button" aria-label="Settings" onClick={() => navigate('/teacher/settings')}>
+              <Settings size={21} aria-hidden="true" />
+            </button>
+          </div>
+          <button
+            type="button"
+            className={styles.mobileMore}
+            aria-label="More options"
+            aria-expanded={mobileMenuOpen}
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            <MoreVertical size={22} aria-hidden="true" />
+          </button>
+          {mobileMenuOpen && (
+            <div className={styles.mobileMenu}>
+              <button type="button" onClick={() => navigate('/teacher/notifications')}>
+                <Bell size={17} aria-hidden="true" /> Notifications
+              </button>
+              <button type="button" onClick={() => navigate('/teacher/settings')}>
+                <Settings size={17} aria-hidden="true" /> Settings
+              </button>
+            </div>
+          )}
+        </header>
+
+        <div className={styles.profileToolbar}>
+          <button
+            type="button"
+            className={styles.profileBack}
+            aria-label="Back to student list"
+            onClick={() => setProfileStudent(null)}
+          >
+            <ArrowLeft size={20} aria-hidden="true" />
+          </button>
+          <div className={styles.profileToolbarActions}>
+            <a href={`mailto:${profileStudent.parentEmail || 'rajesh.sharma@example.com'}`} className={styles.profileAction}>
+              Message Parent
+            </a>
+            <button type="button" className={styles.profileAction}>View Legal Documents</button>
+          </div>
+        </div>
+
+        <section className={styles.profileHero} aria-label="Student summary">
+          <div className={styles.profileIdentity}>
+            <span className={styles.profilePhoto} aria-hidden="true" />
+            <div className={styles.profileIdentityText}>
+              <h2>{profileStudent.name}<span className={styles.activeDot} aria-label={profileStudent.status} /></h2>
+              <div className={styles.profileIdentityFacts}>
+                <span><span className={`${styles.profileFactLabel} ${styles.profileFactLabelSpaced}`}>Roll No</span><strong>{profileStudent.roll}</strong></span>
+                <span><span className={`${styles.profileFactLabel} ${styles.profileFactLabelSpaced}`}>Admission No</span><strong>2025/1001</strong></span>
+                <span><span className={`${styles.profileFactLabel} ${styles.profileFactLabelSpaced}`}>Class</span><strong>{profileStudent.className.split('-')[0]}</strong></span>
+              </div>
+            </div>
+          </div>
+          <div className={styles.profileMiddleFacts}>
+            <span><span className={`${styles.profileFactLabel} ${styles.profileFactLabelSpaced}`}>Section</span><strong>A</strong></span>
+            <span><span className={`${styles.profileFactLabel} ${styles.profileFactLabelSpaced}`}>Blood Group</span><strong>O+</strong></span>
+            <span><span className={`${styles.profileFactLabel} ${styles.profileFactLabelSpaced}`}>Class Teacher</span><strong>Ms. Priya Kapoor</strong></span>
+          </div>
+          <address className={styles.profileContact}>
+            <strong>Contact</strong>
+            <a href={`tel:${profileStudent.phone}`}>{profileStudent.phone}</a>
+            <a href={`mailto:${profileStudent.parentEmail || 'aarav.sharma@example.com'}`}>
+              {profileStudent.parentEmail || 'aarav.sharma@example.com'}
+            </a>
+            <span>123 Green Avenue, Delhi, India</span>
+          </address>
+        </section>
+
+        <div className={styles.profileDetailsGrid}>
+          <section className={styles.profileInfoCard}>
+            <h2>Parent / Guardian Details</h2>
+            <dl>
+              <div><dt>Father Name</dt><dd>{profileStudent.parent}</dd></div>
+              <div><dt>Mother Name</dt><dd>Mrs. Neha Sharma</dd></div>
+              <div><dt>Parent Phone</dt><dd>{profileStudent.phone}</dd></div>
+              <div><dt>Parent Email</dt><dd>rajesh.sharma@example.com</dd></div>
+              <div><dt>Relationship</dt><dd>Father</dd></div>
+            </dl>
+          </section>
+          <section className={styles.profileInfoCard}>
+            <h2>Academic Details</h2>
+            <dl>
+              <div><dt>Date of Birth</dt><dd>Apr 12, 2010</dd></div>
+              <div><dt>Admission Date</dt><dd>Apr 5, 2025</dd></div>
+              <div><dt>Previous School</dt><dd>St. John&apos;s School</dd></div>
+              <div><dt>RTE</dt><dd>No</dd></div>
+              <div><dt>Student Category</dt><dd>General</dd></div>
+            </dl>
+          </section>
+          <section className={styles.profileInfoCard}>
+            <div className={styles.profileCardHeading}>
+              <h2>Attendance Summary</h2>
+              <button type="button" className={styles.profileAction}>View Details</button>
+            </div>
+            <div className={styles.attendanceSummary}>
+              <div className={styles.attendanceDonut} role="img" aria-label="92 percent attendance">
+                <span>92%</span>
+              </div>
+              <div className={styles.attendanceLegend}>
+                <span><i className={styles.presentSwatch} />Present <strong>83 Days (92%)</strong></span>
+                <span><i className={styles.absentSwatch} />Absent <strong>7 Days (8%)</strong></span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section className={styles.profileMetrics} aria-label="Academic performance summary">
+          {[
+            ['Overall Average', '82%', 'This term.'],
+            ['Class Rank', '5/40', 'This term.'],
+            ['Total Subjects', '06', 'This term.'],
+            ['Highest Score', '95%', 'Mathematics'],
+            ['Attendance', '92%', 'This term.'],
+          ].map(([label, value, note]) => (
+            <article className={styles.profileMetric} key={label}>
+              <span>{label}</span>
+              <strong>{value}</strong>
+              <small>{note}</small>
+            </article>
+          ))}
+        </section>
+
+        <section className={styles.academicReport}>
+          <div className={styles.profileCardHeading}>
+            <h2>Academic Report</h2>
+            <button type="button" className={styles.profileAction}>Export</button>
+          </div>
+          <div className={styles.reportTableWrap}>
+            <table className={styles.reportTable}>
+              <thead>
+                <tr>
+                  {['Subject', 'Assessment 1', 'Assessment 2', 'Mid Term', 'Final Term', 'Average', 'Grade'].map((heading) => (
+                    <th scope="col" key={heading}>{heading}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {reportRows.map((row) => (
+                  <tr key={row[0]}>
+                    {row.map((cell, index) => index === 0
+                      ? <th scope="row" key={cell}>{cell}</th>
+                      : <td key={`${row[0]}-${index}`}>{cell}</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className={styles.page}>
@@ -236,32 +418,6 @@ function StudyProfiles() {
         </div>
       </section>
 
-      {profileStudent && (
-        <div
-          className={styles.modalBackdrop}
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) closeProfileDialog();
-          }}
-        >
-          <section className={styles.dialog} role="dialog" aria-modal="true" aria-labelledby="profile-dialog-title">
-            <header className={styles.dialogHeader}>
-              <h2 id="profile-dialog-title">Student Profile</h2>
-              <button type="button" className={styles.closeButton} aria-label="Close dialog" onClick={closeProfileDialog}>
-                <X size={20} aria-hidden="true" />
-              </button>
-            </header>
-            <div className={styles.profileDetails}>
-              <span className={`${styles.profileAvatar} ${styles.avatarTone0}`} aria-hidden="true" />
-              <strong>{profileStudent.name}</strong>
-              <span>ID {profileStudent.studentId}</span>
-              <span>Class {profileStudent.className}</span>
-              <span>{profileStudent.parent}</span>
-              <a href={`tel:${profileStudent.phone}`}>{profileStudent.phone}</a>
-              <span>{profileStudent.status}</span>
-            </div>
-          </section>
-        </div>
-      )}
     </main>
   );
 }
