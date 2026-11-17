@@ -1603,6 +1603,241 @@
   padding: 8px 10px 6px;
 }
 
+.attendanceDetailsDesktop {
+  display: grid;
+}
+
+.attendanceDetailsTablet {
+  display: none;
+}
+
+.attendanceDetailGrid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.15fr);
+  align-items: stretch;
+  gap: 6px;
+}
+
+.attendanceCalendarCard,
+.attendanceReportCard {
+  min-width: 0;
+  min-height: 356px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.attendanceCalendarCard h2,
+.attendanceReportCard h2 {
+  margin: 0 0 14px;
+  color: #202733;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.calendarSurface {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  background: #f0fbf5;
+}
+
+.calendarMonthBar {
+  display: flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  border-radius: 20px;
+  background: #fff;
+  color: #303741;
+  font-size: 11px;
+}
+
+.calendarMonthBar button {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #53606f;
+  background: transparent;
+  cursor: pointer;
+}
+
+.calendarMonthBar button:hover {
+  background: #e9f8ef;
+}
+
+.calendarMonthMobile,
+.attendanceHeadingShort {
+  display: none;
+}
+
+.calendarDaysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: center;
+  justify-items: center;
+  gap: 5px 3px;
+}
+
+.calendarDaysGridMobile {
+  display: none;
+}
+
+.calendarWeekday,
+.calendarDay {
+  display: grid;
+  width: 100%;
+  min-height: 24px;
+  place-items: center;
+  color: #687484;
+  font-size: 9px;
+}
+
+.calendarWeekday {
+  min-height: 20px;
+  color: #3d4652;
+}
+
+.calendarDay {
+  max-width: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.calendarDay:focus-visible {
+  outline: 2px solid #899d36;
+  outline-offset: 1px;
+}
+
+.calendarDay:disabled {
+  cursor: default;
+}
+
+.calendarDayOutside {
+  color: #87909b;
+}
+
+.calendarDayPresent {
+  color: #59634a;
+  background: #e5f588;
+}
+
+.calendarDayAbsent {
+  color: #58646d;
+  background: #c4ded2;
+}
+
+.calendarDayLeave {
+  color: #58646d;
+  background: #bdd9cd;
+}
+
+.calendarDayToday {
+  color: #222b18;
+  background: #c5d969;
+  box-shadow: inset 0 0 0 1px #899d36;
+}
+
+.calendarDaySelected {
+  color: #222b18;
+  background: #c5d969;
+  box-shadow: inset 0 0 0 1px #899d36;
+}
+
+.calendarLegend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 2px;
+  color: #47515e;
+  font-size: 9px;
+}
+
+.calendarLegend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.calendarLegend i {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+}
+
+.calendarLegend .calendarDayToday {
+  box-shadow: none;
+}
+
+.attendanceReportHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.attendanceReportHeading h2 {
+  margin-bottom: 14px;
+}
+
+.attendanceReportHeading .profileAction {
+  min-height: 26px;
+  margin-top: -8px;
+  font-size: 9px;
+}
+
+.attendanceReportTableWrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.attendanceReportTable {
+  width: 100%;
+  border-collapse: collapse;
+  color: #697484;
+  font-size: 10px;
+  text-align: center;
+}
+
+.attendanceReportTable thead {
+  background: #eaf9f0;
+}
+
+.attendanceReportTable th,
+.attendanceReportTable td {
+  height: 20px;
+  padding: 0 6px;
+  border-bottom: 1px solid #f3f5f3;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.attendanceReportTable thead th {
+  height: 30px;
+  color: #46505e;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .attendanceDetailsDesktop {
+    display: none;
+  }
+
+  .attendanceDetailsTablet {
+    display: grid;
+  }
+}
+
 .reportTableWrap {
   width: 100%;
   overflow-x: auto;
@@ -1738,6 +1973,37 @@
 
   .reportTable {
     min-width: 600px;
+  }
+
+  .attendanceDetailGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .attendanceCalendarCard,
+  .attendanceReportCard {
+    min-height: 0;
+  }
+
+  .calendarSurface {
+    padding: 10px;
+  }
+
+  .calendarWeekday,
+  .calendarDay {
+    font-size: 11px;
+  }
+
+  .calendarDay {
+    max-width: 36px;
+    min-height: 30px;
+  }
+
+  .calendarLegend {
+    font-size: 10px;
+  }
+
+  .attendanceReportTable {
+    min-width: 500px;
   }
 }
 
@@ -1985,5 +2251,189 @@
   .profileContact strong,
   .activeDot {
     display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .attendanceDetailsDesktop {
+    display: grid;
+    gap: 8px;
+    min-height: calc(100vh - 60px);
+    padding: 0 10px 86px;
+  }
+
+  .attendanceDetailsTablet {
+    display: none;
+  }
+
+  .attendanceDetailsDesktop .pageTitle h1 {
+    font-size: 20px;
+  }
+
+  .attendanceDetailsDesktop .profileToolbar {
+    min-height: 28px;
+  }
+
+  .attendanceDetailGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .attendanceCalendarCard,
+  .attendanceReportCard {
+    min-height: 0;
+    padding: 10px;
+  }
+
+  .attendanceCalendarCard h2,
+  .attendanceReportCard h2 {
+    margin-bottom: 14px;
+    font-size: 20px;
+  }
+
+  .calendarSurface {
+    gap: 12px;
+    padding: 10px;
+    background: #fff;
+  }
+
+  .calendarMonthBar {
+    min-height: 44px;
+    padding: 0 8px;
+    border: 1px solid #e6f5eb;
+    border-radius: 24px;
+    font-size: 14px;
+  }
+
+  .calendarMonthBar button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .calendarMonthDesktop,
+  .attendanceHeadingFull {
+    display: none;
+  }
+
+  .calendarMonthMobile,
+  .attendanceHeadingShort {
+    display: inline;
+  }
+
+  .calendarDaysGrid {
+    align-items: stretch;
+    justify-items: stretch;
+    gap: 4px;
+  }
+
+  .calendarDaysGridDesktop {
+    display: none;
+  }
+
+  .calendarDaysGridMobile {
+    display: grid;
+  }
+
+  .calendarWeekday {
+    min-height: 24px;
+    font-size: 12px;
+  }
+
+  .calendarDay {
+    max-width: none;
+    min-height: 46px;
+    font-size: 16px;
+  }
+
+  .calendarDayOutside {
+    visibility: hidden;
+  }
+
+  .calendarLegend {
+    gap: 6px;
+    padding-top: 4px;
+    font-size: 14px;
+  }
+
+  .calendarLegend span {
+    gap: 5px;
+  }
+
+  .calendarLegend i {
+    width: 10px;
+    height: 10px;
+    flex-basis: 10px;
+  }
+
+  .attendanceReportHeading {
+    align-items: center;
+  }
+
+  .attendanceReportHeading h2 {
+    margin: 0;
+  }
+
+  .attendanceReportHeading .profileAction {
+    min-height: 36px;
+    margin: 0;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .attendanceReportTableWrap {
+    overflow: hidden;
+  }
+
+  .attendanceReportTable {
+    min-width: 0;
+    table-layout: fixed;
+    font-size: 12px;
+  }
+
+  .attendanceReportTable th,
+  .attendanceReportTable td {
+    height: 42px;
+    padding: 0 3px;
+    white-space: normal;
+  }
+
+  .attendanceReportTable thead th {
+    height: 44px;
+    padding: 0 2px;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .attendanceDetailsTablet .attendanceReportCard {
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .attendanceDetailsTablet .attendanceReportHeading h2 {
+    margin-bottom: 0;
+    font-size: 22px;
+  }
+
+  .attendanceDetailsTablet .attendanceReportHeading .profileAction {
+    min-height: 46px;
+    margin: 0;
+    padding: 0 18px;
+    font-size: 15px;
+  }
+
+  .attendanceDetailsTablet .attendanceReportTable {
+    min-width: 0;
+    font-size: 15px;
+  }
+
+  .attendanceDetailsTablet .attendanceReportTable th,
+  .attendanceDetailsTablet .attendanceReportTable td {
+    height: 56px;
+    padding: 0 12px;
+  }
+
+  .attendanceDetailsTablet .attendanceReportTable thead th {
+    height: 60px;
   }
 }

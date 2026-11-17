@@ -3,6 +3,8 @@ import {
   ArrowLeft,
   Bell,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Eye,
   Mail,
   Menu,
@@ -13,6 +15,7 @@ import {
 } from 'lucide-react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import styles from '../CSS/StudyProfiles.module.css';
+import { CalendarContent } from './Calendar';
 
 const initialStudents = Array.from({ length: 20 }, (_, index) => ({
   id: index + 1,
@@ -33,6 +36,245 @@ const metrics = [
   { label: 'Inactive Students', value: '5' },
 ];
 
+const attendanceRows = [
+  ['January, 2026', '28', '2', '1', '95%'],
+  ['February, 2026', '28', '2', '1', '95%'],
+  ['March, 2026', '28', '2', '1', '95%'],
+  ['April, 2026', '28', '2', '1', '95%'],
+  ['May, 2026', '28', '2', '1', '95%'],
+  ['June, 2026', '28', '2', '1', '95%'],
+  ['July, 2026', '28', '2', '1', '95%'],
+  ['August, 2026', '00', '00', '00', '00'],
+  ['September, 2026', '00', '00', '00', '00'],
+  ['October, 2026', '00', '00', '00', '00'],
+  ['November, 2026', '00', '00', '00', '00'],
+  ['December, 2026', '00', '00', '00', '00'],
+];
+
+function AttendanceReportCard({ profileStudent }) {
+  const downloadAttendance = () => {
+    const rows = [
+      ['Month', 'Present', 'Absent', 'Late', 'Attendance'],
+      ...attendanceRows,
+    ].map((row) => row.join(','));
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob([rows.join('\n')], { type: 'text/csv' }));
+    link.download = `${profileStudent.name.toLowerCase().replace(/\s+/g, '-')}-attendance-report.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+
+  return (
+    <section className={styles.attendanceReportCard} aria-labelledby="student-attendance-report">
+      <div className={styles.attendanceReportHeading}>
+        <h2 id="student-attendance-report">Attendance Report</h2>
+        <button type="button" className={styles.profileAction} onClick={downloadAttendance}>Download</button>
+      </div>
+      <div className={styles.attendanceReportTableWrap}>
+        <table className={styles.attendanceReportTable}>
+          <thead>
+            <tr>
+              {['Month', 'Present', 'Absent', 'Late', 'Attendance'].map((heading) => (
+                <th scope="col" aria-label={heading} key={heading}>
+                  {heading === 'Attendance'
+                    ? <>
+                        <span className={styles.attendanceHeadingFull}>{heading}</span>
+                        <span className={styles.attendanceHeadingShort} aria-hidden="true">At.</span>
+                      </>
+                    : heading}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {attendanceRows.map((row) => (
+              <tr key={row[0]}>{row.map((cell, index) => index === 0
+                ? <th scope="row" key={cell}>{cell}</th>
+                : <td key={`${row[0]}-${index}`}>{cell}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
+function AttendanceDesktopDetails({
+  profileStudent,
+  onOpenSidebar,
+  onBack,
+  navigate,
+  mobileMenuOpen,
+  setMobileMenuOpen,
+}) {
+  const [attendanceMonth, setAttendanceMonth] = useState(new Date(Date.UTC(2026, 6, 1)));
+  const [selectedAttendanceDate, setSelectedAttendanceDate] = useState(null);
+  const monthStart = new Date(Date.UTC(attendanceMonth.getUTCFullYear(), attendanceMonth.getUTCMonth(), 1));
+  const calendarStart = new Date(monthStart);
+  calendarStart.setUTCDate(1 - ((monthStart.getUTCDay() + 6) % 7));
+  const calendarDays = Array.from({ length: 42 }, (_, index) => {
+    const date = new Date(calendarStart);
+    date.setUTCDate(calendarStart.getUTCDate() + index);
+    return date;
+  });
+  const calendarStartSunday = new Date(monthStart);
+  calendarStartSunday.setUTCDate(1 - monthStart.getUTCDay());
+  const calendarDaysSundayFirst = Array.from({ length: 42 }, (_, index) => {
+    const date = new Date(calendarStartSunday);
+    date.setUTCDate(calendarStartSunday.getUTCDate() + index);
+    return date;
+  });
+  const monthLabel = `${monthStart.toLocaleDateString('en-US', { month: 'long', timeZone: 'UTC' })}, ${monthStart.getUTCFullYear()}`;
+  const monthAttendance = attendanceRows.find(([label]) => label === monthLabel);
+  const schoolDays = calendarDays.filter((date) => (
+    date.getUTCMonth() === monthStart.getUTCMonth()
+    && date.getUTCFullYear() === monthStart.getUTCFullYear()
+    && date.getUTCDay() > 0
+    && date.getUTCDay() < 6
+  ));
+  const hasMonthAttendance = monthAttendance
+    && Number(monthAttendance[1]) + Number(monthAttendance[2]) + Number(monthAttendance[3]) > 0;
+  const absentCount = hasMonthAttendance ? Math.min(Number(monthAttendance[2]), schoolDays.length) : 0;
+  const absentDayIndices = new Set(Array.from({ length: absentCount }, (_, index) => (
+    Math.floor(((index + 1) * schoolDays.length) / (absentCount + 1))
+  )));
+  const generatedAttendanceByDay = Object.fromEntries(schoolDays.map((date, index) => [
+    date.getUTCDate(),
+    absentDayIndices.has(index) ? 'absent' : 'present',
+  ]));
+  const julyAttendanceByDay = {
+    2: 'present', 3: 'present', 4: 'present', 5: 'present', 6: 'present',
+    9: 'present', 10: 'present', 11: 'present', 12: 'present', 13: 'present',
+    14: 'present', 15: 'present', 16: 'present', 17: 'present', 18: 'present',
+    19: 'leave', 20: 'leave', 21: 'leave', 22: 'present', 23: 'leave',
+    24: 'leave', 25: 'leave', 26: 'present', 27: 'present', 30: 'present',
+  };
+  const attendanceByDay = monthStart.getUTCMonth() === 6
+    ? julyAttendanceByDay
+    : hasMonthAttendance ? generatedAttendanceByDay : {};
+  const renderCalendarDay = (date) => {
+    const isCurrentMonth = date.getUTCMonth() === monthStart.getUTCMonth();
+    const status = isCurrentMonth ? attendanceByDay[date.getUTCDate()] : undefined;
+    const dateKey = date.toISOString().slice(0, 10);
+    const isSelected = selectedAttendanceDate === dateKey;
+    const dayClass = [
+      styles.calendarDay,
+      isCurrentMonth ? '' : styles.calendarDayOutside,
+      status ? styles[`calendarDay${status[0].toUpperCase()}${status.slice(1)}`] : '',
+      isSelected ? styles.calendarDaySelected : '',
+    ].filter(Boolean).join(' ');
+    return (
+      <button
+        type="button"
+        className={dayClass}
+        aria-label={date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}
+        aria-pressed={isSelected}
+        disabled={!isCurrentMonth}
+        onClick={() => setSelectedAttendanceDate(dateKey)}
+        key={date.toISOString()}
+      >
+        {date.getUTCDate()}
+      </button>
+    );
+  };
+  const changeMonth = (amount) => {
+    setAttendanceMonth((current) => new Date(Date.UTC(
+      current.getUTCFullYear(),
+      current.getUTCMonth() + amount,
+      1,
+    )));
+    setSelectedAttendanceDate(null);
+  };
+  return (
+    <main className={`${styles.page} ${styles.profilePage} ${styles.attendanceDetailsDesktop}`}>
+      <header className={styles.pageHeader}>
+        <div className={styles.pageTitleGroup}>
+          <button
+            type="button"
+            className={styles.menuButton}
+            aria-label="Open navigation menu"
+            aria-controls="teacher-navigation"
+            onClick={onOpenSidebar}
+          >
+            <Menu size={24} aria-hidden="true" />
+          </button>
+          <div className={styles.pageTitle}>
+            <h1>Student Profile</h1>
+            <p>Mathematics · Senior Section · Academic Year 2025 - 26 · Term 1</p>
+          </div>
+        </div>
+        <div className={styles.headerActions} role="group" aria-label="Teacher account actions">
+          <button type="button" aria-label="Messages"><Mail size={21} aria-hidden="true" /></button>
+          <button type="button" aria-label="Notifications" onClick={() => navigate('/teacher/notifications')}>
+            <Bell size={21} aria-hidden="true" />
+          </button>
+          <button type="button" aria-label="Settings" onClick={() => navigate('/teacher/settings')}>
+            <Settings size={21} aria-hidden="true" />
+          </button>
+        </div>
+        <button
+          type="button"
+          className={styles.mobileMore}
+          aria-label="More options"
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen((open) => !open)}
+        >
+          <MoreVertical size={22} aria-hidden="true" />
+        </button>
+      </header>
+
+      <div className={styles.profileToolbar}>
+        <button type="button" className={styles.profileBack} aria-label="Back to student profile" onClick={onBack}>
+          <ArrowLeft size={20} aria-hidden="true" />
+        </button>
+      </div>
+
+      <div className={styles.attendanceDetailGrid}>
+        <section className={styles.attendanceCalendarCard} aria-labelledby="student-attendance-calendar">
+          <h2 id="student-attendance-calendar">Calendar</h2>
+          <div className={styles.calendarSurface}>
+            <div className={styles.calendarMonthBar}>
+              <button type="button" aria-label="Previous month" onClick={() => changeMonth(-1)}>
+                <ChevronLeft size={16} aria-hidden="true" />
+              </button>
+              <span className={styles.calendarMonthDesktop}>
+                {monthStart.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })}
+              </span>
+              <span className={styles.calendarMonthMobile}>
+                {monthStart.toLocaleDateString('en-US', { month: 'long', timeZone: 'UTC' })}, {monthStart.getUTCFullYear()}
+              </span>
+              <button type="button" aria-label="Next month" onClick={() => changeMonth(1)}>
+                <ChevronRight size={16} aria-hidden="true" />
+              </button>
+            </div>
+            <div className={`${styles.calendarDaysGrid} ${styles.calendarDaysGridDesktop}`} role="grid" aria-label="Attendance calendar">
+              {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
+                <span className={styles.calendarWeekday} role="columnheader" key={day}>{day}</span>
+              ))}
+              {calendarDays.map(renderCalendarDay)}
+            </div>
+            <div className={`${styles.calendarDaysGrid} ${styles.calendarDaysGridMobile}`} role="grid" aria-label="Attendance calendar">
+              {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => (
+                <span className={styles.calendarWeekday} role="columnheader" key={day}>{day}</span>
+              ))}
+              {calendarDaysSundayFirst.map(renderCalendarDay)}
+            </div>
+            <div className={styles.calendarLegend}>
+              <span><i className={styles.calendarDayPresent} />Present</span>
+              <span><i className={styles.calendarDayAbsent} />Absent</span>
+              <span><i className={styles.calendarDayLeave} />Leave</span>
+              <span><i className={styles.calendarDayToday} />Today</span>
+            </div>
+          </div>
+        </section>
+
+        <AttendanceReportCard profileStudent={profileStudent} />
+      </div>
+    </main>
+  );
+}
+
 function StudyProfiles() {
   const { onOpenSidebar = () => {} } = useOutletContext() || {};
   const navigate = useNavigate();
@@ -42,6 +284,7 @@ function StudyProfiles() {
   const [filterOpen, setFilterOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileStudent, setProfileStudent] = useState(null);
+  const [attendanceDetailsOpen, setAttendanceDetailsOpen] = useState(false);
 
   const visibleStudents = useMemo(() => {
     const searchTerm = query.trim().toLowerCase();
@@ -60,6 +303,80 @@ function StudyProfiles() {
       ['Hindi', '78%', '82%', '80%', '85%', '81%', 'A'],
       ['Computer', '95%', '92%', '90%', '93%', '93%', 'A+'],
     ];
+
+    if (attendanceDetailsOpen) {
+      return (
+        <>
+        <main className={`${styles.page} ${styles.profilePage} ${styles.attendanceDetailsTablet}`}>
+          <header className={styles.pageHeader}>
+            <div className={styles.pageTitleGroup}>
+              <button
+                type="button"
+                className={styles.menuButton}
+                aria-label="Open navigation menu"
+                aria-controls="teacher-navigation"
+                onClick={onOpenSidebar}
+              >
+                <Menu size={24} aria-hidden="true" />
+              </button>
+              <div className={styles.pageTitle}>
+                <h1>Calendar</h1>
+              </div>
+            </div>
+            <div className={styles.headerActions} role="group" aria-label="Teacher account actions">
+              <button type="button" aria-label="Messages"><Mail size={21} aria-hidden="true" /></button>
+              <button type="button" aria-label="Notifications" onClick={() => navigate('/teacher/notifications')}>
+                <Bell size={21} aria-hidden="true" />
+              </button>
+              <button type="button" aria-label="Settings" onClick={() => navigate('/teacher/settings')}>
+                <Settings size={21} aria-hidden="true" />
+              </button>
+            </div>
+            <button
+              type="button"
+              className={styles.mobileMore}
+              aria-label="More options"
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen((open) => !open)}
+            >
+              <MoreVertical size={22} aria-hidden="true" />
+            </button>
+            {mobileMenuOpen && (
+              <div className={styles.mobileMenu}>
+                <button type="button" onClick={() => navigate('/teacher/notifications')}>
+                  <Bell size={17} aria-hidden="true" /> Notifications
+                </button>
+                <button type="button" onClick={() => navigate('/teacher/settings')}>
+                  <Settings size={17} aria-hidden="true" /> Settings
+                </button>
+              </div>
+            )}
+          </header>
+
+          <div className={styles.profileToolbar}>
+            <button
+              type="button"
+              className={styles.profileBack}
+              aria-label="Back to student profile"
+              onClick={() => setAttendanceDetailsOpen(false)}
+            >
+              <ArrowLeft size={20} aria-hidden="true" />
+            </button>
+          </div>
+          <CalendarContent />
+          <AttendanceReportCard profileStudent={profileStudent} />
+        </main>
+        <AttendanceDesktopDetails
+          profileStudent={profileStudent}
+          onOpenSidebar={onOpenSidebar}
+          onBack={() => setAttendanceDetailsOpen(false)}
+          navigate={navigate}
+          mobileMenuOpen={mobileMenuOpen}
+          setMobileMenuOpen={setMobileMenuOpen}
+        />
+        </>
+      );
+    }
 
     return (
       <main className={`${styles.page} ${styles.profilePage}`}>
@@ -177,7 +494,7 @@ function StudyProfiles() {
           <section className={styles.profileInfoCard}>
             <div className={styles.profileCardHeading}>
               <h2>Attendance Summary</h2>
-              <button type="button" className={styles.profileAction}>View Details</button>
+              <button type="button" className={styles.profileAction} onClick={() => setAttendanceDetailsOpen(true)}>View Details</button>
             </div>
             <div className={styles.attendanceSummary}>
               <div className={styles.attendanceDonut} role="img" aria-label="92 percent attendance">
