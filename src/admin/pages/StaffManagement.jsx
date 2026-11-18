@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Eye, Phone, PlusCircle } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
+import AddTeacherWizard from '../components/AddTeacherWizard';
 import styles from '../CSS/StaffManagement.module.css';
 
 /* ---------- dummy data (replace with API data) ---------- */
@@ -122,6 +123,7 @@ export default function StaffManagement() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [tab, setTab] = useState('admission');
   const [page, setPage] = useState(1);
+  const [adding, setAdding] = useState(false); // true = show the Add Teacher wizard
 
   const totalPages = Math.ceil(TOTAL_STAFF / PAGE_SIZE);
   const rows = useMemo(
@@ -130,7 +132,21 @@ export default function StaffManagement() {
   );
 
   const viewStaff = (id) => navigate(`/admin/staff/${id}`);
-  const addTeacher = () => navigate('/admin/staff/new');
+
+  const openWizard = () => {
+    window.scrollTo({ top: 0 });
+    setAdding(true);
+  };
+
+  const closeWizard = () => setAdding(false);
+
+  const createTeacher = (data) => {
+    // TODO: POST `data` to your API, then refresh the list
+    console.log('new teacher', data);
+    setTab('admission');
+    setPage(1);
+    setAdding(false);
+  };
 
   return (
     <div className={styles.shell}>
@@ -143,85 +159,91 @@ export default function StaffManagement() {
           onMenuClick={() => setMenuOpen(true)}
         />
 
-        <Tabs value={tab} onChange={setTab} />
+        {adding ? (
+          <AddTeacherWizard onCancel={closeWizard} onSubmit={createTeacher} />
+        ) : (
+          <>
+            <Tabs value={tab} onChange={setTab} />
 
-        {tab === 'admission' ? (
-          <section className={styles.card}>
-            <header className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>Teacher and Staff Records</h2>
-              <button type="button" className={`${styles.btn} ${styles.btnIcon}`} onClick={addTeacher}>
-                Add Teacher <PlusCircle size={22} aria-hidden="true" />
-              </button>
-            </header>
+            {tab === 'admission' ? (
+              <section className={styles.card}>
+                <header className={styles.sectionHeader}>
+                  <h2 className={styles.sectionTitle}>Teacher and Staff Records</h2>
+                  <button type="button" className={`${styles.btn} ${styles.btnIcon}`} onClick={openWizard}>
+                    Add Teacher <PlusCircle size={22} aria-hidden="true" />
+                  </button>
+                </header>
 
-            {/* laptop: table */}
-            <div className={styles.tableWrap}>
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    {columns.map((c) => <th key={c} scope="col">{c}</th>)}
-                  </tr>
-                </thead>
-                <tbody>
+                {/* laptop: table */}
+                <div className={styles.tableWrap}>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        {columns.map((c) => <th key={c} scope="col">{c}</th>)}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {rows.map((s, i) => (
+                        <tr key={`${s.id}-${i}`}>
+                          <td>{s.id}</td>
+                          <td>{s.name}</td>
+                          <td>{s.subject}</td>
+                          <td>{s.classes.join(', ')}</td>
+                          <td>{s.contact}</td>
+                          <td>{s.status}</td>
+                          <td>{s.joined}</td>
+                          <td>
+                            <IconButton label={`View ${s.name}`} onClick={() => viewStaff(s.id)}>
+                              <Eye size={26} aria-hidden="true" />
+                            </IconButton>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* tablet + mobile: cards */}
+                <ul className={styles.list}>
                   {rows.map((s, i) => (
-                    <tr key={`${s.id}-${i}`}>
-                      <td>{s.id}</td>
-                      <td>{s.name}</td>
-                      <td>{s.subject}</td>
-                      <td>{s.classes.join(', ')}</td>
-                      <td>{s.contact}</td>
-                      <td>{s.status}</td>
-                      <td>{s.joined}</td>
-                      <td>
+                    <li key={`${s.id}-${i}`} className={styles.item}>
+                      <span className={styles.itemId}>{s.id}</span>
+                      <div className={styles.itemInfo}>
+                        <p className={styles.itemName}>{s.name}</p>
+                        <p className={styles.itemMeta}>
+                          {s.classTeacherOf}
+                          <span className={styles.sep} aria-hidden="true" />
+                          {s.classes.join(', ')}
+                          <span className={styles.sep} aria-hidden="true" />
+                          <span className={styles.paid}>{s.status}</span>
+                        </p>
+                      </div>
+                      <div className={styles.itemActions}>
+                        <IconButton label={`Call ${s.name}`} href={`tel:${s.contact}`}>
+                          <Phone size={24} aria-hidden="true" />
+                        </IconButton>
                         <IconButton label={`View ${s.name}`} onClick={() => viewStaff(s.id)}>
                           <Eye size={26} aria-hidden="true" />
                         </IconButton>
-                      </td>
-                    </tr>
+                      </div>
+                    </li>
                   ))}
-                </tbody>
-              </table>
-            </div>
+                </ul>
 
-            {/* tablet + mobile: cards */}
-            <ul className={styles.list}>
-              {rows.map((s, i) => (
-                <li key={`${s.id}-${i}`} className={styles.item}>
-                  <span className={styles.itemId}>{s.id}</span>
-                  <div className={styles.itemInfo}>
-                    <p className={styles.itemName}>{s.name}</p>
-                    <p className={styles.itemMeta}>
-                      {s.classTeacherOf}
-                      <span className={styles.sep} aria-hidden="true" />
-                      {s.classes.join(', ')}
-                      <span className={styles.sep} aria-hidden="true" />
-                      <span className={styles.paid}>{s.status}</span>
-                    </p>
-                  </div>
-                  <div className={styles.itemActions}>
-                    <IconButton label={`Call ${s.name}`} href={`tel:${s.contact}`}>
-                      <Phone size={24} aria-hidden="true" />
-                    </IconButton>
-                    <IconButton label={`View ${s.name}`} onClick={() => viewStaff(s.id)}>
-                      <Eye size={26} aria-hidden="true" />
-                    </IconButton>
-                  </div>
-                </li>
-              ))}
-            </ul>
-
-            <footer className={styles.footer}>
-              <p className={styles.count}>
-                Showing {rows.length} of {TOTAL_STAFF} teachers &amp; staff
-              </p>
-              <Pagination page={page} totalPages={totalPages} onChange={setPage} />
-            </footer>
-          </section>
-        ) : (
-          <section className={styles.card}>
-            <h2 className={styles.sectionTitle}>Employee profile</h2>
-            <p className={styles.empty}>Select a teacher from Employee admission to see their profile.</p>
-          </section>
+                <footer className={styles.footer}>
+                  <p className={styles.count}>
+                    Showing {rows.length} of {TOTAL_STAFF} teachers &amp; staff
+                  </p>
+                  <Pagination page={page} totalPages={totalPages} onChange={setPage} />
+                </footer>
+              </section>
+            ) : (
+              <section className={styles.card}>
+                <h2 className={styles.sectionTitle}>Employee profile</h2>
+                <p className={styles.empty}>Select a teacher from Employee admission to see their profile.</p>
+              </section>
+            )}
+          </>
         )}
       </main>
     </div>
