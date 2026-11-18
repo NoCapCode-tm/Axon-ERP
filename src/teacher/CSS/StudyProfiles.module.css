@@ -209,6 +209,8 @@
 .studentList {
   display: grid;
   gap: 0;
+  max-height: 570px;
+  overflow-y: auto;
   padding: 8px 18px 14px;
 }
 
@@ -225,8 +227,7 @@
   border-bottom: 0;
 }
 
-.avatar,
-.profileAvatar {
+.avatar {
   display: grid;
   width: 54px;
   height: 54px;
@@ -320,79 +321,6 @@
   margin: 0;
   color: #426d38;
   font-size: 13px;
-}
-
-.modalBackdrop {
-  position: fixed;
-  z-index: 20;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-  background: rgb(21 26 20 / 40%);
-}
-
-.dialog {
-  width: min(100%, 420px);
-  overflow: hidden;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 18px 50px rgb(0 0 0 / 18%);
-}
-
-.dialogHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 18px;
-  border-bottom: 1px solid #eceeeb;
-}
-
-.dialogHeader h2 {
-  margin: 0;
-  color: #282e34;
-  font-size: 18px;
-}
-
-.closeButton {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  color: #454c54;
-  background: transparent;
-  cursor: pointer;
-}
-
-.closeButton:hover {
-  background: #f0f2ed;
-}
-
-.profileDetails {
-  display: grid;
-  justify-items: center;
-  gap: 9px;
-  padding: 24px 20px 26px;
-  color: #737b84;
-  font-size: 13px;
-}
-
-.profileDetails strong {
-  margin-top: 5px;
-  color: #252b31;
-  font-size: 17px;
-}
-
-.profileDetails a {
-  color: #4a6533;
-}
-
-.profileAvatar {
-  width: 68px;
-  height: 68px;
-  font-size: 17px;
 }
 
 @media (max-width: 900px) {
@@ -935,8 +863,9 @@
 }
 
 .studentTableWrap {
+  max-height: 570px;
+  overflow: auto;
   padding: 0 10px 8px;
-  overflow-x: auto;
 }
 
 .studentTable {
@@ -1332,5 +1261,1179 @@
     margin: 0 -4px;
     padding-right: 0;
     padding-left: 0;
+  }
+}
+
+.profilePage {
+  gap: 6px;
+  padding: 8px;
+}
+
+.profileToolbar {
+  display: flex;
+  min-height: 28px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.profileBack {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  color: #202733;
+  background: transparent;
+  cursor: pointer;
+}
+
+.profileBack:hover {
+  background: #e9f8ef;
+}
+
+.profileToolbarActions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.profileAction {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 4px;
+  color: #202733;
+  background: #e5f588;
+  font: inherit;
+  font-size: 10px;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.profileHero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr) minmax(180px, 0.65fr);
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.profileIdentity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+}
+
+.profilePhoto {
+  display: block;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  border-radius: 50%;
+  background-color: #ffbf26;
+  background-image: url("data:image/png;base64,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");
+  background-position: center;
+  background-size: cover;
+}
+
+.profileIdentityText {
+  min-width: 0;
+}
+
+.profileIdentityText h2 {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 2px;
+  color: #202733;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.activeDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #36a269;
+}
+
+.profileIdentityFacts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 2px;
+  color: #303741;
+  font-size: 11px;
+}
+
+.profileMiddleFacts {
+  display: grid;
+  min-width: 0;
+  row-gap: 2px;
+  color: #303741;
+  font-size: 11px;
+}
+
+.profileMiddleFacts > span,
+.profileIdentityFacts > span {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.profileFactLabel::after {
+  content: ':';
+}
+
+.profileFactLabelSpaced::after {
+  margin-left: 1ch;
+}
+
+.profileMiddleFacts strong,
+.profileIdentityFacts strong {
+  color: #1d2430;
+  font-weight: 500;
+}
+
+.profileContact {
+  display: grid;
+  min-width: 180px;
+  gap: 4px;
+  color: #303741;
+  font-size: 11px;
+  font-style: normal;
+  justify-items: start;
+}
+
+.profileContact strong {
+  color: #1d2430;
+  font-weight: 500;
+}
+
+.profileContact a,
+.profileContact span {
+  overflow-wrap: anywhere;
+  color: inherit;
+  text-decoration: none;
+}
+
+.profileDetailsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+.profileInfoCard,
+.academicReport {
+  min-width: 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.profileInfoCard h2,
+.academicReport h2 {
+  margin: 0;
+  color: #202733;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.profileInfoCard {
+  box-sizing: border-box;
+  min-height: 174px;
+}
+
+.profileInfoCard dl {
+  display: grid;
+  gap: 6px;
+  margin: 12px 0 0;
+}
+
+.profileInfoCard dl > div {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  color: #657080;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.profileInfoCard dt {
+  margin: 0;
+  min-width: 0;
+  color: #303741;
+  font-weight: 500;
+}
+
+.profileInfoCard dt::after {
+  content: ':';
+}
+
+.profileInfoCard dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #1d2430;
+}
+
+.profileCardHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.profileCardHeading .profileAction {
+  min-height: 24px;
+  padding: 0 8px;
+  font-size: 9px;
+}
+
+.attendanceSummary {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  min-height: 124px;
+  gap: 8px;
+}
+
+.attendanceDonut {
+  display: grid;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: conic-gradient(#dff47a 0 72%, #d0e1d9 72% 100%);
+}
+
+.attendanceDonut span {
+  display: grid;
+  width: 78px;
+  height: 78px;
+  place-items: center;
+  border-radius: 50%;
+  color: #202733;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.attendanceLegend {
+  display: grid;
+  gap: 8px;
+  color: #303741;
+  font-size: 11px;
+}
+
+.attendanceLegend span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.attendanceLegend strong {
+  color: #1d2430;
+  font-weight: 500;
+}
+
+.attendanceLegend i {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+}
+
+.presentSwatch {
+  background: #dff47a;
+}
+
+.absentSwatch {
+  background: #b8d7c8;
+}
+
+.profileMetrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.profileMetric {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+  min-height: 72px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.profileMetric span {
+  overflow: hidden;
+  color: #657080;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profileMetric strong {
+  color: #202733;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.profileMetric small {
+  color: #9299a3;
+  font-size: 8px;
+}
+
+.academicReport {
+  padding: 8px 10px 6px;
+}
+
+.attendanceDetailsDesktop {
+  display: grid;
+}
+
+.attendanceDetailsTablet {
+  display: none;
+}
+
+.attendanceDetailGrid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.15fr);
+  align-items: stretch;
+  gap: 6px;
+}
+
+.attendanceCalendarCard,
+.attendanceReportCard {
+  min-width: 0;
+  min-height: 356px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.attendanceCalendarCard h2,
+.attendanceReportCard h2 {
+  margin: 0 0 14px;
+  color: #202733;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.calendarSurface {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  background: #f0fbf5;
+}
+
+.calendarMonthBar {
+  display: flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  border-radius: 20px;
+  background: #fff;
+  color: #303741;
+  font-size: 11px;
+}
+
+.calendarMonthBar button {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #53606f;
+  background: transparent;
+  cursor: pointer;
+}
+
+.calendarMonthBar button:hover {
+  background: #e9f8ef;
+}
+
+.calendarMonthMobile,
+.attendanceHeadingShort {
+  display: none;
+}
+
+.calendarDaysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: center;
+  justify-items: center;
+  gap: 5px 3px;
+}
+
+.calendarDaysGridMobile {
+  display: none;
+}
+
+.calendarWeekday,
+.calendarDay {
+  display: grid;
+  width: 100%;
+  min-height: 24px;
+  place-items: center;
+  color: #687484;
+  font-size: 9px;
+}
+
+.calendarWeekday {
+  min-height: 20px;
+  color: #3d4652;
+}
+
+.calendarDay {
+  max-width: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.calendarDay:focus-visible {
+  outline: 2px solid #899d36;
+  outline-offset: 1px;
+}
+
+.calendarDay:disabled {
+  cursor: default;
+}
+
+.calendarDayOutside {
+  color: #87909b;
+}
+
+.calendarDayPresent {
+  color: #59634a;
+  background: #e5f588;
+}
+
+.calendarDayAbsent {
+  color: #58646d;
+  background: #c4ded2;
+}
+
+.calendarDayLeave {
+  color: #58646d;
+  background: #bdd9cd;
+}
+
+.calendarDayToday {
+  color: #222b18;
+  background: #c5d969;
+  box-shadow: inset 0 0 0 1px #899d36;
+}
+
+.calendarDaySelected {
+  color: #222b18;
+  background: #c5d969;
+  box-shadow: inset 0 0 0 1px #899d36;
+}
+
+.calendarLegend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 2px;
+  color: #47515e;
+  font-size: 9px;
+}
+
+.calendarLegend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.calendarLegend i {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+}
+
+.calendarLegend .calendarDayToday {
+  box-shadow: none;
+}
+
+.attendanceReportHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.attendanceReportHeading h2 {
+  margin-bottom: 14px;
+}
+
+.attendanceReportHeading .profileAction {
+  min-height: 26px;
+  margin-top: -8px;
+  font-size: 9px;
+}
+
+.attendanceReportTableWrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.attendanceReportTable {
+  width: 100%;
+  border-collapse: collapse;
+  color: #697484;
+  font-size: 10px;
+  text-align: center;
+}
+
+.attendanceReportTable thead {
+  background: #eaf9f0;
+}
+
+.attendanceReportTable th,
+.attendanceReportTable td {
+  height: 20px;
+  padding: 0 6px;
+  border-bottom: 1px solid #f3f5f3;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.attendanceReportTable thead th {
+  height: 30px;
+  color: #46505e;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .attendanceDetailsDesktop {
+    display: none;
+  }
+
+  .attendanceDetailsTablet {
+    display: grid;
+  }
+}
+
+.reportTableWrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 6px;
+}
+
+.reportTable {
+  width: 100%;
+  border-collapse: collapse;
+  color: #657080;
+  font-size: 9px;
+  text-align: center;
+}
+
+.reportTable thead {
+  background: #eaf9f0;
+}
+
+.reportTable th,
+.reportTable td {
+  height: 24px;
+  padding: 1px 6px;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.reportTable th {
+  color: #46505e;
+  font-weight: 500;
+}
+
+.reportTable tbody th {
+  height: 15px;
+  font-weight: 400;
+}
+
+.reportTable tbody td {
+  height: 15px;
+}
+
+@media (max-width: 900px) {
+  .profilePage {
+    gap: 7px;
+    padding: 8px 14px 22px;
+  }
+
+  .profileDetailsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .profileDetailsGrid > :last-child {
+    grid-column: 1 / -1;
+  }
+
+  .attendanceSummary {
+    min-height: 100px;
+  }
+}
+
+@media (max-width: 600px) {
+  .profilePage {
+    gap: 7px;
+    padding: 0 10px 86px;
+  }
+
+  .profileToolbar {
+    min-height: 30px;
+  }
+
+  .profileAction {
+    min-height: 27px;
+    padding: 0 7px;
+    font-size: 9px;
+  }
+
+  .profileHero {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .profileIdentity {
+    width: 100%;
+    gap: 9px;
+  }
+
+  .profilePhoto {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+  }
+
+  .profileIdentityFacts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .profileMiddleFacts {
+    padding-left: 55px;
+  }
+
+  .profileContact {
+    min-width: 0;
+    padding-left: 55px;
+  }
+
+  .profileDetailsGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .profileDetailsGrid > :last-child {
+    grid-column: auto;
+  }
+
+  .profileInfoCard,
+  .academicReport {
+    padding: 10px;
+  }
+
+  .profileMetrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .profileMetric {
+    min-height: 68px;
+  }
+
+  .attendanceSummary {
+    justify-content: flex-start;
+    min-height: 110px;
+    padding-left: 8px;
+  }
+
+  .reportTable {
+    min-width: 600px;
+  }
+
+  .attendanceDetailGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .attendanceCalendarCard,
+  .attendanceReportCard {
+    min-height: 0;
+  }
+
+  .calendarSurface {
+    padding: 10px;
+  }
+
+  .calendarWeekday,
+  .calendarDay {
+    font-size: 11px;
+  }
+
+  .calendarDay {
+    max-width: 36px;
+    min-height: 30px;
+  }
+
+  .calendarLegend {
+    font-size: 10px;
+  }
+
+  .attendanceReportTable {
+    min-width: 500px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .profileMetrics {
+    grid-row: 4;
+    grid-template-columns: repeat(5, 230px);
+    overflow-x: auto;
+  }
+
+  .profileMetric {
+    min-height: 100px;
+    padding: 12px;
+  }
+
+  .profileMetric span {
+    font-size: 14px;
+  }
+
+  .profileMetric strong {
+    font-size: 28px;
+  }
+
+  .profileMetric small {
+    font-size: 10px;
+  }
+
+  .profileDetailsGrid {
+    grid-row: 5;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: repeat(2, minmax(214px, auto));
+    align-items: stretch;
+  }
+
+  .profileDetailsGrid > :last-child {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .profileInfoCard {
+    min-height: 214px;
+    padding: 10px;
+  }
+
+  .profileInfoCard h2 {
+    font-size: 18px;
+  }
+
+  .profileInfoCard dl {
+    gap: 9px;
+    margin-top: 20px;
+  }
+
+  .profileInfoCard dl > div {
+    font-size: 13px;
+  }
+
+  .academicReport {
+    grid-row: 6;
+  }
+
+  .profileHero {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: 28px 8px;
+    padding: 10px;
+  }
+
+  .profileIdentity,
+  .profileIdentityText {
+    display: contents;
+  }
+
+  .profilePhoto {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    width: 170px;
+    height: 170px;
+    flex-basis: 170px;
+    justify-self: center;
+  }
+
+  .profileIdentityText h2 {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: center;
+    margin: 0;
+    font-size: 20px;
+  }
+
+  .profileIdentityFacts {
+    grid-column: 1;
+    grid-row: 3;
+    row-gap: 5px;
+    font-size: 14px;
+  }
+
+  .profileMiddleFacts {
+    grid-column: 2;
+    grid-row: 3;
+    row-gap: 5px;
+    font-size: 14px;
+  }
+
+  .profileContact {
+    grid-column: 3;
+    grid-row: 3;
+    min-width: 0;
+    gap: 5px;
+    font-size: 14px;
+  }
+
+  .profileContact strong {
+    display: none;
+  }
+
+  .profileCardHeading .profileAction {
+    min-height: 34px;
+    font-size: 12px;
+  }
+
+  .attendanceSummary {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 34px;
+    min-height: 0;
+    padding: 30px 0 12px;
+  }
+
+  .attendanceDonut {
+    width: 240px;
+    height: 240px;
+  }
+
+  .attendanceDonut span {
+    width: 164px;
+    height: 164px;
+    font-size: 20px;
+  }
+
+  .attendanceLegend {
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .attendanceLegend i {
+    width: 14px;
+    height: 14px;
+    flex-basis: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .profileMetrics {
+    grid-row: 4;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 280px;
+    overflow-x: auto;
+  }
+
+  .profileMetric {
+    min-height: 120px;
+    padding: 12px;
+  }
+
+  .profileMetric span {
+    font-size: 16px;
+  }
+
+  .profileMetric strong {
+    font-size: 34px;
+  }
+
+  .profileMetric small {
+    font-size: 12px;
+  }
+
+  .profileDetailsGrid {
+    grid-row: 5;
+  }
+
+  .academicReport {
+    grid-row: 6;
+  }
+
+  .profileHero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 12px;
+  }
+
+  .profileIdentity,
+  .profileIdentityText {
+    display: contents;
+  }
+
+  .profilePhoto {
+    grid-column: 1;
+    grid-row: 1;
+    width: 208px;
+    height: 208px;
+    flex-basis: 208px;
+    justify-self: center;
+  }
+
+  .profileIdentityText h2 {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center;
+    margin: 32px 0 0;
+    font-size: 22px;
+  }
+
+  .profileIdentityFacts {
+    grid-column: 1;
+    grid-row: 3;
+    row-gap: 6px;
+    margin-top: 28px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .profileMiddleFacts {
+    grid-column: 1;
+    grid-row: 4;
+    row-gap: 6px;
+    margin-top: 6px;
+    padding-left: 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .profileContact {
+    grid-column: 1;
+    grid-row: 5;
+    gap: 4px;
+    min-width: 0;
+    margin-top: 8px;
+    padding-left: 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .profileContact strong,
+  .activeDot {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .attendanceDetailsDesktop {
+    display: grid;
+    gap: 8px;
+    min-height: calc(100vh - 60px);
+    padding: 0 10px 86px;
+  }
+
+  .attendanceDetailsTablet {
+    display: none;
+  }
+
+  .attendanceDetailsDesktop .pageTitle h1 {
+    font-size: 20px;
+  }
+
+  .attendanceDetailsDesktop .profileToolbar {
+    min-height: 28px;
+  }
+
+  .attendanceDetailGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .attendanceCalendarCard,
+  .attendanceReportCard {
+    min-height: 0;
+    padding: 10px;
+  }
+
+  .attendanceCalendarCard h2,
+  .attendanceReportCard h2 {
+    margin-bottom: 14px;
+    font-size: 20px;
+  }
+
+  .calendarSurface {
+    gap: 12px;
+    padding: 10px;
+    background: #fff;
+  }
+
+  .calendarMonthBar {
+    min-height: 44px;
+    padding: 0 8px;
+    border: 1px solid #e6f5eb;
+    border-radius: 24px;
+    font-size: 14px;
+  }
+
+  .calendarMonthBar button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .calendarMonthDesktop,
+  .attendanceHeadingFull {
+    display: none;
+  }
+
+  .calendarMonthMobile,
+  .attendanceHeadingShort {
+    display: inline;
+  }
+
+  .calendarDaysGrid {
+    align-items: stretch;
+    justify-items: stretch;
+    gap: 4px;
+  }
+
+  .calendarDaysGridDesktop {
+    display: none;
+  }
+
+  .calendarDaysGridMobile {
+    display: grid;
+  }
+
+  .calendarWeekday {
+    min-height: 24px;
+    font-size: 12px;
+  }
+
+  .calendarDay {
+    max-width: none;
+    min-height: 46px;
+    font-size: 16px;
+  }
+
+  .calendarDayOutside {
+    visibility: hidden;
+  }
+
+  .calendarLegend {
+    gap: 6px;
+    padding-top: 4px;
+    font-size: 14px;
+  }
+
+  .calendarLegend span {
+    gap: 5px;
+  }
+
+  .calendarLegend i {
+    width: 10px;
+    height: 10px;
+    flex-basis: 10px;
+  }
+
+  .attendanceReportHeading {
+    align-items: center;
+  }
+
+  .attendanceReportHeading h2 {
+    margin: 0;
+  }
+
+  .attendanceReportHeading .profileAction {
+    min-height: 36px;
+    margin: 0;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .attendanceReportTableWrap {
+    overflow: hidden;
+  }
+
+  .attendanceReportTable {
+    min-width: 0;
+    table-layout: fixed;
+    font-size: 12px;
+  }
+
+  .attendanceReportTable th,
+  .attendanceReportTable td {
+    height: 42px;
+    padding: 0 3px;
+    white-space: normal;
+  }
+
+  .attendanceReportTable thead th {
+    height: 44px;
+    padding: 0 2px;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .attendanceDetailsTablet .attendanceReportCard {
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .attendanceDetailsTablet .attendanceReportHeading h2 {
+    margin-bottom: 0;
+    font-size: 22px;
+  }
+
+  .attendanceDetailsTablet .attendanceReportHeading .profileAction {
+    min-height: 46px;
+    margin: 0;
+    padding: 0 18px;
+    font-size: 15px;
+  }
+
+  .attendanceDetailsTablet .attendanceReportTable {
+    min-width: 0;
+    font-size: 15px;
+  }
+
+  .attendanceDetailsTablet .attendanceReportTable th,
+  .attendanceDetailsTablet .attendanceReportTable td {
+    height: 56px;
+    padding: 0 12px;
+  }
+
+  .attendanceDetailsTablet .attendanceReportTable thead th {
+    height: 60px;
   }
 }

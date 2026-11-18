@@ -1,0 +1,222 @@
+.calendarPage {
+  min-height: calc(100vh - 68px);
+  padding: 0 8px 20px;
+  box-sizing: border-box;
+  color: #202733;
+  background: #f6f7f5;
+}
+
+.calendarContent {
+  display: grid;
+  gap: 5px;
+}
+
+.calendarDatePicker {
+  display: flex;
+  height: 28px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  padding: 0 5px;
+  border-radius: 6px;
+  color: #46505e;
+  background: #e7faef;
+  font-size: 9px;
+}
+
+.calendarDatePicker button {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #566273;
+  background: transparent;
+  cursor: pointer;
+}
+
+.calendarDatePicker button:hover,
+.calendarDatePicker button:focus-visible {
+  background: #d3efdf;
+}
+
+.calendarPanel {
+  overflow: hidden;
+  padding: 2px;
+  border-radius: 7px;
+  background: #fff;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: 22px repeat(6, 82px);
+  gap: 1px;
+  background: #e5f5ec;
+}
+
+.calendarWeekday {
+  display: grid;
+  min-width: 0;
+  place-items: center;
+  overflow: hidden;
+  color: #202733;
+  background: #bdd9cb;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.calendarDay {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: 3px 4px;
+  background: #f2fcf6;
+}
+
+.calendarDayNumber {
+  display: block;
+  color: #4f5c69;
+  font-size: 8px;
+  line-height: 1.2;
+}
+
+.calendarDayOutside {
+  color: #88919b;
+}
+
+.calendarEvent {
+  display: flex;
+  width: 100%;
+  min-height: 72px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  margin-top: 5px;
+  padding: 7px 5px 5px;
+  overflow: hidden;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #39434f;
+  background: #e5f588;
+  font-size: 7px;
+  line-height: 1.2;
+}
+
+.calendarEventDot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border-radius: 50%;
+  background: #f4ffe0;
+}
+
+.calendarEvent strong {
+  font-size: 8px;
+  font-weight: 500;
+}
+
+.calendarEvent time {
+  margin-top: auto;
+  font-size: 7px;
+}
+
+@media (max-width: 600px) {
+  .calendarPage {
+    padding: 0 8px 82px;
+  }
+
+  .calendarWeekday {
+    font-size: 8px;
+  }
+
+  .calendarDay {
+    padding: 3px 2px;
+  }
+
+  .calendarEvent {
+    padding-right: 3px;
+    padding-left: 3px;
+    font-size: 6px;
+  }
+
+  .calendarEvent strong {
+    font-size: 7px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .calendarContent {
+    gap: 7px;
+  }
+
+  .calendarDatePicker {
+    height: 34px;
+    margin-bottom: 0;
+    padding: 0 9px;
+    border-radius: 11px;
+    font-size: 14px;
+  }
+
+  .calendarDatePicker button {
+    width: 30px;
+    height: 30px;
+  }
+
+  .calendarDatePicker button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .calendarPanel {
+    border-radius: 10px;
+  }
+
+  .calendarGrid {
+    grid-template-rows: 36px repeat(var(--calendar-week-count), minmax(0, 1fr));
+    min-height: calc(100vh - 226px);
+  }
+
+  .calendarDayOverflow {
+    display: none;
+  }
+
+  .calendarWeekday {
+    font-size: 14px;
+  }
+
+  .calendarDay {
+    padding: 5px 6px;
+  }
+
+  .calendarDayNumber {
+    font-size: 13px;
+  }
+
+  .calendarEvent {
+    min-height: 120px;
+    gap: 6px;
+    margin-top: 7px;
+    padding: 10px 9px 7px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  .calendarEventDot {
+    width: 16px;
+    height: 16px;
+    flex-basis: 16px;
+  }
+
+  .calendarEvent strong {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .calendarEvent time {
+    font-size: 12px;
+  }
+}

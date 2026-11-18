@@ -229,6 +229,8 @@ function TeacherLayout() {
                       ? 'Exams'
                     : location.pathname === '/teacher/student-material'
                       ? 'Study Material'
+                      : location.pathname === '/teacher/calendar'
+                        ? 'Calendar'
                       : 'Dashboard';
 
   return (
