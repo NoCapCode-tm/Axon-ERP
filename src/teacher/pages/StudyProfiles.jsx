@@ -1,17 +1,21 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import {
   ArrowLeft,
   Bell,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  Download,
   Eye,
+  FileText,
   Mail,
   Menu,
   MoreVertical,
   Plus,
+  Printer,
   Search,
   Settings,
+  X,
 } from 'lucide-react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import styles from '../CSS/StudyProfiles.module.css';
@@ -50,6 +54,78 @@ const attendanceRows = [
   ['November, 2026', '00', '00', '00', '00'],
   ['December, 2026', '00', '00', '00', '00'],
 ];
+
+const legalDocuments = [
+  { title: 'Birth Certificate', fileName: 'birth-certificate.pdf', previewFileName: 'Birth Certificate.pdf', previewSize: '1.5 MB' },
+  { title: 'Aadhar card', fileName: 'aadhar.pdf', previewFileName: 'Aadhar card.pdf', previewSize: '1MB' },
+  { title: 'Other Documents', fileName: 'other-docs.pdf', previewFileName: 'Other Documents.pdf', previewSize: '1.5 MB' },
+  { title: 'Transfer Certificate (TC)', fileName: 'TC.pdf', previewFileName: 'TC.pdf', previewSize: '1.5 MB' },
+];
+
+function createBlankLegalDocumentPdf() {
+  const objects = [
+    '<< /Type /Catalog /Pages 2 0 R >>',
+    '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] >>',
+  ];
+  let pdf = '%PDF-1.4\n';
+  const offsets = [0];
+  objects.forEach((object, index) => {
+    offsets.push(pdf.length);
+    pdf += `${index + 1} 0 obj\n${object}\nendobj\n`;
+  });
+  const crossReferenceOffset = pdf.length;
+  pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
+  offsets.slice(1).forEach((offset) => {
+    pdf += `${String(offset).padStart(10, '0')} 00000 n \n`;
+  });
+  pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${crossReferenceOffset}\n%%EOF`;
+
+  return new Blob([pdf], { type: 'application/pdf' });
+}
+
+function printLegalDocument(legalDocument) {
+  const pdfUrl = legalDocument.fileUrl || URL.createObjectURL(createBlankLegalDocumentPdf());
+  const shouldRevokeUrl = !legalDocument.fileUrl;
+  const frame = window.document.createElement('iframe');
+  let cleanedUp = false;
+  const cleanup = () => {
+    if (cleanedUp) return;
+    cleanedUp = true;
+    frame.remove();
+    if (shouldRevokeUrl) URL.revokeObjectURL(pdfUrl);
+  };
+
+  frame.title = `Print ${legalDocument.fileName}`;
+  frame.style.position = 'fixed';
+  frame.style.width = '0';
+  frame.style.height = '0';
+  frame.style.border = '0';
+  frame.onload = () => {
+    const printWindow = frame.contentWindow;
+    if (!printWindow) {
+      cleanup();
+      return;
+    }
+    printWindow.focus();
+    printWindow.print();
+    window.setTimeout(cleanup, 1000);
+  };
+  frame.onerror = cleanup;
+  frame.src = pdfUrl;
+  window.document.body.appendChild(frame);
+}
+
+function downloadLegalDocument(legalDocument) {
+  const link = window.document.createElement('a');
+  const url = URL.createObjectURL(createBlankLegalDocumentPdf());
+  link.href = url;
+  link.download = `${legalDocument.fileName.replace(/\.pdf$/i, '')}-blank.pdf`;
+  window.document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 
 function AttendanceReportCard({ profileStudent }) {
   const downloadAttendance = () => {
@@ -275,6 +351,213 @@ function AttendanceDesktopDetails({
   );
 }
 
+function LegalDocumentsScreen({
+  onOpenSidebar,
+  onBack,
+  navigate,
+  mobileMenuOpen,
+  setMobileMenuOpen,
+}) {
+  const [previewDocument, setPreviewDocument] = useState(null);
+  const [previewPage, setPreviewPage] = useState(0);
+  const pageRef = useRef(null);
+
+  return (
+    <main
+      ref={pageRef}
+      className={`${styles.page} ${styles.profilePage} ${styles.legalDocumentPage}`}
+    >
+      <header className={styles.pageHeader}>
+        <div className={styles.pageTitleGroup}>
+          <button
+            type="button"
+            className={styles.menuButton}
+            aria-label="Open navigation menu"
+            aria-controls="teacher-navigation"
+            onClick={onOpenSidebar}
+          >
+            <Menu size={24} aria-hidden="true" />
+          </button>
+          <div className={styles.pageTitle}>
+            <h1>Student Profile</h1>
+            <p>Mathematics · Senior Section · Academic Year 2025 - 26 · Term 1</p>
+          </div>
+        </div>
+        <div className={styles.headerActions} role="group" aria-label="Teacher account actions">
+          <button type="button" aria-label="Messages"><Mail size={21} aria-hidden="true" /></button>
+          <button type="button" aria-label="Notifications" onClick={() => navigate('/teacher/notifications')}>
+            <Bell size={21} aria-hidden="true" />
+          </button>
+          <button type="button" aria-label="Settings" onClick={() => navigate('/teacher/settings')}>
+            <Settings size={21} aria-hidden="true" />
+          </button>
+        </div>
+        <button
+          type="button"
+          className={styles.mobileMore}
+          aria-label="More options"
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen((open) => !open)}
+        >
+          <MoreVertical size={22} aria-hidden="true" />
+        </button>
+        {mobileMenuOpen && (
+          <div className={styles.mobileMenu}>
+            <button type="button" onClick={() => navigate('/teacher/notifications')}>
+              <Bell size={17} aria-hidden="true" /> Notifications
+            </button>
+            <button type="button" onClick={() => navigate('/teacher/settings')}>
+              <Settings size={17} aria-hidden="true" /> Settings
+            </button>
+          </div>
+        )}
+      </header>
+
+      <div className={styles.profileToolbar}>
+        <button
+          type="button"
+          className={styles.profileBack}
+          aria-label={previewDocument ? 'Back to legal documents' : 'Back to student profile'}
+          onClick={() => {
+            if (previewDocument) {
+              setPreviewDocument(null);
+            } else {
+              onBack();
+            }
+          }}
+        >
+          <ArrowLeft size={20} aria-hidden="true" />
+        </button>
+      </div>
+
+      <section
+        className={`${styles.legalDocumentsPanel} ${previewDocument ? styles.mobilePreviewActive : ''}`}
+        aria-labelledby="legal-documents-heading"
+      >
+        <h2 id="legal-documents-heading">Documents</h2>
+        <div className={styles.legalDocumentGrid}>
+          {legalDocuments.map((document) => (
+            <article className={styles.legalDocumentCard} key={document.fileName}>
+              <h3>{document.title}</h3>
+              <div className={styles.legalDocumentThumbnail} aria-hidden="true" />
+              <div className={styles.legalDocumentFile}>
+                <FileText size={18} aria-hidden="true" />
+                <span>
+                  <strong>{document.fileName}</strong>
+                  <small>Blank PDF</small>
+                </span>
+              </div>
+              <div className={styles.legalDocumentActions}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (pageRef.current) pageRef.current.scrollTop = 0;
+                    setPreviewDocument(document);
+                    setPreviewPage(0);
+                  }}
+                >
+                  Preview
+                </button>
+                <button type="button" onClick={() => downloadLegalDocument(document)}>
+                  Download
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {previewDocument && (
+        <section
+          className={styles.mobileDocumentPreview}
+          aria-label={`${previewDocument.title} document preview`}
+        >
+          <div className={styles.mobileDocumentPreviewCanvas} aria-label="Blank document preview" />
+          <div className={styles.mobileDocumentPageNumber}>Page 1 of 4</div>
+          <footer className={styles.mobileDocumentPreviewFooter}>
+            <div className={styles.legalDocumentFile}>
+              <FileText size={30} aria-hidden="true" />
+              <span>
+                <strong>{previewDocument.previewFileName} - {previewDocument.previewSize}</strong>
+                <small>Uploaded on Jun 20, 2021</small>
+              </span>
+            </div>
+            <div className={styles.documentPreviewActions}>
+              <button type="button" onClick={() => printLegalDocument(previewDocument)}>
+                Print
+              </button>
+              <button type="button" onClick={() => downloadLegalDocument(previewDocument)}>
+                Download
+              </button>
+            </div>
+          </footer>
+        </section>
+      )}
+
+      {previewDocument && (
+        <div
+          className={styles.documentPreviewBackdrop}
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setPreviewDocument(null);
+          }}
+        >
+          <section
+            className={styles.documentPreviewDialog}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${previewDocument.title} preview`}
+          >
+            <button
+              type="button"
+              className={styles.documentPreviewClose}
+              aria-label="Close document preview"
+              onClick={() => setPreviewDocument(null)}
+            >
+              <X size={20} aria-hidden="true" />
+            </button>
+            <div className={styles.documentPreviewPages}>
+              <span className={styles.documentPreviewPageCount}>{previewPage + 1}/2</span>
+              <span className={styles.documentPreviewPlaceholder}>Image</span>
+              <div className={styles.documentPreviewPagination} aria-label="Preview pages">
+                {[0, 1].map((page) => (
+                  <button
+                    type="button"
+                    key={page}
+                    className={page === previewPage ? styles.documentPreviewDotActive : ''}
+                    aria-label={`Show page ${page + 1}`}
+                    aria-pressed={page === previewPage}
+                    onClick={() => setPreviewPage(page)}
+                  />
+                ))}
+              </div>
+            </div>
+            <footer className={styles.documentPreviewFooter}>
+              <div className={styles.legalDocumentFile}>
+                <FileText size={20} aria-hidden="true" />
+                <span>
+                  <strong>{previewDocument.fileName}</strong>
+                  <small>Blank PDF</small>
+                </span>
+              </div>
+              <div className={styles.documentPreviewActions}>
+                <button
+                  type="button"
+                  onClick={() => printLegalDocument(previewDocument)}
+                >
+                  <Printer size={15} aria-hidden="true" /> Print
+                </button>
+                <button type="button" onClick={() => downloadLegalDocument(previewDocument)}>
+                  <Download size={15} aria-hidden="true" /> Download
+                </button>
+              </div>
+            </footer>
+          </section>
+        </div>
+      )}
+    </main>
+  );
+}
+
 function StudyProfiles() {
   const { onOpenSidebar = () => {} } = useOutletContext() || {};
   const navigate = useNavigate();
@@ -285,6 +568,7 @@ function StudyProfiles() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileStudent, setProfileStudent] = useState(null);
   const [attendanceDetailsOpen, setAttendanceDetailsOpen] = useState(false);
+  const [legalDocumentsOpen, setLegalDocumentsOpen] = useState(false);
 
   const visibleStudents = useMemo(() => {
     const searchTerm = query.trim().toLowerCase();
@@ -303,6 +587,18 @@ function StudyProfiles() {
       ['Hindi', '78%', '82%', '80%', '85%', '81%', 'A'],
       ['Computer', '95%', '92%', '90%', '93%', '93%', 'A+'],
     ];
+
+    if (legalDocumentsOpen) {
+      return (
+        <LegalDocumentsScreen
+          onOpenSidebar={onOpenSidebar}
+          onBack={() => setLegalDocumentsOpen(false)}
+          navigate={navigate}
+          mobileMenuOpen={mobileMenuOpen}
+          setMobileMenuOpen={setMobileMenuOpen}
+        />
+      );
+    }
 
     if (attendanceDetailsOpen) {
       return (
@@ -439,7 +735,13 @@ function StudyProfiles() {
             <a href={`mailto:${profileStudent.parentEmail || 'rajesh.sharma@example.com'}`} className={styles.profileAction}>
               Message Parent
             </a>
-            <button type="button" className={styles.profileAction}>View Legal Documents</button>
+            <button
+              type="button"
+              className={styles.profileAction}
+              onClick={() => setLegalDocumentsOpen(true)}
+            >
+              View Legal Documents
+            </button>
           </div>
         </div>
 
