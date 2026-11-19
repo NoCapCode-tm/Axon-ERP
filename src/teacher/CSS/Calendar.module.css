@@ -11,6 +11,15 @@
   gap: 5px;
 }
 
+.calendarTabletView {
+  display: none;
+}
+
+.calendarTabletHeaderShort,
+.calendarTabletMonthShort {
+  display: none;
+}
+
 .calendarDatePicker {
   display: flex;
   height: 28px;
@@ -52,7 +61,7 @@
 .calendarGrid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  grid-template-rows: 22px repeat(6, 82px);
+  grid-template-rows: 22px repeat(var(--calendar-week-count), 82px);
   gap: 1px;
   background: #e5f5ec;
 }
@@ -126,6 +135,269 @@
 @media (max-width: 600px) {
   .calendarPage {
     padding: 0 8px 82px;
+  }
+
+  .calendarDesktopView {
+    display: none;
+  }
+
+  .calendarTabletView {
+    display: grid;
+    gap: 7px;
+  }
+
+  .calendarTabletToolbar {
+    min-height: 26px;
+    align-items: center;
+  }
+
+  .calendarTabletBackButton {
+    display: grid;
+    width: 26px;
+    height: 26px;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    color: #202733;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .calendarTabletDetailGrid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 7px;
+  }
+
+  .calendarTabletCard,
+  .calendarTabletReportCard {
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .calendarTabletCard h2,
+  .calendarTabletReportHeading h2 {
+    font-size: 18px;
+  }
+
+  .calendarTabletCard h2 {
+    margin: 0 0 23px;
+  }
+
+  .calendarTabletSurface {
+    display: grid;
+    gap: 10px;
+    padding: 0;
+  }
+
+  .calendarTabletMonthBar {
+    display: flex;
+    width: 100%;
+    min-height: 37px;
+    align-items: center;
+    justify-content: space-between;
+    justify-self: center;
+    padding: 0 8px;
+    border: 1px solid #e6f5eb;
+    border-radius: 24px;
+    box-sizing: border-box;
+    color: #303741;
+    background: #fff;
+    font-size: 14px;
+  }
+
+  .calendarTabletMonthBar button {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    color: #53606f;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .calendarTabletMonthBar button:hover {
+    background: #e9f8ef;
+  }
+
+  .calendarTabletMonthBar button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .calendarTabletDaysGrid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: 45px repeat(var(--calendar-tablet-week-count), 40px);
+    gap: 4px;
+  }
+
+  .calendarTabletWeekday {
+    display: grid;
+    min-width: 0;
+    place-items: center;
+    color: #687484;
+    font-size: 12px;
+    transform: translateY(-10px);
+  }
+
+  .calendarTabletDay {
+    display: grid;
+    width: 100%;
+    min-height: 0;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 5px;
+    color: #687484;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .calendarTabletDay:focus-visible {
+    outline: 2px solid #899d36;
+    outline-offset: 1px;
+  }
+
+  .calendarTabletDay:disabled {
+    cursor: default;
+  }
+
+  .calendarTabletDayOutside {
+    color: #7e8997;
+    background: transparent;
+  }
+
+  .calendarTabletDayPresent {
+    color: #59634a;
+    background: #e5f588;
+  }
+
+  .calendarTabletDayAbsent {
+    color: #58646d;
+    background: #c4ded2;
+  }
+
+  .calendarTabletDayLeave {
+    color: #58646d;
+    background: #d7f4e8;
+  }
+
+  .calendarTabletDayToday {
+    color: #222b18;
+    background: #c5d969;
+  }
+
+  .calendarTabletDaySelected {
+    color: #222b18;
+    background: #c5d969;
+  }
+
+  .calendarTabletLegend {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: 7px;
+    padding-top: 3px;
+    color: #47515e;
+    font-size: 14px;
+  }
+
+  .calendarTabletLegend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+
+  .calendarTabletLegend i {
+    width: 10px;
+    height: 10px;
+    flex: 0 0 10px;
+    border-radius: 50%;
+  }
+
+  .calendarTabletReportHeading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .calendarTabletReportHeading h2 {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .calendarTabletDownload {
+    border: 0;
+    border-radius: 6px;
+    color: #39434f;
+    background: #e5f588;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .calendarTabletReportTableWrap {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .calendarTabletReportTable {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+    color: #697484;
+    text-align: center;
+  }
+
+  .calendarTabletReportTable thead {
+    background: #eaf9f0;
+  }
+
+  .calendarTabletDownload {
+    min-height: 31px;
+    padding: 0 10px;
+    font-size: 14px;
+  }
+
+  .calendarTabletReportTable {
+    font-size: 13px;
+  }
+
+  .calendarTabletReportTable th,
+  .calendarTabletReportTable td {
+    height: 44px;
+    padding: 0 3px;
+    border-bottom: 1px solid #f3f5f3;
+    font-weight: 400;
+    white-space: normal;
+  }
+
+  .calendarTabletReportTable thead th {
+    height: 39px;
+    color: #46505e;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .calendarTabletHeaderShort,
+  .calendarTabletMonthShort {
+    display: inline;
+  }
+
+  .calendarTabletHeaderFull,
+  .calendarTabletMonthFull {
+    display: none;
   }
 
   .calendarWeekday {
@@ -218,5 +490,367 @@
 
   .calendarEvent time {
     font-size: 12px;
+  }
+
+  .calendarPage {
+    padding: 8px 12px 22px;
+  }
+
+  .calendarDesktopView {
+    display: none;
+  }
+
+  .calendarTabletView {
+    display: grid;
+    gap: 7px;
+  }
+
+  .calendarTabletToolbar {
+    display: flex;
+    min-height: 40px;
+    align-items: center;
+  }
+
+  .calendarTabletBackButton {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    color: #202733;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .calendarTabletDetailGrid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .calendarTabletCard,
+  .calendarTabletReportCard {
+    min-width: 0;
+    padding: 10px;
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .calendarTabletCard h2,
+  .calendarTabletReportCard h2 {
+    margin: 0 0 14px;
+    color: #202733;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .calendarTabletCard {
+    padding-top: 14px;
+  }
+
+  .calendarTabletCard h2 {
+    margin-bottom: 41px;
+  }
+
+  .calendarTabletSurface {
+    display: grid;
+    gap: 14px;
+    padding: 10px 10px 25px;
+    background: #fff;
+  }
+
+  .calendarTabletMonthBar {
+    display: flex;
+    width: 96%;
+    min-height: 40px;
+    align-items: center;
+    justify-content: space-between;
+    justify-self: center;
+    padding: 0 8px;
+    border: 1px solid #e6f5eb;
+    border-radius: 24px;
+    box-sizing: border-box;
+    color: #303741;
+    background: #fff;
+    font-size: 14px;
+  }
+
+  .calendarTabletMonthBar button {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    color: #53606f;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .calendarTabletMonthBar button:hover {
+    background: #e9f8ef;
+  }
+
+  .calendarTabletDaysGrid {
+    display: grid;
+    width: 97%;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: 35px repeat(
+      var(--calendar-tablet-week-count),
+      minmax(0, clamp(60px, calc(20vh - 142px), 88px))
+    );
+    align-items: stretch;
+    justify-items: stretch;
+    justify-self: center;
+    gap: 4px;
+  }
+
+  .calendarTabletWeekday,
+  .calendarTabletDay {
+    display: grid;
+    width: 100%;
+    min-height: 24px;
+    place-items: center;
+    color: #687484;
+    font-size: 12px;
+  }
+
+  .calendarTabletWeekday {
+    transform: translateY(-4px);
+  }
+
+  .calendarTabletDay {
+    max-width: none;
+    min-height: 46px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .calendarTabletEmptyDay {
+    min-width: 0;
+  }
+
+  .calendarTabletDay:focus-visible {
+    outline: 2px solid #899d36;
+    outline-offset: 1px;
+  }
+
+  .calendarTabletDay:disabled {
+    cursor: default;
+  }
+
+  .calendarTabletDayOutside {
+    color: #7e8997;
+    background: transparent;
+  }
+
+  .calendarTabletDayPresent {
+    color: #59634a;
+    background: #e5f588;
+  }
+
+  .calendarTabletDayAbsent {
+    color: #58646d;
+    background: #c4ded2;
+  }
+
+  .calendarTabletDayLeave {
+    color: #58646d;
+    background: #d7f4e8;
+  }
+
+  .calendarTabletDayToday {
+    color: #222b18;
+    background: #c5d969;
+  }
+
+  .calendarTabletDaySelected {
+    color: #222b18;
+    background: #c5d969;
+  }
+
+  .calendarTabletLegend {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: 17px;
+    padding-top: 4px;
+    color: #47515e;
+    font-size: 14px;
+  }
+
+  .calendarTabletLegend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+
+  .calendarTabletLegend i {
+    width: 10px;
+    height: 10px;
+    flex: 0 0 10px;
+    border-radius: 50%;
+  }
+
+  .calendarTabletReportCard {
+    padding: 10px;
+  }
+
+  .calendarTabletReportHeading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .calendarTabletReportHeading h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  .calendarTabletDownload {
+    min-height: 35px;
+    margin: 0;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 6px;
+    color: #39434f;
+    background: #e5f588;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .calendarTabletReportTableWrap {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .calendarTabletReportTable {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+    color: #697484;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .calendarTabletReportTable thead {
+    background: #eaf9f0;
+  }
+
+  .calendarTabletReportTable th,
+  .calendarTabletReportTable td {
+    height: 28px;
+    padding: 0 6px;
+    border-bottom: 1px solid #f3f5f3;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  .calendarTabletReportTable thead th {
+    height: 44px;
+    color: #46505e;
+    font-weight: 500;
+  }
+}
+
+@media (min-width: 901px) {
+  .calendarPage {
+    height: calc(100vh - 68px);
+    padding-bottom: 10px;
+  }
+
+  .calendarDesktopView {
+    height: 100%;
+  }
+
+  .calendarContent {
+    height: 100%;
+    min-height: 0;
+    grid-template-rows: 28px minmax(0, 1fr);
+    gap: 5px;
+  }
+
+  .calendarDatePicker {
+    height: 28px;
+    margin-bottom: 0;
+    padding: 0 8px;
+    border-radius: 9px;
+    font-size: 10px;
+  }
+
+  .calendarDatePicker button {
+    width: 22px;
+    height: 22px;
+  }
+
+  .calendarPanel {
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 7px;
+  }
+
+  .calendarGrid {
+    height: 100%;
+    grid-template-rows: 28px repeat(var(--calendar-week-count), minmax(0, 1fr));
+  }
+
+  .calendarWeekday {
+    font-size: 12px;
+  }
+
+  .calendarDay {
+    padding: 4px 10px;
+  }
+
+  .calendarDayNumber {
+    font-size: 10px;
+  }
+
+  .calendarEvent {
+    display: grid;
+    min-height: 83px;
+    grid-template-columns: 12px minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    align-content: start;
+    gap: 10px 7px;
+    margin-top: 8px;
+    padding: 11px 8px 7px;
+    border-radius: 5px;
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  .calendarEventDot {
+    width: 11px;
+    height: 11px;
+    flex-basis: 11px;
+  }
+
+  .calendarEvent > span:not(.calendarEventDot),
+  .calendarEvent > time {
+    grid-column: 2;
+  }
+
+  .calendarEvent strong {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  .calendarEvent time {
+    margin-top: 0;
+    font-size: 9px;
   }
 }
