@@ -70,6 +70,10 @@
   cursor: pointer;
 }
 
+.scheduleActions .actionButton {
+  font-weight: 400;
+}
+
 .actionButton:hover,
 .eventsHeading button:hover {
   background: #E5F588;

@@ -31,6 +31,7 @@
   background: #e5f588;
   font: inherit;
   font-size: 10px;
+  font-weight: 400;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -164,6 +165,25 @@
   font-size: 9px;
 }
 
+.evaluateIconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 91px;
+  height: 56px;
+  min-width: 91px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.evaluateIconButton svg {
+  display: block;
+  width: 91px;
+  height: 56px;
+}
+
 .evaluatedButton {
   background: #bedacc;
   cursor: default;
@@ -234,34 +254,38 @@
 
   .mobileAssignmentList {
     display: grid;
-    gap: 5px;
+    gap: 0;
   }
 
   .mobileAssignment {
     display: flex;
     min-width: 0;
-    min-height: 40px;
-    align-items: stretch;
+    min-height: 58px;
+    align-items: center;
     justify-content: space-between;
-    overflow: hidden;
-    border: 1px solid #e3f5e9;
-    border-radius: 7px;
+    gap: 12px;
+    padding: 8px 4px;
+    border-bottom: 1px solid #edf0eb;
+  }
+
+  .mobileAssignment:last-child {
+    border-bottom: 0;
   }
 
   .mobileAssignmentInfo {
     display: grid;
     min-width: 0;
     align-content: center;
-    gap: 3px;
-    padding: 4px 7px;
+    gap: 4px;
+    padding: 0;
   }
 
   .mobileAssignmentInfo h3 {
     overflow: hidden;
     margin: 0;
-    color: #596373;
-    font-size: 10px;
-    font-weight: 500;
+    color: #202733;
+    font-size: 14px;
+    font-weight: 600;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -269,8 +293,9 @@
   .mobileAssignmentInfo p {
     overflow: hidden;
     margin: 0;
-    color: #7b8491;
-    font-size: 8px;
+    color: #657080;
+    font-size: 11px;
+    line-height: 1.3;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -280,12 +305,23 @@
   }
 
   .mobileAssignment > button {
-    width: clamp(65px, 22vw, 112px);
-    min-width: clamp(65px, 22vw, 112px);
-    flex: 0 0 clamp(65px, 22vw, 112px);
-    min-height: 40px;
-    font-size: 8px;
+    width: auto;
+    min-width: 112px;
+    flex: 0 0 auto;
+    min-height: 36px;
+    padding: 0 14px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+
+  .mobileAssignment > .evaluateIconButton {
+    width: 91px;
+    height: 56px;
+    min-width: 91px;
+    min-height: 56px;
+    padding: 0;
     border-radius: 0;
+    background: transparent;
   }
 }
 
@@ -347,14 +383,25 @@
 
   .mobileAssignment {
     min-height: 40px;
+    padding: 4px 0;
   }
 
   .mobileAssignment > button {
-    min-height: 40px;
-    width: clamp(65px, 22vw, 112px);
-    min-width: clamp(65px, 22vw, 112px);
-    flex-basis: clamp(65px, 22vw, 112px);
+    min-height: 32px;
+    width: auto;
+    min-width: 76px;
+    flex-basis: auto;
+    padding: 0 10px;
     font-size: 8px;
+  }
+
+  .mobileAssignment > .evaluateIconButton {
+    width: 91px;
+    height: 56px;
+    min-width: 91px;
+    min-height: 56px;
+    padding: 0;
+    background: transparent;
   }
 
   .mobileAssignmentInfo h3 {
@@ -363,6 +410,103 @@
 
   .mobileAssignmentInfo p {
     font-size: 8px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .page {
+    gap: 12px;
+    padding: 0 16px 16px;
+  }
+
+  .createBar {
+    min-height: 36px;
+  }
+
+  .primaryButton {
+    min-height: 36px;
+    padding: 0 14px;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+
+  .metricGrid {
+    gap: 12px;
+  }
+
+  .metricCard {
+    min-height: 96px;
+    padding: 14px 16px;
+    border: 1px solid #edf0eb;
+    border-radius: 10px;
+  }
+
+  .metricContent {
+    gap: 6px;
+  }
+
+  .metricContent > span {
+    font-size: 13px;
+  }
+
+  .metricContent strong {
+    font-size: 28px;
+  }
+
+  .metricContent small {
+    font-size: 12px;
+  }
+
+  .pendingPanel {
+    padding: 16px 18px;
+    border: 1px solid #edf0eb;
+    border-radius: 12px;
+  }
+
+  .sectionHeader {
+    margin-bottom: 14px;
+  }
+
+  .sectionHeader h2 {
+    font-size: 18px;
+  }
+
+  .secondaryButton {
+    min-height: 32px;
+    padding: 0 12px;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+
+  .mobileAssignment {
+    min-height: 56px;
+    padding: 8px 0;
+  }
+
+  .mobileAssignmentInfo h3 {
+    font-size: 15px;
+  }
+
+  .mobileAssignmentInfo p {
+    font-size: 12px;
+  }
+
+  .mobileAssignment > button {
+    min-height: 34px;
+    min-width: 108px;
+    padding: 0 12px;
+    border-radius: 6px;
+    font-size: 11px;
+  }
+
+  .mobileAssignment > .evaluateIconButton {
+    width: 91px;
+    height: 56px;
+    min-width: 91px;
+    min-height: 56px;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
   }
 }
 

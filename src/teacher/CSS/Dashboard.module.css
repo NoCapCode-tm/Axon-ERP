@@ -923,7 +923,9 @@
   }
 
   .topbar {
+    background: #fff;
     min-height: 62px;
+    margin-bottom: 8px;
     padding: 12px 16px 10px;
   }
 
