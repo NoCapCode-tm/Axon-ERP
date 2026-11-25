@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Check, ChevronDown, SquarePen, Trash2, Upload, CalendarDays } from 'lucide-react';
+import { CalendarDays, Check, ChevronDown, Download, Eye, SquarePen, Trash2, Upload } from 'lucide-react';
 import s from '../CSS/AddTeacherWizard.module.css';
 
 /* ---------- static data (replace with API data) ---------- */
@@ -9,8 +9,8 @@ const STEPS = [
   { id: 'professional', label: 'Professional Info.', title: 'Professional Information', subtitle: 'Enter the professional details of the employee' },
   { id: 'role', label: 'Role Assignment', title: 'Role Assignment', subtitle: 'Assign role to the employee' },
   { id: 'documents', label: 'Document Upload', title: 'Documents Uploaded', subtitle: 'Upload the necessary documents' },
-  { id: 'salary', label: 'Salary', title: 'Salary Details', subtitle: 'Enter the salary details of the employee' },
-  { id: 'review', label: 'Review', title: 'Review', subtitle: 'Check everything before you submit' },
+  { id: 'salary', label: 'Salary', title: 'Salary', subtitle: 'Enter salary details of the employee' },
+  { id: 'review', label: 'Review', title: 'Review Details', subtitle: 'Recheck the given details' },
 ];
 
 const GENDERS = ['Male', 'Female', 'Other'];
@@ -21,7 +21,8 @@ const SUBJECTS = ['Science', 'Maths', 'English', 'Hindi', 'Social Science', 'Com
 const CLASSES = Array.from({ length: 12 }, (_, i) => `Class ${i + 1}`);
 const SECTIONS = ['A', 'B', 'C', 'D'];
 const ROLES = ['Subject Teacher', 'Class Teacher', 'Coordinator'];
-const PAYMENT_MODES = ['Bank transfer', 'Cheque', 'Cash'];
+const PAYMENT_CYCLES = ['Monthly', 'Fortnightly', 'Weekly'];
+const BANKS = ['State Bank of India', 'HDFC Bank', 'ICICI Bank', 'Axis Bank', 'Punjab National Bank', 'Bank of Baroda', 'Kotak Mahindra Bank'];
 
 const DOC_SLOTS = [
   { key: 'aadhar', title: 'Aadhar card' },
@@ -39,7 +40,8 @@ const INITIAL = {
   employeeId: '', joiningDate: '', qualification: '', experience: '', designation: '',
   subject: '', classes: [], section: '', role: '',
   documents: { aadhar: null, birth: null, degree: null, other: null },
-  basicSalary: '', allowances: '', deductions: '', paymentMode: '',
+  salaryType: '', baseSalary: '', allowance: '', paymentCycle: '',
+  holderName: '', bankName: '', accountNumber: '', confirmAccount: '', ifsc: '', branchName: '',
 };
 
 const REQUIRED = {
@@ -47,7 +49,10 @@ const REQUIRED = {
   professional: ['employeeId', 'joiningDate', 'qualification', 'experience', 'designation'],
   role: ['subject', 'classes', 'section', 'role'],
   documents: [],
-  salary: ['basicSalary', 'paymentMode'],
+  salary: [
+    'salaryType', 'baseSalary', 'allowance', 'paymentCycle', 'holderName',
+    'bankName', 'accountNumber', 'confirmAccount', 'ifsc', 'branchName',
+  ],
   review: [],
 };
 
@@ -91,9 +96,11 @@ function validate(stepId, f) {
   }
 
   if (stepId === 'salary') {
-    ['basicSalary', 'allowances', 'deductions'].forEach((k) => {
-      if (!errors[k] && f[k] !== '' && !(Number(f[k]) >= 0)) errors[k] = 'Enter a valid amount';
-    });
+    if (!errors.baseSalary && !(Number(f.baseSalary) > 0)) errors.baseSalary = 'Enter a valid amount';
+    if (!errors.allowance && !(Number(f.allowance) >= 0)) errors.allowance = 'Enter a valid amount';
+    if (!errors.accountNumber && !/^\d{9,18}$/.test(f.accountNumber)) errors.accountNumber = 'Enter 9 to 18 digits';
+    if (!errors.confirmAccount && f.confirmAccount !== f.accountNumber) errors.confirmAccount = 'Account numbers do not match';
+    if (!errors.ifsc && !/^[A-Z]{4}0[A-Z0-9]{6}$/.test(f.ifsc)) errors.ifsc = 'Enter a valid IFSC code (e.g. SBIN0001234)';
   }
 
   return errors;
@@ -148,9 +155,18 @@ function SelectInput({ id, value, onChange, options, placeholder, error }) {
 }
 
 function DateInput({ id, value, onChange, error, max }) {
+  const ref = useRef(null);
+
+  const openPicker = () => {
+    const el = ref.current;
+    if (!el) return;
+    try { el.showPicker(); } catch { el.focus(); }
+  };
+
   return (
     <div className={s.selectWrap}>
       <input
+        ref={ref}
         id={id}
         type="date"
         max={max}
@@ -160,7 +176,9 @@ function DateInput({ id, value, onChange, error, max }) {
         aria-invalid={error ? 'true' : undefined}
         aria-describedby={error ? `${id}-err` : undefined}
       />
-      <CalendarDays className={s.selectIcon} size={26} aria-hidden="true" />
+      <button type="button" className={s.dateBtn} aria-label="Open calendar" tabIndex={-1} onClick={openPicker}>
+        <CalendarDays size={26} aria-hidden="true" />
+      </button>
     </div>
   );
 }
@@ -315,46 +333,96 @@ function DocCard({ title, doc, onPick, onRemove }) {
 
 /* ---------- review step ---------- */
 
-function ReviewSection({ title, onEdit, rows }) {
+const fmtDate = (iso) => (iso ? iso.split('-').reverse().join('/') : '');
+const classNumbers = (list) => CLASSES.filter((c) => list.includes(c)).map((c) => c.replace('Class ', '')).join(', ');
+const maskAccount = (n) => (n.length > 4 ? `${'X'.repeat(n.length - 4)}${n.slice(-4)}` : n);
+
+function openFile(file) {
+  const url = URL.createObjectURL(file);
+  window.open(url, '_blank', 'noopener');
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+function saveFile(file) {
+  const url = URL.createObjectURL(file);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = file.name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function ReviewSection({ title, onEdit, rows, children }) {
   return (
     <section className={s.review}>
       <header className={s.reviewHead}>
         <h3 className={s.reviewTitle}>{title}</h3>
-        <button type="button" className={s.linkBtn} onClick={onEdit}>Edit</button>
+        <button type="button" className={s.linkBtn} onClick={onEdit} aria-label={`Edit ${title}`}>Edit</button>
       </header>
-      <dl className={s.reviewList}>
-        {rows.map(([k, v]) => (
-          <div key={k} className={s.reviewRow}>
-            <dt>{k}</dt>
-            <dd>{v || '-'}</dd>
-          </div>
-        ))}
-      </dl>
+      {rows && (
+        <dl className={s.reviewList}>
+          {rows.map(([k, v]) => (
+            <div key={k} className={s.reviewRow}>
+              <dt>{k}</dt>
+              <dd>{v || '-'}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      {children}
     </section>
   );
 }
 
 function ReviewStep({ f, goTo }) {
-  const docNames = DOC_SLOTS.map((d) => [d.title, f.documents[d.key]?.file.name || 'Not uploaded']);
   return (
     <div className={s.reviewWrap}>
-      <ReviewSection title="Basic information" onEdit={() => goTo(0)} rows={[
-        ['Name', f.name], ['Date of birth', f.dob], ['Gender', f.gender], ['Email', f.email],
-        ['Phone', f.phone], ['City', f.city], ['State', f.state], ['Pincode', f.pincode],
-        ['Country', f.country], ['Photo', f.photo?.name || 'Not uploaded'],
+      <ReviewSection title="Basic Information" onEdit={() => goTo(0)} rows={[
+        ['Name', f.name], ['DOB', fmtDate(f.dob)], ['Gender', f.gender], ['Phone', f.phone],
+        ['Email Address', f.email], ['Address', [f.city, f.state, f.country].filter(Boolean).join(', ')],
+        ['Passport size photo', f.photo ? 'Uploaded' : 'Not uploaded'],
       ]} />
-      <ReviewSection title="Professional information" onEdit={() => goTo(1)} rows={[
-        ['Employee ID', f.employeeId], ['Joining date', f.joiningDate], ['Qualification', f.qualification],
-        ['Experience', `${f.experience} years`], ['Designation', f.designation],
+
+      <ReviewSection title="Professional Information" onEdit={() => goTo(1)} rows={[
+        ['Employee ID', f.employeeId], ['Joining Date', fmtDate(f.joiningDate)],
+        ['Qualification', f.qualification],
+        ['Experience', `${f.experience} ${Number(f.experience) === 1 ? 'year' : 'years'}`],
+        ['Designation', f.designation],
       ]} />
-      <ReviewSection title="Role assignment" onEdit={() => goTo(2)} rows={[
-        ['Subject', f.subject], ['Classes', CLASSES.filter((c) => f.classes.includes(c)).join(', ')],
-        ['Section', f.section], ['Role', f.role],
+
+      <ReviewSection title="Role Assignment" onEdit={() => goTo(2)} rows={[
+        ['Subject', f.subject], ['Class', classNumbers(f.classes)], ['Section', f.section], ['Role', f.role],
       ]} />
-      <ReviewSection title="Documents" onEdit={() => goTo(3)} rows={docNames} />
+
+      <ReviewSection title="Uploaded document" onEdit={() => goTo(3)}>
+        <ul className={s.docList}>
+          {DOC_SLOTS.map((d) => {
+            const doc = f.documents[d.key];
+            return (
+              <li key={d.key} className={s.docRow}>
+                <span className={s.docName}>{d.title} - {doc ? doc.file.name : 'Not uploaded'}</span>
+                {doc && (
+                  <div className={s.docBtns}>
+                    <button type="button" className={s.smallBtn} onClick={() => openFile(doc.file)}>
+                      View <Eye size={20} aria-hidden="true" />
+                    </button>
+                    <button type="button" className={s.smallBtn} onClick={() => saveFile(doc.file)}>
+                      Download <Download size={20} aria-hidden="true" />
+                    </button>
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </ReviewSection>
+
       <ReviewSection title="Salary" onEdit={() => goTo(4)} rows={[
-        ['Basic salary', f.basicSalary], ['Allowances', f.allowances || '0'],
-        ['Deductions', f.deductions || '0'], ['Payment mode', f.paymentMode],
+        ['Salary Type', f.salaryType], ['Base Salary', f.baseSalary], ['Allowance', f.allowance],
+        ['Payment Cycle', f.paymentCycle], ['Account Holder Name', f.holderName], ['Bank Name', f.bankName],
+        ['Account Number', maskAccount(f.accountNumber)], ['IFSC Code', f.ifsc], ['Branch Name', f.branchName],
       ]} />
     </div>
   );
@@ -573,17 +641,35 @@ export default function AddTeacherWizard({ onCancel, onSubmit }) {
 
         {current.id === 'salary' && (
           <div className={s.grid}>
-            <Field id="basicSalary" label="Basic Salary" required span={2} error={errors.basicSalary}>
-              <TextInput id="basicSalary" inputMode="decimal" value={form.basicSalary} onChange={(v) => set('basicSalary')(v.replace(/[^\d.]/g, ''))} error={errors.basicSalary} placeholder="Enter basic salary" autoComplete="off" />
+            <Field id="salaryType" label="Salary Type" required span={2} error={errors.salaryType}>
+              <TextInput id="salaryType" value={form.salaryType} onChange={set('salaryType')} error={errors.salaryType} placeholder="Enter salary type" autoComplete="off" />
             </Field>
-            <Field id="paymentMode" label="Payment Mode" required span={2} error={errors.paymentMode}>
-              <SelectInput id="paymentMode" value={form.paymentMode} onChange={set('paymentMode')} options={PAYMENT_MODES} placeholder="Select payment mode" error={errors.paymentMode} />
+            <Field id="baseSalary" label="Base Salary" required span={2} error={errors.baseSalary}>
+              <TextInput id="baseSalary" inputMode="decimal" value={form.baseSalary} onChange={(v) => set('baseSalary')(v.replace(/[^\d.]/g, ''))} error={errors.baseSalary} placeholder="Enter base salary" autoComplete="off" />
             </Field>
-            <Field id="allowances" label="Allowances" span={2} error={errors.allowances}>
-              <TextInput id="allowances" inputMode="decimal" value={form.allowances} onChange={(v) => set('allowances')(v.replace(/[^\d.]/g, ''))} error={errors.allowances} placeholder="Enter allowances" autoComplete="off" />
+            <Field id="allowance" label="Allowance" required span={2} error={errors.allowance}>
+              <TextInput id="allowance" inputMode="decimal" value={form.allowance} onChange={(v) => set('allowance')(v.replace(/[^\d.]/g, ''))} error={errors.allowance} placeholder="Enter allowance" autoComplete="off" />
             </Field>
-            <Field id="deductions" label="Deductions" span={2} error={errors.deductions}>
-              <TextInput id="deductions" inputMode="decimal" value={form.deductions} onChange={(v) => set('deductions')(v.replace(/[^\d.]/g, ''))} error={errors.deductions} placeholder="Enter deductions" autoComplete="off" />
+            <Field id="paymentCycle" label="Payment Cycle" required span={2} error={errors.paymentCycle}>
+              <SelectInput id="paymentCycle" value={form.paymentCycle} onChange={set('paymentCycle')} options={PAYMENT_CYCLES} placeholder="Select payment cycle" error={errors.paymentCycle} />
+            </Field>
+            <Field id="holderName" label="Account Holder Name" required span={2} error={errors.holderName}>
+              <TextInput id="holderName" value={form.holderName} onChange={set('holderName')} error={errors.holderName} placeholder="Enter Name" autoComplete="off" />
+            </Field>
+            <Field id="bankName" label="Bank Name" required span={2} error={errors.bankName}>
+              <SelectInput id="bankName" value={form.bankName} onChange={set('bankName')} options={BANKS} placeholder="Select bank name" error={errors.bankName} />
+            </Field>
+            <Field id="accountNumber" label="Account Number" required span={2} error={errors.accountNumber}>
+              <TextInput id="accountNumber" inputMode="numeric" value={form.accountNumber} onChange={(v) => set('accountNumber')(digitsOnly(v, 18))} error={errors.accountNumber} placeholder="Enter account number" autoComplete="off" />
+            </Field>
+            <Field id="confirmAccount" label="Confirm Account Number" required span={2} error={errors.confirmAccount}>
+              <TextInput id="confirmAccount" inputMode="numeric" value={form.confirmAccount} onChange={(v) => set('confirmAccount')(digitsOnly(v, 18))} error={errors.confirmAccount} placeholder="Confirm account number" autoComplete="off" />
+            </Field>
+            <Field id="ifsc" label="IFSC Code" required span={2} error={errors.ifsc}>
+              <TextInput id="ifsc" value={form.ifsc} onChange={(v) => set('ifsc')(v.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 11))} error={errors.ifsc} placeholder="Enter IFSC code" autoComplete="off" />
+            </Field>
+            <Field id="branchName" label="Branch Name" required span={2} error={errors.branchName}>
+              <TextInput id="branchName" value={form.branchName} onChange={set('branchName')} error={errors.branchName} placeholder="Enter branch name" autoComplete="off" />
             </Field>
           </div>
         )}
