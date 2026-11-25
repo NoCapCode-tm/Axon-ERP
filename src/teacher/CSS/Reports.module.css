@@ -327,42 +327,31 @@
   background: #f4f6f1;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1200px) and (min-width: 561px) {
   .statsGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .contentGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .reportsCard {
-    grid-column: auto;
+    grid-column: 1 / -1;
+    order: -1;
+  }
+
+  .pageActions {
+    justify-content: flex-end;
   }
 }
 
 @media (max-width: 900px) {
-  .pageActions {
-    justify-content: flex-start;
-  }
-
   .filterButton,
   .generateButton,
   .viewAllButton {
     min-height: 34px;
     padding: 0 12px;
-  }
-
-  .statsGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .contentGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .reportsCard {
-    grid-column: auto;
   }
 }
 
@@ -372,16 +361,42 @@
   }
 
   .statsGrid {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .statsGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .statCard {
+    flex: 0 0 calc((100% - 12px) / 2);
+    scroll-snap-align: start;
+  }
+
+  .contentGrid {
     grid-template-columns: 1fr;
+  }
+
+  .reportsCard {
+    order: -1;
+  }
+
+  .pageActions {
+    justify-content: flex-end;
   }
 
   .filterButton,
   .generateButton {
-    flex: 1 1 140px;
+    flex: 0 0 auto;
   }
 
   .viewAllButton {
-    width: 100%;
+    width: auto;
   }
 
   .reportTitle {
