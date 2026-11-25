@@ -1,3 +1,6 @@
+/* Uses the variables from .shell in StaffManagement.module.css
+   (--lime, --text, --muted, --radius ...). Extra tokens are defined here. */
+
 .card {
   --field: #f2fbf5;
   --step-off: #bcd9cb;
@@ -163,18 +166,35 @@
 }
 
 .date {
-    appearance: none;
+  appearance: none;
   -webkit-appearance: none;
   padding-right: 52px;
   color-scheme: light;
   position: relative;
 }
 
-/* make the whole field open the native date picker */
+/* native indicator hidden: the calendar button opens the picker */
 .date::-webkit-calendar-picker-indicator {
   opacity: 0;
   display: none;
 }
+
+.dateBtn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #2f3b4a;
+  cursor: pointer;
+}
+
 .pickerBtn {
   display: block;
   overflow: hidden;
@@ -448,54 +468,103 @@
 }
 
 .review {
-  border: 1px solid #e6f5ec;
-  border-radius: 12px;
-  padding: 16px 20px;
+  background: var(--drop);
+  border-radius: 16px;
+  padding: 24px 32px;
 }
 
 .reviewHead {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
+  gap: 12px;
   margin-bottom: 12px;
 }
 
 .reviewTitle {
   margin: 0;
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   font-weight: 700;
 }
 
 .linkBtn {
   border: 0;
   background: none;
-  padding: 6px 8px;
+  padding: 6px 0 6px 8px;
   font: inherit;
   font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--green, #1f6b3a);
+  color: var(--ink-soft);
   cursor: pointer;
+}
+
+.linkBtn:hover {
   text-decoration: underline;
 }
 
 .reviewList {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   margin: 0;
 }
 
-.reviewRow dt {
-  font-size: 0.8125rem;
-  color: var(--muted, #6b7280);
+.reviewRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.reviewRow dt,
+.reviewRow dd,
+.docName {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
 }
 
 .reviewRow dd {
-  margin: 2px 0 0;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--ink-soft);
+  margin: 0;
+  text-align: right;
   overflow-wrap: anywhere;
+}
+
+.docList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.docRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.docName {
+  overflow-wrap: anywhere;
+}
+
+.docBtns {
+  display: flex;
+  gap: 12px;
+}
+
+.smallBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--lime, #e4f77c);
+  color: var(--text, #14181f);
+  padding: 10px 16px;
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
 }
 
 /* ---------- actions ---------- */
@@ -529,6 +598,8 @@
 .browse:focus-visible,
 .roundBtn:focus-visible,
 .linkBtn:focus-visible,
+.smallBtn:focus-visible,
+.dateBtn:focus-visible,
 .pickerBtn:focus-visible {
   outline: 2px solid var(--text, #14181f);
   outline-offset: 2px;
@@ -579,5 +650,7 @@
   .docCard { padding: 16px; }
   .drop { min-height: 0; }
 
-  .reviewList { grid-template-columns: minmax(0, 1fr); }
+  .review { padding: 16px; }
+  .reviewTitle { font-size: 1.25rem; }
+  .reviewRow { gap: 16px; }
 }

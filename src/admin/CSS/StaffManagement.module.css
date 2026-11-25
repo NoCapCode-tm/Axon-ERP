@@ -246,6 +246,86 @@
   flex-shrink: 0;
 }
 
+/* EMPLOYEE LIST (Employee profile tab) */
+
+.empHint {
+  margin: 4px 0 24px;
+  color: var(--muted);
+  font-size: var(--fs-md);
+}
+
+.empGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.empItem {
+  --avatar-size: 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 16px 8px 14px;
+  border: 1px solid #e6f5ec;
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.empItem:hover {
+  background: #f7fdf9;
+}
+
+.empItem:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.empName {
+  max-width: 100%;
+  margin-top: 10px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #4c5868;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.empId {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+
+.empBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 0.9375rem;
+  color: #4c5868;
+}
+
+.empBadgeIcon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--text);
+}
+
 /* FOOTER + PAGINATION */
 
 .footer {
@@ -312,6 +392,10 @@
   .list {
     display: flex;
   }
+
+  .empGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 /* MOBILE */
@@ -347,5 +431,18 @@
 
   .footer {
     justify-content: center;
+  }
+
+  .empGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .empItem {
+    --avatar-size: 120px;
+  }
+
+  .empName {
+    font-size: var(--fs-md);
   }
 }
