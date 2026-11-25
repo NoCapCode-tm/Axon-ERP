@@ -328,9 +328,12 @@ function CreateMessageModal({ type, onClose, onSave }) {
 function Messages() {
   const [activeTab, setActiveTab] = useState('Announcement');
   const [filter, setFilter] = useState('All');
+  const [filterOpen, setFilterOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [posts, setPosts] = useState(initialPosts);
   const [drafts, setDrafts] = useState(initialDrafts);
+
+  const filterOptions = ['Posted', 'Draft'];
 
   const visiblePosts = posts.filter((post) =>
     post.type === activeTab && (filter === 'All' || post.status === filter)
@@ -390,15 +393,37 @@ function Messages() {
             <button type="button" className={styles.limeButton} onClick={() => setModalOpen(true)}>
               {createButtonLabel} <CirclePlus size={15} aria-hidden="true" />
             </button>
-            <label className={styles.filterControl}>
-              <span className={styles.visuallyHidden}>Filter messages</span>
-              <select value={filter} onChange={(event) => setFilter(event.target.value)}>
-                <option value="All">Filter</option>
-                <option>Posted</option>
-                <option>Draft</option>
-              </select>
-              <ChevronDown size={15} aria-hidden="true" />
-            </label>
+            <div className={styles.filterWrap}>
+              <button
+                type="button"
+                className={styles.filterButton}
+                aria-haspopup="listbox"
+                aria-expanded={filterOpen}
+                onClick={() => setFilterOpen((open) => !open)}
+              >
+                <span>{filter === 'All' ? 'Filter' : filter}</span>
+                <ChevronDown size={15} aria-hidden="true" />
+              </button>
+              {filterOpen && (
+                <div className={styles.filterMenu} role="listbox" aria-label="Filter messages">
+                  {filterOptions.map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      role="option"
+                      aria-selected={filter === option}
+                      className={styles.filterOption}
+                      onClick={() => {
+                        setFilter((current) => (current === option ? 'All' : option));
+                        setFilterOpen(false);
+                      }}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
           <div className={styles.messageGrid}>
             <section className={styles.postList} aria-label={`${activeTab} messages`}>

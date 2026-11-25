@@ -231,7 +231,9 @@ function TeacherLayout() {
                       ? 'Study Material'
                       : location.pathname === '/teacher/calendar'
                         ? 'Calendar'
-                      : 'Dashboard';
+                        : location.pathname === '/teacher/reports'
+                          ? 'Reports'
+                          : 'Dashboard';
 
   return (
     <div className={`${styles.app}${location.pathname === '/teacher/exams' ? ` ${styles.examsResponsiveLayout}` : ''}`}>
