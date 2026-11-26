@@ -1,14 +1,15 @@
 import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Eye, Phone, PlusCircle } from 'lucide-react';
+import { BarChart3, ChevronLeft, ChevronRight, Eye, Phone, PlusCircle } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
 import AddTeacherWizard from '../components/AddTeacherWizard';
+import StaffProfile, { Avatar } from '../components/StaffProfile';
 import styles from '../CSS/StaffManagement.module.css';
 
 /* ---------- dummy data (replace with API data) ---------- */
 
 const PAGE_SIZE = 17;
+const PROFILE_PAGE_SIZE = 24; // 6 x 4 (laptop), 4 x 6 (tablet), 2 x 12 (mobile)
 const TOTAL_STAFF = 200;
 
 const tabs = [
@@ -25,7 +26,26 @@ const staffList = Array.from({ length: TOTAL_STAFF }, (_, i) => ({
   contact: '9876543210',
   status: 'Paid',
   joined: '12/10/2015',
+  attendance: 60 + ((i * 7) % 39),
 }));
+
+// dummy profile details, replace with API data
+function buildProfile(s) {
+  return {
+    ...s,
+    photo: null,
+    designation: 'Class Teacher',
+    dob: '05/06/2000',
+    bloodGroup: 'A+',
+    email: 'aishwarya@gmail.com',
+    address: '144/2A, 2nd Street, City, State, Pin code',
+    qualification: 'MSc Maths, B.Ed',
+    experience: '5 years',
+    assignedClass: '8B,10A,10B',
+    presentDays: 83,
+    absentDays: 7,
+  };
+}
 
 const columns = [
   'Employee ID', 'Name', 'Subject', 'Classes Assigned', 'Contact', 'Status', 'Joined Date', 'Action',
@@ -115,15 +135,48 @@ function Pagination({ page, totalPages, onChange }) {
   );
 }
 
+// "Employee profile" tab: grid of teachers, tap one to open the profile
+function EmployeeList({ items, onSelect, children }) {
+  return (
+    <section className={styles.card}>
+      <h2 className={styles.sectionTitle}>Employee List</h2>
+      <p className={styles.empHint}>Tap to view profile</p>
+
+      <ul className={styles.empGrid}>
+        {items.map((e) => (
+          <li key={e.id}>
+            <button
+              type="button"
+              className={styles.empItem}
+              onClick={() => onSelect(e.id)}
+              aria-label={`View profile of ${e.name}`}
+            >
+              <Avatar name={e.name} photo={e.photo} />
+              <span className={styles.empName}>{e.name}</span>
+              <span className={styles.empId}>Emp ID - {e.id}</span>
+              <span className={styles.empBadge}>
+                <span className={styles.empBadgeIcon}><BarChart3 size={18} aria-hidden="true" /></span>
+                {e.attendance}%
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      {children}
+    </section>
+  );
+}
+
 /* ---------- page ---------- */
 
 export default function StaffManagement() {
-  const navigate = useNavigate();
-
   const [menuOpen, setMenuOpen] = useState(false);
   const [tab, setTab] = useState('admission');
   const [page, setPage] = useState(1);
+  const [profilePage, setProfilePage] = useState(1);
   const [adding, setAdding] = useState(false); // true = show the Add Teacher wizard
+  const [selectedId, setSelectedId] = useState(null); // set = show that teacher's profile
 
   const totalPages = Math.ceil(TOTAL_STAFF / PAGE_SIZE);
   const rows = useMemo(
@@ -131,7 +184,22 @@ export default function StaffManagement() {
     [page]
   );
 
-  const viewStaff = (id) => navigate(`/admin/staff/${id}`);
+  const profileRows = useMemo(
+    () => staffList.slice((profilePage - 1) * PROFILE_PAGE_SIZE, profilePage * PROFILE_PAGE_SIZE),
+    [profilePage]
+  );
+  const profilePages = Math.ceil(TOTAL_STAFF / PROFILE_PAGE_SIZE);
+  const selected = selectedId ? staffList.find((x) => x.id === selectedId) : null;
+
+  const viewStaff = (id) => {
+    window.scrollTo({ top: 0 });
+    setSelectedId(id);
+  };
+
+  const handleProfileAction = (type) => {
+    // TODO: connect each action to its page / modal
+    console.log('profile action', type, selectedId);
+  };
 
   const openWizard = () => {
     window.scrollTo({ top: 0 });
@@ -161,6 +229,12 @@ export default function StaffManagement() {
 
         {adding ? (
           <AddTeacherWizard onCancel={closeWizard} onSubmit={createTeacher} />
+        ) : selected ? (
+          <StaffProfile
+            staff={buildProfile(selected)}
+            onBack={() => setSelectedId(null)}
+            onAction={handleProfileAction}
+          />
         ) : (
           <>
             <Tabs value={tab} onChange={setTab} />
@@ -238,10 +312,14 @@ export default function StaffManagement() {
                 </footer>
               </section>
             ) : (
-              <section className={styles.card}>
-                <h2 className={styles.sectionTitle}>Employee profile</h2>
-                <p className={styles.empty}>Select a teacher from Employee admission to see their profile.</p>
-              </section>
+              <EmployeeList items={profileRows} onSelect={viewStaff}>
+                <footer className={styles.footer}>
+                  <p className={styles.count}>
+                    Showing {profileRows.length} of {TOTAL_STAFF} teachers &amp; staff
+                  </p>
+                  <Pagination page={profilePage} totalPages={profilePages} onChange={setProfilePage} />
+                </footer>
+              </EmployeeList>
             )}
           </>
         )}
