@@ -1,7 +1,19 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ChevronDown, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { ChevronDown, Search } from 'lucide-react';
 import styles from '../CSS/Attendance.module.css';
 import TeacherTopbar, { TEACHER_CONTEXT_SUBTITLE } from '../components/TeacherTopbar';
+
+const previousArrow = (
+  <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <path d="M2.79844 6L7.39844 10.6L5.99844 12L-0.00156312 6L5.99844 1.22392e-07L7.39844 1.4L2.79844 6Z" fill="#4B5563" />
+  </svg>
+);
+
+const nextArrow = (
+  <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <path d="M4.6 6L0 1.4L1.4 0L7.4 6L1.4 12L0 10.6L4.6 6Z" fill="#4B5563" />
+  </svg>
+);
 
 const classes = {
   school: { label: 'Overall', students: 80, present: 72 },
@@ -109,9 +121,9 @@ function AttendanceEntry({ date, onBack, onSave, onMessages }) {
       </button>
       <div className={styles.entryDateBar}>
         <div className={styles.entryDateNavigation}>
-          <button type="button" onClick={() => moveDate(-1)} aria-label="Previous date"><ChevronLeft size={18} /></button>
+          <button type="button" onClick={() => moveDate(-1)} aria-label="Previous date">{previousArrow}</button>
           <span>{entryDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-          <button type="button" onClick={() => moveDate(1)} aria-label="Next date"><ChevronRight size={18} /></button>
+          <button type="button" onClick={() => moveDate(1)} aria-label="Next date">{nextArrow}</button>
         </div>
         <div className={styles.entryDateActions}>
           <span className={styles.filterControl}>
@@ -233,7 +245,7 @@ function Attendance() {
 
   return (
     <main className={styles.page}>
-      <div className={styles.dateToolbar}><button type="button" aria-label="Previous week" onClick={() => setDateOffset((value) => value - 1)}><ChevronLeft size={18} /></button><span>{date}</span><button type="button" aria-label="Next week" onClick={() => setDateOffset((value) => value + 1)}><ChevronRight size={18} /></button></div>
+      <div className={styles.dateToolbar}><button type="button" aria-label="Previous week" onClick={() => setDateOffset((value) => value - 1)}>{previousArrow}</button><span>{date}</span><button type="button" aria-label="Next week" onClick={() => setDateOffset((value) => value + 1)}>{nextArrow}</button></div>
       <button type="button" className={styles.filterButton} aria-label="Attendance filter"><span>Filter</span><ChevronDown size={16} /></button>
       <section className={styles.summaryGrid} aria-label="Attendance summary">
         {[['Average Attendance', `${percentage}%`, 'Calculated attendance'], ['Total Classes', filter === 'school' ? '25' : '12', period], ['Class Completed', filter === 'school' ? '20' : '10', '80 percent'], ['Classes Pending', '05', '20 percent'], ["Today's Attendance", String(selectedData.present), `Out of ${selectedData.students}`], ['Students Absent Today', String(selectedData.students - selectedData.present), `Out of ${selectedData.students}`]].map(([label, value, note]) => <article className={styles.summaryCard} key={label}><span>{label}</span><strong>{value}</strong><small>{note}</small></article>)}

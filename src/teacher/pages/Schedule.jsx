@@ -223,7 +223,7 @@ function Schedule({ onUploadMarks, onMarkAttendance, onUploadStudyMaterial, onCr
           <section className={styles.eventsPanel} aria-labelledby="upcoming-events-title">
             <div className={styles.eventsHeading}>
               <h2 id="upcoming-events-title">Upcoming Events</h2>
-              <button type="button" onClick={() => runAction('View all events')}>View All</button>
+              <button type="button">View All</button>
             </div>
             <div className={styles.eventList}>
               {upcomingEvents.map((event, index) => (

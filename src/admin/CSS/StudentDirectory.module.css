@@ -1,0 +1,948 @@
+/* =========================================================
+   Student.module.css
+   Pairs with Student.jsx. Shell, page, card, btn, select,
+   menu, filterPanel, actions, sectionTitle and srOnly come
+   from Dashboard.module.css.
+
+   Breakpoints
+   - mobile : < 640px
+   - tablet : 640px - 1023px
+   - laptop : >= 1024px
+   ========================================================= */
+
+.root,
+:global(body) {
+  --mint-50: #f3fdf4;
+  --mint-100: #e6f9e9;
+  --mint-200: #d4f2d9;
+  --mint-300: #bfe5c6;
+  --mint-400: #a6d3ae;
+  --lime: #e4f56b;
+  --lime-strong: #d6ea4a;
+  --ink: #17211a;
+  --ink-soft: #5b6b5f;
+  --line: #cfe3d3;
+  --danger: #c0352b;
+  --danger-bg: #fdeceb;
+  --radius: 8px;
+  --focus: 0 0 0 3px rgba(23, 33, 26, 0.35);
+}
+
+/* ---------- shared bits ---------- */
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-grid;
+  place-items: center;
+  background: var(--lime);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.notice {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background: var(--lime);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.empty {
+  margin: 0;
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.error {
+  color: var(--danger);
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+
+/* ---------- search ---------- */
+
+.search {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  background: var(--mint-100);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  transition: border-color 0.15s;
+}
+
+.search:focus-within {
+  border-color: var(--ink);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--ink);
+  outline: none;
+}
+
+.search input::placeholder {
+  color: var(--ink-soft);
+}
+
+.search input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search button {
+  display: grid;
+  place-items: center;
+  padding: 0 16px;
+  align-self: stretch;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.searchSm {
+  margin: 0;
+  max-width: 460px;
+  flex: 1;
+  background: var(--mint-50);
+  border-color: var(--line);
+}
+
+.searchSm input {
+  padding: 10px 14px;
+  font-size: 0.85rem;
+}
+
+/* ---------- toolbar (tablet + mobile only) ---------- */
+
+.toolbar {
+  display: none;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.filterWrap {
+  position: relative;
+}
+
+@media (max-width: 1023px) {
+  .toolbar {
+    display: flex;
+  }
+}
+
+/* ---------- list record card ---------- */
+
+.record {
+  padding: 20px;
+}
+
+.recordHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* tablet: Filter in the toolbar, the three actions stay in the header */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .toolbar > div:nth-child(2) {
+    display: none; /* Options menu is mobile-only */
+  }
+}
+
+/* mobile: actions move into the Options menu */
+@media (max-width: 639px) {
+  .recordHead > div {
+    display: none;
+  }
+  .recordHead {
+    margin-bottom: 8px;
+  }
+}
+
+/* ---------- table (laptop) ---------- */
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  color: var(--ink);
+}
+
+.table th,
+.table td {
+  padding: 9px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table thead th {
+  font-weight: 600;
+  border-bottom: 1px solid var(--line);
+}
+
+.table tbody tr:nth-child(even) {
+  background: var(--mint-50);
+}
+
+.table tbody tr:hover {
+  background: var(--mint-100);
+}
+
+.viewBtn {
+  min-width: 52px;
+  padding: 3px 12px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--lime);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.viewBtn:hover {
+  background: var(--lime-strong);
+}
+
+.viewBtn.selected {
+  background: var(--mint-400);
+}
+
+@media (max-width: 1023px) {
+  .tableWrap {
+    display: none;
+  }
+}
+
+/* ---------- cards (tablet + mobile) ---------- */
+
+.cardList {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 1023px) {
+  .cardList {
+    display: block;
+  }
+}
+
+.studentCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 4px;
+  cursor: default;
+}
+
+label.studentCard {
+  cursor: pointer;
+}
+
+.studentInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.studentName {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.studentId {
+  margin: 2px 0 0;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
+.roundBtn {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.roundBtn:hover {
+  background: var(--lime-strong);
+}
+
+/* ---------- pagination ---------- */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.showing {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pager button {
+  display: grid;
+  place-items: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.pager button:hover:not(:disabled) {
+  background: var(--mint-200);
+}
+
+.pager button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pagerActive,
+.pager button.pagerActive {
+  background: var(--lime);
+  font-weight: 600;
+}
+
+@media (max-width: 639px) {
+  .footer {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .pager {
+    justify-content: center;
+  }
+}
+
+/* ---------- form primitives ---------- */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.control {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: var(--mint-100);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.85rem;
+  appearance: none;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.control::placeholder {
+  color: var(--ink-soft);
+  opacity: 0.8;
+}
+
+.control:focus {
+  border-color: var(--ink);
+  background: var(--mint-50);
+}
+
+.control:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.control.invalid {
+  border-color: var(--danger);
+  background: var(--danger-bg);
+}
+
+.control.placeholder {
+  color: var(--ink-soft);
+}
+
+.selectWrap {
+  position: relative;
+  display: block;
+}
+
+.selectWrap select,
+.selectWrap input {
+  padding-right: 42px;
+}
+
+.selectWrap > svg {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--ink);
+}
+
+/* hide native date icon; Lucide icon is drawn instead */
+.selectWrap input[type='date']::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.check {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  accent-color: var(--ink);
+  cursor: pointer;
+}
+
+.checkRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+/* ---------- grids ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 24px;
+  margin-bottom: 16px;
+}
+
+.grid4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.span2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 1023px) {
+  .grid4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .grid,
+  .grid4 {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .span2 {
+    grid-column: auto;
+  }
+}
+
+/* ---------- promote view ---------- */
+
+.promote {
+  padding: 20px;
+}
+
+.back {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin: 0 0 12px -6px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.back:hover {
+  background: var(--mint-200);
+}
+
+.promoteFilters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+@media (max-width: 1023px) {
+  .promoteFilters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .promoteFilters {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+}
+
+.promoteHead {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.promoteTools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (min-width: 1024px) {
+  .promoteHead {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .promoteTools {
+    width: min(560px, 60%);
+  }
+}
+
+/* ---------- form wizard ---------- */
+
+.formCard {
+  padding: 20px;
+  scroll-margin-top: 16px;
+}
+
+.stepper {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin: 16px 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.stepper li button {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+
+.stepper li button:disabled {
+  cursor: default;
+}
+
+.stepBar {
+  display: block;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--mint-300);
+  transition: background 0.2s;
+}
+
+.stepLabel {
+  font-size: 0.7rem;
+}
+
+.stepActive .stepBar {
+  background: var(--lime);
+}
+
+.stepActive .stepLabel {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 639px) {
+  /* mobile mock shows bars only */
+  .stepLabel {
+    display: none;
+  }
+  .stepBar {
+    height: 12px;
+  }
+}
+
+.stepCount {
+  margin: 0 0 4px;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
+.stepTitle {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.stepHint {
+  margin: 2px 0 18px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.group {
+  margin-bottom: 8px;
+}
+
+.groupHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.groupTitle {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.groupHead .groupTitle {
+  margin-bottom: 10px;
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.formActions .error {
+  flex: 1 1 100%;
+  text-align: right;
+}
+
+/* ---------- photo upload ---------- */
+
+.photoBox {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 180px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px dashed var(--mint-400);
+  border-radius: var(--radius);
+  background: var(--mint-100);
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.photoBox:hover {
+  background: var(--mint-200);
+  border-color: var(--ink);
+}
+
+.photoBox img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+}
+
+@media (min-width: 640px) {
+  .photoBox {
+    min-height: 300px;
+  }
+}
+
+/* ---------- documents ---------- */
+
+.docGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 639px) {
+  .docGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.docCard {
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--mint-200);
+}
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 24px 16px;
+  border: 1px dashed var(--mint-400);
+  border-radius: var(--radius);
+  background: var(--mint-50);
+  text-align: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.dropzone::before {
+  content: '';
+  width: 36px;
+  height: 36px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: var(--mint-300);
+}
+
+.dropActive {
+  border-color: var(--ink);
+  background: var(--mint-100);
+}
+
+.dropText {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.dropHint {
+  margin: 0 0 8px;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
+.browse {
+  width: 100%;
+  max-width: 260px;
+}
+
+.fileRow {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 4px 10px;
+  margin-top: 14px;
+}
+
+.fileInfo {
+  min-width: 0;
+}
+
+.fileName {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.fileSize {
+  margin: 0;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
+.iconBtn {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: var(--lime);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.iconBtn:hover {
+  background: var(--lime-strong);
+}
+
+.progress {
+  grid-column: 1 / -1;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--mint-300);
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--lime-strong);
+}
+
+.progressText {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- review step ---------- */
+
+.reviewCard {
+  margin-bottom: 14px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  background: var(--mint-100);
+}
+
+.reviewHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reviewHead .groupTitle {
+  margin-bottom: 6px;
+}
+
+.editLink {
+  padding: 2px 4px;
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.7rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.editLink:hover {
+  color: var(--ink);
+}
+
+.reviewList {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+}
+
+.reviewRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 0.75rem;
+}
+
+.reviewRow dt {
+  color: var(--ink-soft);
+  flex: none;
+}
+
+.reviewRow dd {
+  margin: 0;
+  min-width: 0;
+  color: var(--ink);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- keyboard focus ---------- */
+
+.viewBtn:focus-visible,
+.roundBtn:focus-visible,
+.iconBtn:focus-visible,
+.editLink:focus-visible,
+.back:focus-visible,
+.pager button:focus-visible,
+.stepper button:focus-visible,
+.photoBox:focus-visible,
+.search button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.check:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

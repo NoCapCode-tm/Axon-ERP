@@ -1,7 +1,19 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../CSS/Calendar.module.css';
+
+const previousArrow = (
+  <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <path d="M2.79844 6L7.39844 10.6L5.99844 12L-0.00156312 6L5.99844 1.22392e-07L7.39844 1.4L2.79844 6Z" fill="#4B5563" />
+  </svg>
+);
+
+const nextArrow = (
+  <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <path d="M4.6 6L0 1.4L1.4 0L7.4 6L1.4 12L0 10.6L4.6 6Z" fill="#4B5563" />
+  </svg>
+);
 
 const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const attendanceRows = [
@@ -69,11 +81,11 @@ export function CalendarContent() {
     <div className={styles.calendarContent}>
       <div className={styles.calendarDatePicker} aria-label="Calendar date">
         <button type="button" aria-label="Previous month" onClick={() => moveMonth(-1)}>
-          <ChevronLeft size={16} aria-hidden="true" />
+          {previousArrow}
         </button>
         <span>{selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</span>
         <button type="button" aria-label="Next month" onClick={() => moveMonth(1)}>
-          <ChevronRight size={16} aria-hidden="true" />
+          {nextArrow}
         </button>
       </div>
 
@@ -198,13 +210,13 @@ function TabletAttendanceCalendar() {
           <div className={styles.calendarTabletSurface}>
             <div className={styles.calendarTabletMonthBar}>
               <button type="button" aria-label="Previous month" onClick={() => changeMonth(-1)}>
-                <ChevronLeft size={16} aria-hidden="true" />
+                {previousArrow}
               </button>
               <span className={styles.calendarTabletMonthLabel}>
                 {monthStart.toLocaleDateString('en-US', { month: 'long', timeZone: 'UTC' })}, {monthStart.getUTCFullYear()}
               </span>
               <button type="button" aria-label="Next month" onClick={() => changeMonth(1)}>
-                <ChevronRight size={16} aria-hidden="true" />
+                {nextArrow}
               </button>
             </div>
             <div

@@ -74,6 +74,10 @@
   font-weight: 400;
 }
 
+.eventsHeading button {
+  font-weight: 400;
+}
+
 .actionButton:hover,
 .eventsHeading button:hover {
   background: #E5F588;
