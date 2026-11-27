@@ -146,12 +146,12 @@ function LMS() {
               </div>
               <button
                 type="button"
-                className={assignment.status === 'Evaluated' ? styles.evaluatedButton : styles.evaluateButton}
+                className={styles.evaluateIconButton}
                 aria-label={assignment.status === 'Evaluated' ? 'Evaluated' : 'Evaluate Now'}
                 disabled={assignment.status === 'Evaluated' || !onUploadStudyMaterial}
                 onClick={() => openEvaluation(assignment.id)}
               >
-                {assignment.status === 'Evaluated' ? 'Evaluated' : 'Evaluate Now'}
+                {assignment.status === 'Evaluated' ? evaluatedIcon : evaluateNowIcon}
               </button>
             </article>
           ))}

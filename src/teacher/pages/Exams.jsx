@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Pencil, Upload } from 'lucide-react';
 import styles from '../CSS/Exams.module.css';
 
 const exams = Array.from({ length: 24 }, (_, index) => ({
@@ -28,6 +27,20 @@ const responsiveExamDetails = {
   duration: '1hr 30mins',
   date: '16/08/2026',
 };
+
+const editExamIcon = (
+  <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="44" height="44" rx="22" fill="#E5F588" />
+    <path d="M13 31V26.75L26.2 13.575C26.4 13.3917 26.6208 13.25 26.8625 13.15C27.1042 13.05 27.3583 13 27.625 13C27.8917 13 28.15 13.05 28.4 13.15C28.65 13.25 28.8667 13.4 29.05 13.6L30.425 15C30.625 15.1833 30.7708 15.4 30.8625 15.65C30.9542 15.9 31 16.15 31 16.4C31 16.6667 30.9542 16.9208 30.8625 17.1625C30.7708 17.4042 30.625 17.625 30.425 17.825L17.25 31H13ZM27.6 17.8L29 16.4L27.6 15L26.2 16.4L27.6 17.8Z" fill="#1D1B20" />
+  </svg>
+);
+
+const uploadExamIcon = (
+  <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <rect width="44" height="44" rx="22" fill="#E5F588" />
+    <path d="M28 24V26.6667C28 27.0203 27.8595 27.3594 27.6095 27.6095C27.3594 27.8595 27.0203 28 26.6667 28H17.3333C16.9797 28 16.6406 27.8595 16.3905 27.6095C16.1405 27.3594 16 27.0203 16 26.6667V24M18.6667 19.3333L22 16L25.3333 19.3333M22 16V24" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" stroke="#111827" />
+  </svg>
+);
 
 function Exams() {
   const [showAll, setShowAll] = useState(false);
@@ -111,10 +124,10 @@ function Exams() {
               </div>
               <div className={styles.examCardActions}>
                 <button type="button" className={styles.iconAction} aria-label={`Edit ${responsiveExamDetails.name}`}>
-                  <Pencil size={15} aria-hidden="true" />
+                  {editExamIcon}
                 </button>
                 <button type="button" className={styles.iconAction} aria-label={`Upload question paper for ${responsiveExamDetails.name}`}>
-                  <Upload size={15} aria-hidden="true" />
+                  {uploadExamIcon}
                 </button>
               </div>
             </article>
