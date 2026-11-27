@@ -123,12 +123,12 @@ function LMS() {
                   <td>
                     <button
                       type="button"
-                      className={styles.evaluateIconButton}
-                      aria-label={assignment.status === 'Evaluated' ? 'Evaluated' : 'Evaluate now'}
+                      className={assignment.status === 'Evaluated' ? styles.evaluatedButton : styles.evaluateButton}
+                      aria-label={assignment.status === 'Evaluated' ? 'Evaluated' : 'Evaluate Now'}
                       disabled={assignment.status === 'Evaluated' || !onUploadStudyMaterial}
                       onClick={() => openEvaluation(assignment.id)}
                     >
-                      {assignment.status === 'Evaluated' ? evaluatedIcon : evaluateNowIcon}
+                      {assignment.status === 'Evaluated' ? 'Evaluated' : 'Evaluate Now'}
                     </button>
                   </td>
                 </tr>
@@ -147,7 +147,7 @@ function LMS() {
               <button
                 type="button"
                 className={styles.evaluateIconButton}
-                aria-label={assignment.status === 'Evaluated' ? 'Evaluated' : 'Evaluate now'}
+                aria-label={assignment.status === 'Evaluated' ? 'Evaluated' : 'Evaluate Now'}
                 disabled={assignment.status === 'Evaluated' || !onUploadStudyMaterial}
                 onClick={() => openEvaluation(assignment.id)}
               >

@@ -4,12 +4,12 @@ import { useOutletContext } from 'react-router-dom';
 import styles from '../CSS/Schedule.module.css';
 
 const days = [
-  { label: 'Mon', offset: 0 },
-  { label: 'Tue', offset: 1 },
-  { label: 'Wed', offset: 2 },
-  { label: 'Thurs', offset: 3 },
-  { label: 'Fri', offset: 4 },
-  { label: 'Sat', offset: 5 },
+  { label: 'Mon', fullLabel: 'Monday', offset: 0 },
+  { label: 'Tue', fullLabel: 'Tuesday', offset: 1 },
+  { label: 'Wed', fullLabel: 'Wednesday', offset: 2 },
+  { label: 'Thurs', fullLabel: 'Thursday', offset: 3 },
+  { label: 'Fri', fullLabel: 'Friday', offset: 4 },
+  { label: 'Sat', fullLabel: 'Saturday', offset: 5 },
 ];
 
 const periods = [
@@ -209,9 +209,9 @@ function Schedule({ onUploadMarks, onMarkAttendance, onUploadStudyMaterial, onCr
             <h2 id="class-details-title">Class Details</h2>
             {selectedClassName ? (
               <dl className={styles.classDetails}>
-                <div><dt>Class :</dt><dd>{selectedClassName}</dd></div>
+                <div><dt>Class :</dt><dd>{selectedClassName.replace(/^Class\s+/, '')}</dd></div>
                 <div><dt>Subject :</dt><dd>Mathematics</dd></div>
-                <div><dt>Time :</dt><dd>{selectedDay.label}, P{selectedPeriod.id}</dd></div>
+                <div><dt>Time :</dt><dd>{selectedDay.fullLabel}, P{selectedPeriod.id}</dd></div>
                 <div><dt>Room :</dt><dd>{rooms[selectedClassName]}</dd></div>
                 <div><dt>Students :</dt><dd>{selectedClassName === 'Class X - A' ? '38' : '32'}</dd></div>
               </dl>
@@ -223,7 +223,7 @@ function Schedule({ onUploadMarks, onMarkAttendance, onUploadStudyMaterial, onCr
           <section className={styles.eventsPanel} aria-labelledby="upcoming-events-title">
             <div className={styles.eventsHeading}>
               <h2 id="upcoming-events-title">Upcoming Events</h2>
-              <button type="button" onClick={() => runAction('View all events')}>View All</button>
+              <button type="button">View All</button>
             </div>
             <div className={styles.eventList}>
               {upcomingEvents.map((event, index) => (

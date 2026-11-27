@@ -244,8 +244,8 @@
 
   .iconAction {
     display: grid;
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
     place-items: center;
     padding: 0;
     border: 0;
@@ -253,6 +253,12 @@
     color: #202733;
     background: #e5f588;
     cursor: pointer;
+  }
+
+  .iconAction svg {
+    display: block;
+    width: 44px;
+    height: 44px;
   }
 
   .iconAction:hover {
@@ -331,13 +337,7 @@
   }
 
   .iconAction {
-    width: 31px;
-    height: 31px;
+    width: 44px;
+    height: 44px;
   }
-
-  .iconAction svg {
-    width: 14px;
-    height: 14px;
-  }
-
 }
